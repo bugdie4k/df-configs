@@ -1,0 +1,320 @@
+#!/usr/bin/env bash
+
+### Commentary:
+
+# This script is an attempt to make a universal interface for interaction
+# with branches for the most common tasks in my workflow.
+# + History of branch switching.
+# + Metadata for branches.
+
+# Is it good? I don't know, works for me.
+
+# NOTE: Metadata is local and lives in the project's .git dir.
+# For other solutions to the branch metadata problem see
+#     https://stackoverflow.com/questions/2108405/branch-descriptions-in-git
+
+### Usage:
+
+# For overview see the 'git_b_help' function (or call it with 'git-b -h').
+
+### Installation:
+
+# If you put this file (or any other executable file with git-* name)
+# to where PATH can see, then you can call it like 'git b'.
+# I am also using git-complition.bash with bash.
+#     https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
+# To enable completion of branch names on TAB after typing 'git b' in bash
+# add something like this to your .gitconfig (implies you have git-completion.bash configured):
+#     b = !"_(){ : git branch; git-b $@; }; _"
+
+### Code:
+
+# NOTE: declare options (use 'help -m declare' to see all)
+# -i : integer
+# -r : readonly
+# -a : array
+# -A : associative array
+
+# global constants
+declare -ir GIT_B_HISTORY_LEN=30
+declare -r  GIT_B_DOTGIT=$(git rev-parse --show-toplevel)/.git
+declare -r  GIT_B_HISTORY_FILE=$GIT_B_DOTGIT/.git-b-history
+declare -r  GIT_B_ANNOTATIONS_FILE=$GIT_B_DOTGIT/.git-b-annotations
+declare -r  GIT_B_ORIGINAL_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+
+# global variables               # initialized by functions
+declare -A GIT_B_ANNOTATIONS     # _git_b_read_annotations
+declare -a GIT_B_BRANCHES        # _git_b_set_branches_to
+declare -i GIT_B_BRANCHES_LEN    # _git_b_set_branches_to
+declare    GIT_B_SELECTED_BRANCH # _git_b_select_among
+
+# entry point
+git_b(){
+    if [ $# -eq 0 ]; then
+        git_b_go_to_branch_menu
+    else
+        case "$1" in
+            # core syntax
+            -h|--help)         git_b_help;              return 0  ;;
+            -d|--delete)       git_b_delete "$2";       return $? ;;
+            -D|--force-delete) git_b_force_delete "$2"; return $? ;;
+            -n|--new-branch)   git_b_new_branch "$2";   return $? ;;
+            -l|--list)         git_b_list;              return $? ;;
+            -i|--history)      git_b_go_history;        return $? ;;
+            -a|--annotate)     git_b_annotate "$2";     return $? ;;
+            -)                 git_b_go_prev;           return $? ;;
+
+            # aux syntax
+            -lr|--list-raw) git for-each-ref --format='%(refname:short)' refs/heads/; return $?  ;;
+            -li|--list-history) _git_b_cut_history_file && cat $GIT_B_HISTORY_FILE;   return $?  ;;
+            --flush-history) > $GIT_B_HISTORY_FILE;                                   return $?  ;;
+
+            # also core syntax
+            *) git_b_go_to_branch "$1"; return $?;;
+        esac
+    fi
+}
+
+# TODO: fill with descriptions
+# TODO: add examples
+git_b_help(){
+    echo 'NAME'
+    echo '      git-b — Interaction with git branches for the most common tasks'
+    echo
+    echo 'SYNOPSIS'
+    echo '      git-b [-] [-i|--history]  [-a|--annotate]  [-n|--new-branch BRANCH]'
+    echo '            [-d|--delete BRANCH_OR_NUM]  [-D|--force-delete BRANCH_OR_NUM]  [-l|--list]'
+    echo '            [-lr|--list-raw]  [-li|--list-history]  [--flush-history]  -h'
+    echo '            BRANCH_OR_NUM'
+    echo
+    echo 'DESCRIPTION'
+    echo '      -i, --history'
+    echo '      -a, --annotate'
+    echo '      -n, --new-branch BRANCH'
+    echo '      -d, --delete BRANCH'
+    echo '      -D, --force-delete BRANCH'
+    echo '      -l, --list'
+    echo
+    echo '      -lr, --list-raw'
+    echo '      -lh, --list-history'
+    echo '      -flush-history'
+    echo
+    echo '      -h'
+    echo '          Print this help message.'
+    echo
+    echo '      BRANCH_OR_NUM'
+    echo "           Branch name or :NUM where NUM is the branch's number as listed by 'git-b -l'"
+    echo
+    echo 'EXAMPLES'
+    echo '      TODO'
+}
+
+_git_b_print_raw_branches_list(){
+    git for-each-ref --format='%(refname:short)' refs/heads/
+}
+
+_git_b_delete_branch_with_flag(){
+    local -r flag="$1"
+    shift
+    if [ $# -eq 0 ]; then
+        _git_b_select_among $(_git_b_print_raw_branches_list)
+    else
+        local -r branch_name_or_num="$@"
+        if [ "${branch_name_or_num:0:1}" = ":" ]; then
+            _git_b_set_branches_to $(_git_b_print_raw_branches_list)
+            _git_b_select_branch_by_number "${branch_name_or_num:1}" || return 1
+        else
+            GIT_B_SELECTED_BRANCH="$branch_name_or_num"
+        fi
+ fi
+    git branch $flag "$GIT_B_SELECTED_BRANCH"
+}
+
+git_b_delete(){
+    _git_b_delete_branch_with_flag -d $@
+}
+
+git_b_force_delete(){
+    _git_b_delete_branch_with_flag -D $@
+}
+
+git_b_new_branch(){
+    local branch_name;
+    
+    if [ -z "$1" ]; then
+        read -p "branch name> " -r branch_name
+    else
+        branch_name="$1"
+    fi
+    
+    git branch "$branch_name"
+    git_b_go_to_branch "$branch_name"
+}
+
+git_b_list(){
+    _git_b_read_annotations
+    _git_b_set_branches_to $(_git_b_print_raw_branches_list)
+    _git_b_print_augmented_branches_list
+}
+
+git_b_go_history(){
+    if [ -e $GIT_B_HISTORY_FILE ] ; then
+        _git_b_cut_history_file
+        git_b_go_to_branch_by_list $(cat $GIT_B_HISTORY_FILE) || git_b_report_empty_history
+    else
+        git_b_report_empty_history
+    fi
+}
+
+git_b_annotate(){
+    local -r branch_name="$1"
+
+    _git_b_read_annotations
+
+    if [ -z "$branch_name" ]; then
+        _git_b_select_among $(_git_b_print_raw_branches_list) || return 1
+    else
+        GIT_B_SELECTED_BRANCH="$branch_name"
+    fi
+
+    # input annotation
+    local msg
+    read -p "annotation> " msg
+    GIT_B_ANNOTATIONS[$GIT_B_SELECTED_BRANCH]=$msg
+
+    # write potentially changed annotations back to file
+    > $GIT_B_ANNOTATIONS_FILE
+    for k in ${!GIT_B_ANNOTATIONS[@]}; do
+        echo $k ${GIT_B_ANNOTATIONS[$k]} >> $GIT_B_ANNOTATIONS_FILE
+    done
+}
+
+git_b_go_prev(){
+    if [ -e $GIT_B_HISTORY_FILE ]; then
+        _git_b_cut_history_file
+        local -ar brs=($(cat $GIT_B_HISTORY_FILE))
+        local -r prev=${brs[$((${#brs[*]} - 1))]}
+        if [ -z "$prev" ]; then
+            git_b_report_empty_history && return 1
+        else
+            git_b_go_to_branch $prev || return 1
+        fi
+    else
+        git_b_report_empty_history
+    fi
+}
+
+git_b_report_empty_history(){
+    echo "git-b: History is empty"
+}
+
+_git_b_set_branches_to(){
+    GIT_B_BRANCHES=($@)
+    GIT_B_BRANCHES_LEN=${#GIT_B_BRANCHES[@]}
+    [ $GIT_B_BRANCHES_LEN -eq 0 ] && return 1 || return 0
+}
+
+_git_b_print_augmented_branches_list(){
+    local b
+    local -i j=$GIT_B_BRANCHES_LEN
+    for ((i=0; i<$GIT_B_BRANCHES_LEN; i++)); do
+        b="${GIT_B_BRANCHES[$i]}"
+        [ "$GIT_B_ORIGINAL_BRANCH" = "$b" ] && printf "* " && tput setaf 2 || printf "  "
+        printf "%2s %-50s" "$j" "$b"
+        [ -n "${GIT_B_ANNOTATIONS[$b]}" ] && printf "  %2s %s" "$j" "${GIT_B_ANNOTATIONS[$b]}"
+        tput sgr0
+        echo
+        j=$((j-1))
+    done
+}
+
+_git_b_read_annotations(){
+    if [ -e $GIT_B_ANNOTATIONS_FILE ]; then
+        local line msg
+        local -a line_words
+        while read -r line || [ -n "$line" ]; do
+            msg=""
+            line_words=($line)
+            for ((i=1; i<${#line_words[@]}; i++)); do
+                msg+=" ${line_words[$i]}"
+            done
+            GIT_B_ANNOTATIONS[${line_words[0]}]="$msg"
+        done < "$GIT_B_ANNOTATIONS_FILE"
+    fi
+}
+
+_git_b_report_bad_number(){
+    echo "git-b: Wrong! Bad number: $1"
+}
+
+_git_b_select_branch_by_number(){
+    local -ri num="$1"
+
+    local -ri index=$((GIT_B_BRANCHES_LEN - num))
+    if [ $index -lt 0 ]; then
+         _git_b_report_bad_number $num && return 1
+    else
+        local b=${GIT_B_BRANCHES[$index]}
+        if [ $num -eq 0 ] || [ -z "$b" ]; then
+            _git_b_report_bad_number $num && return 1
+        fi
+    fi
+
+    GIT_B_SELECTED_BRANCH="$b"
+}
+
+_git_b_select_among(){
+    _git_b_set_branches_to $@ || return 1
+
+    _git_b_print_augmented_branches_list
+
+    # select one
+    local -i opt
+    read -p ">  " opt
+
+    _git_b_select_branch_by_number $opt || return 1
+}
+
+git_b_go_to_branch_by_list(){
+    _git_b_read_annotations
+
+    _git_b_select_among $@ || return 1
+
+    git_b_go_to_branch "$GIT_B_SELECTED_BRANCH" || return 1
+}
+
+git_b_go_to_branch_menu(){
+    git_b_go_to_branch_by_list $(_git_b_print_raw_branches_list)
+}
+
+_git_b_cut_history_file(){
+    local -r tmp=$(mktemp)
+    tail -n $GIT_B_HISTORY_LEN $GIT_B_HISTORY_FILE > $tmp
+    cat $tmp > $GIT_B_HISTORY_FILE
+    rm $tmp
+}
+
+_git_b_go_to_branch_by_name(){
+    git checkout "$1" &&
+        echo $GIT_B_ORIGINAL_BRANCH >> $GIT_B_HISTORY_FILE
+}
+
+git_b_go_to_branch(){
+    # num can be specified like :NUM
+    # NOTE: git branch name cannot start with colon, so it's ok
+    local -r branch_name_or_num="$1"
+
+    if [ "${branch_name_or_num:0:1}" = ":" ]; then
+        _git_b_set_branches_to $(_git_b_print_raw_branches_list)
+        _git_b_select_branch_by_number "${branch_name_or_num:1}" || return 1
+        _git_b_go_to_branch_by_name "$GIT_B_SELECTED_BRANCH"
+    else
+        if [ "$GIT_B_ORIGINAL_BRANCH" != "$branch_name_or_num" ]; then
+            _git_b_go_to_branch_by_name "$branch_name_or_num"
+        else
+            echo "git-b: Already on $branch_name_or_num"
+        fi
+    fi
+}
+
+git_b $@

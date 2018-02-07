@@ -1,0 +1,98 @@
+[user]
+	email = fedorough@gmail.com
+	name = bugdie4k
+[alias]
+	############## basic aliases
+
+        a   = add
+        br  = branch
+        cfg = config
+        ci  = commit
+        co  = checkout
+        co0 = checkout HEAD --
+        df  = diff
+        f   = fetch
+        h   = help
+        m   = merge
+        mt  = mergetool
+        pl  = pull
+        ps  = push
+        rb  = rebase
+        rs  = reset
+        rv  = revert
+        sh  = stash
+        st  = status
+        t   = tag
+
+	############## to enable autocompletion for git scripts (enabled with the null command ':' thanks to git-completion.bash)
+	############## https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
+
+	b  = !"_(){ : git branch ; git-b $@; }; _"
+	bl = !"git b --list"
+	bh = !"git b --history"
+	update-branch = !"_(){ : git branch ; git-update-branch $@; }; _"
+
+	############## diff stuff
+
+        # NOTE: 'git diff' does diff of a working tree to index by default
+
+	# git-dfs and git-dft are scripts
+        dfs = !"_() { : git diff ;     git-dfs $@; }; _"
+        dft = !"_() { : git difftool ; git-dft $@; }; _"
+        # to master
+	dfm  = !"git df master"
+	dfsm = !"git dfs master"
+	dftm = !"git dft master"
+	# compare to HEAD~$1
+        #   git-dfh <head-num> <path> <options>
+        # NOTE: cannot do multiple files at once, but usually I do one file at a time
+	dfh  = !"_() { case $# in 0) num=0; file='';; 1) num=$1; shift; file='';; *) num=$1; shift; file=$1; shift;; esac; git diff $@ HEAD~$num -- $file; }; _"
+	dfsh = !"_() { case $# in 0) num=0; file='';; 1) num=$1; shift; file='';; *) num=$1; shift; file=$1; shift;; esac; git dfs  $@ HEAD~$num -- $file; }; _"
+	dfth = !"_() { case $# in 0) num=0; file='';; 1) num=$1; shift; file='';; *) num=$1; shift; file=$1; shift;; esac; git dft  $@ HEAD~$num -- $file; }; _"
+	# to HEAD~0
+	df0 =  !"git dfh  0"
+	dfs0 = !"git dfsh 0"
+	dft0 = !"git dfth 0"
+        # to HEAD~1
+	df1 =  !"git dfh  1"
+	dfs1 = !"git dfsh 1"
+	dft1 = !"git dfth 1"
+        # to HEAD~2
+	df2 =  !"git dfh  2"
+	dfs2 = !"git dfsh 2"
+	dft2 = !"git dfth 2"
+        # to HEAD~3
+	df3 =  !"git dfh  3"
+	dfs3 = !"git dfsh 3"
+        dft3 = !"git dfth 3"
+
+	############## merge file between branches with meld
+
+	merge-file-meld = !"git dft --tool=meld" # [<commit> [<commit>]] [--] [<path>...]
+	mfm  = !"git merge-file-meld"
+	mfmm = !"git merge-file-meld master"
+
+	############## add update - pass changed tracked files to staging area
+
+	au = !"git add -uv"
+
+	############# slightly changed pretty logs from
+	############# https://github.com/dotphiles/dotphiles/blob/master/git/gitconfig
+
+        # the plainest one
+        l  = log --topo-order --pretty=format:'%C(yellow)%h %C(cyan)%cn %C(blue)%cr%C(reset) %s %C(red)%d'
+        # with stats
+        ls = log --topo-order --stat --pretty=format:'%C(bold)%C(yellow)Commit:%C(reset) %C(yellow)%H%C(red)%d%n%C(bold)%C(yellow)Author:%C(reset) %C(cyan)%an <%ae>%n%C(bold)%C(yellow)Date:%C(reset)   %C(blue)%ai (%ar)%C(reset)%n%+B'
+        # with diffs
+        ld = log --topo-order --stat --patch --full-diff --pretty=format:'%C(bold)%C(yellow)Commit:%C(reset) %C(yellow)%H%C(red)%d%n%C(bold)%C(yellow)Author:%C(reset) %C(cyan)%an <%ae>%n%C(bold)%C(yellow)Date:%C(reset)   %C(blue)%ai (%ar)%C(reset)%n%+B'
+        # with graph
+        lg = log --topo-order --all --graph --pretty=format:'%C(yellow)%h %C(blue)%cr %C(cyan)%cn %C(reset)%s %C(red)%d%n'
+
+[core]
+	editor = jmacs
+[push]
+	default = current
+[merge]
+	tool = kdiff3
+[diff]
+	tool = kdiff3

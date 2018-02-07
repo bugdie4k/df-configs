@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# key : =>
+# name : arrow-function
+# --
+($1) => {$0}

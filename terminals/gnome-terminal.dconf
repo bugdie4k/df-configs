@@ -1,0 +1,16 @@
+[legacy]
+menu-accelerator-enabled=false
+schema-version=uint32 3
+default-show-menubar=false
+
+[legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+foreground-color='rgb(170,170,170)'
+rewrap-on-resize=true
+palette=['rgb(0,0,0)', 'rgb(220,50,47)', 'rgb(133,153,0)', 'rgb(181,137,0)', 'rgb(38,139,210)', 'rgb(211,54,130)', 'rgb(42,161,152)', 'rgb(200,200,200)', 'rgb(54,54,54)', 'rgb(219,105,103)', 'rgb(142,153,72)', 'rgb(181,156,77)', 'rgb(105,167,210)', 'rgb(212,111,160)', 'rgb(88,161,155)', 'rgb(255,255,255)']
+use-system-font=false
+use-theme-colors=false
+font='Monospace 10.5'
+use-theme-transparency=false
+scrollback-unlimited=true
+bold-color-same-as-fg=true
+background-color='rgb(0,0,0)'

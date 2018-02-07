@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# key : .done
+# name : done-promise
+# --
+.done(($1) => {$0})

@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# key : dbg3
+# name : debug3-function
+# --
+(declare (optimize (debug 3)))

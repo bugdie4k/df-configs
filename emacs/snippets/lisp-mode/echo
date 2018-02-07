@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# key : echo
+# name : echo
+
+# NOTE: fmt is https://github.com/bugdie4k/fmt
+# --
+(fmt:echo $0)

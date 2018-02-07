@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# display whatever file is regular file or folder
+
+for i in "$@"; do
+    if [ -d "$i" ]; then
+        ls --color=always "$i"
+    else
+        highlight -O ansi --style molokai "$i" 2>/dev/null ||
+            cat "$i"
+    fi
+done

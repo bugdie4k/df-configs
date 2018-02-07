@@ -1,0 +1,67 @@
+[tasks.default]
+    deps=["links"]
+
+# NOTE: DO NOT FORGET TO ADD NEW LINK HERE
+
+[tasks.links]
+    deps=["bash",
+          "midnight-commander",
+          "emacs",
+          "git",
+          "i3wm",
+          "pictures",
+          "python",
+          "bin",
+          "timewarrior"]
+
+## linking. links=[[TARGET, SOURCE], ...]
+
+[tasks.bash]
+    links=[[".bash_profile", "bash/.bash_profile"],
+           [".profile",      "bash/.profile"],
+           [".bashrc",       "bash/.bashrc"]]
+
+[tasks.midnight-commander]
+    links=[[".local/share/mc/skins/demonasasin256.ini", "midnight-commander/demonasasin256.ini"],
+           [".config/mc/ini",                           "midnight-commander/mc/ini"],
+           [".config/mc/mc.ext",                        "midnight-commander/mc/mc.ext"],
+           [".config/mc/mc.keymap",                     "midnight-commander/mc/mc.keymap"],
+           [".config/mc/panels.ini",                    "midnight-commander/mc/panels.ini"]]
+
+[tasks.emacs]
+    links=[[".emacs.d/init.el",              "emacs/init.el"],
+           ["bin/emacs-client-or-daemon.sh", "emacs/emacs-client-or-daemon.sh"],
+           [".emacs.d/snippets",             "emacs/snippets"]]
+
+[tasks.git]
+    links=[[".gitconfig",            "git/.gitconfig"],
+           ["bin/git-update-branch", "git/git-scripts/git-update-branch"],
+           ["bin/git-s",             "git/git-scripts/git-s"],
+           ["bin/git-ss",            "git/git-scripts/git-ss"],
+           ["bin/git-sst",           "git/git-scripts/git-sst"],
+           ["bin/git-dfs",           "git/git-scripts/git-dfs"],
+           ["bin/git-dft",           "git/git-scripts/git-dft"],
+           ["bin/git-b",             "git/git-scripts/git-b"]]
+
+[tasks.i3wm]
+    links=[[".config/i3/config",       "i3wm/config"],
+           [".config/i3blocks/config", "i3wm/i3blocks/config"],
+           ["bin/lock.sh",             "i3wm/lock.sh"],
+           ["bin/j4dmenu.sh",          "i3wm/j4dmenu.sh"],
+           ["bin/i3init.sh",           "i3wm/i3init.sh"],
+           ["bin/i3blocks-scripts",    "i3wm/i3blocks/i3blocks-scripts"]]
+
+[tasks.pictures]
+    links=[["Pictures/wallpapers", "pictures/wallpapers"],
+           ["Pictures/logos",      "pictures/logos"]]
+
+[tasks.python]
+    links=[[".config/flake8", "python/flake8"]]
+
+[tasks.bin]
+    links=[["bin/catt"],
+           ["bin/__ep_preview"],
+           ["bin/rus2dumb"]]
+
+[tasks.timewarrior]
+    links=[[".timewarrior/timewarrior.cfg", "timewarrior/timewarrior.cfg"]]

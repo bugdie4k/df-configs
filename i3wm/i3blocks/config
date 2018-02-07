@@ -1,0 +1,63 @@
+full_text=〉
+align=center
+color=#666666
+separator=false
+separator_block_width=5
+
+[cpu]
+color=#ffefff
+command=echo "<span color='#ccefff'>CPU:</span> $($HOME/bin/i3blocks-scripts/i3blocks-cpu_usage)"
+markup=pango
+interval=1
+
+[separator]
+
+[mem]
+color=#ffcfff
+command=echo "<span color='#cccfff'>MEM:</span> $($HOME/bin/i3blocks-scripts/i3blocks-memory)"
+markup=pango
+interval=1
+
+[separator]
+
+[disk]
+color=#ffafff
+command=echo "<span color='#ccafff'>DISK:</span> $($HOME/bin/i3blocks-scripts/i3blocks-disk)"
+markup=pango
+interval=5
+
+[separator]
+
+[battery]
+color=#ff8fff
+command=echo "<span color='#cc8fff'>BAT:</span> $({ out=$($HOME/bin/i3blocks-scripts/i3blocks-battery); if [ -z "$out" ]; then echo NA ; else printf "%s" "$out" ; fi; })"
+markup=pango
+interval=5
+
+[separator]
+
+[volume-pulseaudio]
+color=#ff6fff
+# to color the label go visit the script
+command=~/bin/i3blocks-scripts/i3blocks-volume-pulseaudio -Sa -X X -H H -M M -L L -F 3 -p -t 30 -T 80
+markup=pango
+interval=persist
+
+[separator]
+
+[language]
+color=#ff4fff
+command=echo "<span color='#cc4fff'>LANG:</span> $($HOME/bin/i3blocks-scripts/i3blocks-layout)"
+markup=pango
+interval=1
+
+[separator]
+
+[time]
+color=#ff2fff
+command=echo "<span color='#cc2fff'>TIME:</span> $(date '+%d.%m.%Y') <span color='#77ffa4'>$(date '+%H:%M:%S')</span>"
+# command=echo "`date +'%a %d %b'` <b>`date +'%T'`</b> "; [[ -z "${BLOCK_BUTTON}" ]] || gsimplecal # do not invoke
+markup=pango
+interval=1
+
+[separator]
