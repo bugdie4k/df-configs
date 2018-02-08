@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# set background
+feh --bg-scale ~/Pictures/wallpapers/city-road-purp.jpg
+
 # network manager applet
 nm-applet &
 
