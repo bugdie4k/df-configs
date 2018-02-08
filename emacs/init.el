@@ -259,6 +259,10 @@
                     :foreground (face-foreground 'default)
                     :background (face-background 'default)))
 
+(use-package mode-line-bell
+  :config
+  (mode-line-bell-mode))
+
 (use-package company
   :diminish company-mode
   :config
@@ -368,7 +372,9 @@
        (define-key company-mode-map (kbd "C-:") 'helm-company)
        (define-key company-active-map (kbd "C-:") 'helm-company))))
 
-(use-package swiper-helm)
+(use-package swiper-helm
+  :bind
+  (("C-s" . swiper-helm)))
 
 (use-package linum
   :config
@@ -881,9 +887,10 @@
  '(custom-safe-themes
    (quote
     ("d145690625dc0b4f86fbdd8651fbbb861572c57505edf4fd91be5fead58d692d" "a8cfae7d6dbc794c1d9151aa646166c87e04a484c3143c31c35a4df7c88f6976" "d9edc29a9b27d7098646c3315c5ab8fdf07638b1ab4f80360a521f845a3c5fb0" "45d6370916e70bef5b2a4a93ec7fbaf4e661401d420d9c19d5c3c3397472cb5b" "87d34869134b5497549a25dff75367d68aed7a8e3da598c9fa4e060a4e1f948e" "b04153b12fbb67935f6898f38eb985ec62511fd1df6e2262069efa8565874195" "d6922c974e8a78378eacb01414183ce32bc8dbf2de78aabcc6ad8172547cb074" "2a739405edf418b8581dcd176aaf695d319f99e3488224a3c495cb0f9fd814e3" "8ed752276957903a270c797c4ab52931199806ccd9f0c3bb77f6f4b9e71b9272" "b9a06c75084a7744b8a38cb48bc987de10d68f0317697ccbd894b2d0aca06d2b" "ca1a31c7acdbfe0afc200fe87dc309fed501c4f3c03ed7dfdad67766b7013ceb" "e1b0b148e7bbd941b121dda593e03c1243e0de82118f342bb93165502e5c38ed" "2241178acaad843567b3fd74aca7d454031b29ba4cccfd0cb6fa74db17f36950")))
+ '(mode-line-bell-mode t)
  '(package-selected-packages
    (quote
-    (helm-emmet beacon helm-cider cider jdee company-tern tern clojure-mode markdown-mode+ company-tern tern ac-js2 autopair emacs-smart-home-end yasnippet-bundle emmet-mode helm-fuzzier js2-refactor company-web exec-path-from-shell lorem-ipsum minimap indium company-web-html web-mode slime-company ein lua-mode company-anaconda anaconda-mode el-patch flycheck-pyflakes company-jedi jedi json-mode yaml-mode discover-my-major fasd rainbow-delimiters company-go yasnippet volatile-highlights company-cmake ggtags flycheck-irony company-irony company-irony-c-headers irony cmake-ide helm-rtags company-rtags rtags workgroups cfw-ical calfw-cal calfw helm-projectile helm-flyspell flyspell-helm helm-flymake cyberpunk-theme zenburn-theme easy-kill git-gutter-fringe flycheck expand-region magit window-numbering evil-matchit powerline company-statistics company-quickhelp helm-company company multiple-cursors highlight-symbol uniquify use-package smartparens helm-ag helm))))
+    (mode-line-bell helm-emmet beacon helm-cider cider jdee company-tern tern clojure-mode markdown-mode+ company-tern tern ac-js2 autopair emacs-smart-home-end yasnippet-bundle emmet-mode helm-fuzzier js2-refactor company-web exec-path-from-shell lorem-ipsum minimap indium company-web-html web-mode slime-company ein lua-mode company-anaconda anaconda-mode el-patch flycheck-pyflakes company-jedi jedi json-mode yaml-mode discover-my-major fasd rainbow-delimiters company-go yasnippet volatile-highlights company-cmake ggtags flycheck-irony company-irony company-irony-c-headers irony cmake-ide helm-rtags company-rtags rtags workgroups cfw-ical calfw-cal calfw helm-projectile helm-flyspell flyspell-helm helm-flymake cyberpunk-theme easy-kill git-gutter-fringe flycheck expand-region magit window-numbering evil-matchit powerline company-statistics company-quickhelp helm-company company multiple-cursors highlight-symbol uniquify use-package smartparens helm-ag helm))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
