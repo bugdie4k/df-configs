@@ -126,9 +126,11 @@
   ;; (require 'smartparens-html)
   (diminish 'smartparens-mode nil)
   (sp-use-paredit-bindings)
-  (add-hook 'clojure-mode 'smartparens-strict-mode)
+  (add-hook 'clojure-mode-hook 'smartparens-strict-mode)
+  (add-hook 'cider-repl-mode-hook 'smartparens-strict-mode)
   (add-hook 'lisp-mode-hook 'smartparens-strict-mode)
   (add-hook 'emacs-lisp-mode-hook 'smartparens-strict-mode)
+  (add-hook 'clojure-mode-hook 'smartparens-strict-mode)
   ;;
   ;; (add-hook 'prog-mode-hook 'smartparens-mode)
   ;; https://github.com/Fuco1/smartparens/issues/286#issuecomment-32324743
@@ -320,7 +322,8 @@
                                   slime-inspector-mode
                                   help-mode
                                   slime-macroexpansion-minor-mode
-                                  messages-buffer-mode))
+                                  messages-buffer-mode
+                                  cider-stacktrace-mode))
   (evil-define-key 'motion sldb-mode-map (kbd "v") 'sldb-show-source)
   (evil-define-key 'motion sldb-mode-map (kbd "e") 'sldb-eval-in-frame)
   (evil-define-key 'motion sldb-mode-map (kbd "0") 'sldb-invoke-restart-0)
@@ -556,8 +559,8 @@
 
 (use-package anaconda-mode
   :config
-  (add-hook 'python-mode 'anaconda-mode)
-  (add-hook 'python-mode 'anaconda-eldoc-mode)
+  (add-hook 'python-mode-hook 'anaconda-mode)
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
   :bind
   (:map anaconda-mode-map
    ("M-." . anaconda-mode-find-definitions)
@@ -588,6 +591,9 @@
 
 (use-package beacon
   :config
+  (setf beacon-color "#780fef")  
+  (add-to-list 'beacon-dont-blink-major-modes 'cider-repl-mode)
+  (add-to-list 'beacon-dont-blink-major-modes 'slime-repl-mode)
   (beacon-mode 1))
 
 ;; https://github.com/millejoh/emacs-ipython-notebook

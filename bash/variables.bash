@@ -23,6 +23,9 @@ export PATH=$PATH:$GOPATH/bin
 # figlet fonts place
 export FIGLET_FONTDIR=~/.local/share/figlet
 
+# lein
+export LEIN_JAR=~/.lein/self-installs/leiningen-2.8.1-standalone.jar
+
 # path to jdk 9.0.4
 # export PATH=$PATH:~/sources/jdk-9.0.4/bin
 # export JAVA_CMD=~/sources/jdk-9.0.4/bin/java
