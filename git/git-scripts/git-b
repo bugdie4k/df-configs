@@ -29,11 +29,23 @@
 
 ### Code:
 
-# NOTE: declare options (use 'help -m declare' to see all)
+# NOTE: bash's declare options (use 'help -m declare' to see all)
 # -i : integer
 # -r : readonly
 # -a : array
 # -A : associative array
+
+# NOTE: git branch naming restrictions according to https://wincent.com/wiki/Legal_Git_branch_names
+# A Git branch name can not:
+# - Have a path component that begins with "."
+# - Have a double dot "..."
+# - Have an ASCII control character, "~", "^", ":" or SP, anywhere
+# - End with a "/"
+# - End with ".lock"
+# - Contain a "\" (backslash)
+# - the sequence @{ is not allowed
+# - ? and [ are not allowed
+# - * is allowed only if it constitutes an entire path component (eg. foo/* or bar/*/baz), in which case it is interpreted as a wildcard and not as part of the actual ref name
 
 # global constants
 declare -ir GIT_B_HISTORY_LEN=30
@@ -96,7 +108,7 @@ git_b_help(){
     echo '      -l, --list'
     echo
     echo '      -lr, --list-raw'
-    echo '      -lh, --list-history'
+    echo '      -li, --list-history'
     echo '      -flush-history'
     echo
     echo '      -h'
@@ -160,9 +172,9 @@ git_b_list(){
 git_b_go_history(){
     if [ -e $GIT_B_HISTORY_FILE ] ; then
         _git_b_cut_history_file
-        git_b_go_to_branch_by_list $(cat $GIT_B_HISTORY_FILE) || git_b_report_empty_history
+        git_b_go_to_branch_by_list $(cat $GIT_B_HISTORY_FILE) || return 1
     else
-        git_b_report_empty_history
+        git_b_report_empty_history && return 1
     fi
 }
 
@@ -182,7 +194,7 @@ git_b_annotate(){
     read -p "annotation> " msg
     GIT_B_ANNOTATIONS[$GIT_B_SELECTED_BRANCH]=$msg
 
-    # write potentially changed annotations back to file
+    # write changed annotations back to file
     > $GIT_B_ANNOTATIONS_FILE
     for k in ${!GIT_B_ANNOTATIONS[@]}; do
         echo $k ${GIT_B_ANNOTATIONS[$k]} >> $GIT_B_ANNOTATIONS_FILE
@@ -192,15 +204,15 @@ git_b_annotate(){
 git_b_go_prev(){
     if [ -e $GIT_B_HISTORY_FILE ]; then
         _git_b_cut_history_file
-        local -ar brs=($(cat $GIT_B_HISTORY_FILE))
-        local -r prev=${brs[$((${#brs[*]} - 1))]}
+        local -ar brs=($(cat $GIT_B_HISTORY_FILE)) # outer parens make it an array
+        local -r  prev=${brs[$((${#brs[*]} - 1))]}
         if [ -z "$prev" ]; then
             git_b_report_empty_history && return 1
         else
             git_b_go_to_branch $prev || return 1
         fi
     else
-        git_b_report_empty_history
+        git_b_report_empty_history && return 1
     fi
 }
 
