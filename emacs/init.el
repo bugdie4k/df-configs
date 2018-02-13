@@ -52,12 +52,12 @@
   (load (concat (getenv "LOCAL_CONFIGS") "/sensitive.el")))
 
 (setq-default show-trailing-whitespace nil)
-(defun toggle-trailing-whitespace ()
-  (interactive)
-  (setq show-trailing-whitespace (not show-trailing-whitespace)))
+;; (defun toggle-trailing-whitespace ()
+;;   (interactive)
+;;   (setq show-trailing-whitespace (not show-trailing-whitespace)))
 (set-face-attribute 'trailing-whitespace nil
                     :background "grey15")
-
+(add-hook 'prog-mode-hook 'hs-minor-mode)
 ;;
 
 (use-package exec-path-from-shell
