@@ -28,9 +28,9 @@
 ## constants
 
 # settings
-declare -ir GIT_UPD_LOG_PREFIX_COLOR=6
-declare -r  GIT_UPD_LOG_PREFIX_TEXT=[${0##*/git-}]
-declare -r  GIT_UPD_LOG_PREFIX="$(tput setaf $GIT_UPD_LOG_PREFIX_COLOR)$GIT_UPD_LOG_PREFIX_TEXT$(tput sgr0)"
+# declare -ir GIT_UPD_LOG_PREFIX_COLOR=6
+# declare -r  GIT_UPD_LOG_PREFIX_TEXT=[${0##*/git-}]
+# declare -r  GIT_UPD_LOG_PREFIX="$(tput setaf $GIT_UPD_LOG_PREFIX_COLOR)$GIT_UPD_LOG_PREFIX_TEXT$(tput sgr0)"
 declare -ir GIT_UPD_LOG_NEUTRAL_COLOR=3
 declare -ir GIT_UPD_LOG_SUCCESS_COLOR=2
 declare -ir GIT_UPD_LOG_FAIL_COLOR=1
@@ -60,7 +60,8 @@ declare -i GIT_UPD_STAGE_COUNT=1
 git_upd_report(){
     local -r color=$1
     shift
-    echo "$GIT_UPD_LOG_PREFIX $(tput setaf $color)$@$(tput sgr0)"
+    # echo "$GIT_UPD_LOG_PREFIX $(tput setaf $color)$@$(tput sgr0)"
+    echo "$(tput setaf $color)$@$(tput sgr0)"
 }
 
 git_upd_report_info(){
@@ -76,16 +77,16 @@ git_upd_report_failure(){
 }
 
 git_upd_report_beg(){
-    git_upd_report $GIT_UPD_LOG_NEUTRAL_COLOR "$GIT_UPD_STAGE_COUNT [$@]"
+    git_upd_report $GIT_UPD_LOG_NEUTRAL_COLOR "$GIT_UPD_STAGE_COUNT B [$@]"
 }
 
 git_upd_report_end(){
     local -r retcode=$?
 
     if [ $retcode -eq 0 ]; then
-        git_upd_report_success "$GIT_UPD_STAGE_COUNT [$@] : OK $retcode"
+        git_upd_report_success "$GIT_UPD_STAGE_COUNT E [$@] : OK $retcode"
     else
-        git_upd_report_failure "$GIT_UPD_STAGE_COUNT [$@] : NOT OK $retcode"
+        git_upd_report_failure "$GIT_UPD_STAGE_COUNT E [$@] : NOT OK $retcode"
         GIT_UPD_FAILED_STAGES[$GIT_UPD_FAILED_STAGES_COUNT]="$GIT_UPD_STAGE_COUNT [$@]"
         GIT_UPD_FAILED_STAGES_COUNT+=1
     fi
