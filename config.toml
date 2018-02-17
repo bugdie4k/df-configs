@@ -12,7 +12,8 @@
           "pictures",
           "python",
           "bin",
-          "timewarrior"]
+          "timewarrior",
+          "base16"]
 
 ## linking. links=[[TARGET, SOURCE], ...]
 
@@ -52,8 +53,7 @@
            ["bin/i3blocks-scripts",    "i3wm/i3blocks/i3blocks-scripts"]]
 
 [tasks.pictures]
-    links=[["Pictures/wallpapers", "pictures/wallpapers"],
-           ["Pictures/logos",      "pictures/logos"]]
+    links=[["Pictures/logos", "pictures/logos"]]
 
 [tasks.python]
     links=[[".config/flake8", "python/flake8"]]
@@ -65,3 +65,6 @@
 
 [tasks.timewarrior]
     links=[[".timewarrior/timewarrior.cfg", "timewarrior/timewarrior.cfg"]]
+
+[tasks.base16]
+    links=[[".config/tilix/schemes/base16-rebecca4k.json", "base16/rebecca4k/tilix-base16-rebecca4k.json"]]

@@ -279,6 +279,7 @@
 
 (use-package rainbow-mode
   :config
+  (add-to-list 'rainbow-html-colors-major-mode-list 'emacs-lisp-mode)
   (setq rainbow-x-colors 'auto)
   (setq rainbow-html-colors 'auto)
   (setq rainbow-ansi-colors 'auto))
@@ -287,7 +288,7 @@
   :ensure t
   :config
   (defvar base16-rebecca4k-colors
-    '(:base00 "#09090E" ;; orig: "#292a44" ;; default background
+    '(:base00 "#050507" ;; orig: "#292a44" ;; default background
       :base01 "#663399" ;; lighter background (status bar)
       :base02 "#383a62" ;; selection background
       :base03 "#666699" ;; comments, invisibles
@@ -321,6 +322,7 @@
   :config
   (add-hook 'after-init-hook 'global-company-mode)
   (setq company-idle-delay 0)
+  ;; TODO: use base16 colors
   (set-face-attribute 'company-tooltip nil
                       :background "Grey5"
                       :foreground "Grey80")
@@ -682,7 +684,7 @@
 
 (use-package beacon
   :config
-  (setf beacon-color "#780fef")
+  (setf beacon-color (cl-getf base16-rebecca4k-colors :base01))
   (add-to-list 'beacon-dont-blink-major-modes 'cider-repl-mode)
   (add-to-list 'beacon-dont-blink-major-modes 'slime-repl-mode)
   (beacon-mode 1))
@@ -991,9 +993,7 @@
  '(mode-line-bell-mode t)
  '(package-selected-packages
    (quote
-    (rainbow-mode smart-comment mode-line-bell helm-emmet beacon helm-cider cider jdee company-tern tern clojure-mode markdown-mode+ company-tern tern ac-js2 autopair emacs-smart-home-end yasnippet-bundle emmet-mode helm-fuzzier js2-refactor company-web exec-path-from-shell lorem-ipsum minimap indium company-web-html web-mode slime-company ein lua-mode company-anaconda anaconda-mode el-patch flycheck-pyflakes company-jedi jedi json-mode yaml-mode discover-my-major fasd rainbow-delimiters company-go yasnippet volatile-highlights company-cmake ggtags flycheck-irony company-irony company-irony-c-headers irony cmake-ide helm-rtags company-rtags rtags workgroups cfw-ical calfw-cal calfw helm-projectile helm-flyspell flyspell-helm helm-flymake cyberpunk-theme easy-kill git-gutter-fringe flycheck expand-region magit window-numbering evil-matchit powerline company-statistics company-quickhelp helm-company company multiple-cursors highlight-symbol uniquify use-package smartparens helm-ag helm)))
- '(powerline-color1 "#3d3d68")
- '(powerline-color2 "#292945"))
+    (rainbow-mode smart-comment mode-line-bell helm-emmet beacon helm-cider cider jdee company-tern tern clojure-mode markdown-mode+ company-tern tern ac-js2 autopair emacs-smart-home-end yasnippet-bundle emmet-mode helm-fuzzier js2-refactor company-web exec-path-from-shell lorem-ipsum minimap indium company-web-html web-mode slime-company ein lua-mode company-anaconda anaconda-mode el-patch flycheck-pyflakes company-jedi jedi json-mode yaml-mode discover-my-major fasd rainbow-delimiters company-go yasnippet volatile-highlights company-cmake ggtags flycheck-irony company-irony company-irony-c-headers irony cmake-ide helm-rtags company-rtags rtags workgroups cfw-ical calfw-cal calfw helm-projectile helm-flyspell flyspell-helm helm-flymake cyberpunk-theme easy-kill git-gutter-fringe flycheck expand-region magit window-numbering evil-matchit powerline company-statistics company-quickhelp helm-company company multiple-cursors highlight-symbol uniquify use-package smartparens helm-ag helm))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

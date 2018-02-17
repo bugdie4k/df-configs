@@ -13,7 +13,7 @@
 (require 'base16-theme)
 
 (defvar base16-rebecca4k-colors
-    '(:base00 "#09090E" ;; orig: "#292a44" ;; default background
+    '(:base00 "#050507" ;; orig: "#292a44" ;; default background
       :base01 "#663399" ;; lighter background (status bar)
       :base02 "#383a62" ;; selection background
       :base03 "#666699" ;; comments, invisibles

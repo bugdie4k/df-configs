@@ -1,5 +1,5 @@
 {
-    "background-color": "#09090E",
+    "background-color": "#050507",
     "badge-color": "#f1eff8",
     "comment": "",
     "cursor-background-color": "#f1eff8",
@@ -10,7 +10,7 @@
     "highlight-foreground-color": "#f1eff8",
     "name": "Rebecca4k (base16)",
     "palette": [
-        "#09090E",
+        "#050507",
         "#ff79c6",
         "#6dfedf",
         "#efe4a1",
