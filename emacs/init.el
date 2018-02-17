@@ -232,6 +232,9 @@
       (define-key keymap (kbd "C-h") 'helm-find-files-up-one-level)))
   (setq helm-split-window-default-side 'below)
   (setq helm-split-window-inside-p t)
+  (set-face-attribute 'helm-ff-dotted-directory nil
+                      :foreground (cl-getf base16-rebecca4k-colors :base03)
+                      :background (cl-getf base16-rebecca4k-colors :base00))
   (helm-mode 1)
   :bind
   (("M-x" . helm-M-x)
