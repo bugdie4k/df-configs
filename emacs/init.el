@@ -279,10 +279,8 @@
 
 (use-package rainbow-mode
   :config
-  (add-to-list 'rainbow-html-colors-major-mode-list 'emacs-lisp-mode)
-  (setq rainbow-x-colors 'auto)
-  (setq rainbow-html-colors 'auto)
-  (setq rainbow-ansi-colors 'auto))
+  (add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
+  (add-hook 'sh-mode-hook 'rainbow-mode))
 
 (use-package base16-theme
   :ensure t

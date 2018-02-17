@@ -37,7 +37,7 @@ export LEIN_JAR=~/.lein/self-installs/leiningen-2.8.1-standalone.jar
 
 _gen_fzf_default_opts() {
 
-    local color00='#0E0E16'
+    local color00='#050507'
     local color01='#663399'
     local color02='#383a62'
     local color03='#666699'
