@@ -58,7 +58,7 @@
 (set-face-attribute 'trailing-whitespace nil
                     :background "grey15")
 (add-hook 'prog-mode-hook 'hs-minor-mode)
-;;
+(diminish 'hs-minor-mode)
 
 (use-package exec-path-from-shell
   :config
@@ -254,15 +254,59 @@
 
 (use-package helm-projectile)
 
-(use-package cyberpunk-theme
+;; * themes i like:
+;; cyberpunk (covers a lot of stuff)
+;; rebecca (nice colors, cannot load it correctly, meant for spacemacs)
+;; exotica (nice colors, covers helm)
+;; cherry-blossom (nice colors)
+;; purple-haze (nice colors)
+;; ample (nice colors, covers helm)
+;; gruvbox (orangy)
+;; tao-yin (black and white)
+;; molokai (comments are to dark, otherwise nice)
+;; grandshell (two dark default text)
+;; phoenix-dark-pink
+;; leuven (LIGHT but nice)
+;; espreso (LIGHT but nice)
+;; bubbleberry
+;; django (greenish)
+;; underwater (blueish)
+;; * themes that cause troubles: sublime-themes, moe-theme
+
+;; (use-package exotica-theme
+;;   :config
+;;   (load-theme 'exotica t))
+
+(use-package rainbow-mode)
+
+(use-package base16-theme
+  :ensure t
   :config
-  (load-theme 'cyberpunk t)
-  (set-face-attribute 'fringe nil
-                      :foreground (face-foreground 'default)
-                      :background (face-background 'default))
-  (set-face-attribute 'fringe nil
-                    :foreground (face-foreground 'default)
-                    :background (face-background 'default)))
+  (defvar base16-rebecca4k-colors
+    '(:base00 "#0E0E16" ;; orig: "#292a44" ;; default background
+      :base01 "#663399" ;; lighter background (status bar)
+      :base02 "#383a62" ;; selection background
+      :base03 "#666699" ;; comments, invisibles
+      :base04 "#a0a0c5" ;; dark foreground (status bar)
+      :base05 "#f1eff8" ;; default foreground
+      :base06 "#ccccff" ;; light foreground
+      :base07 "#53495d" ;; light background
+      :base08 "#a0a0c5" ;; variables
+      :base09 "#efe4a1" ;; constants
+      :base0A "#ae81ff" ;; search text background
+      :base0B "#6dfedf" ;; strings
+      :base0C "#8eaee0" ;; regex, escaped chars
+      :base0D "#2de0a7" ;; functons
+      :base0E "#7aa5ff" ;; keywords
+      :base0F "#ff79c6" ;; deprecations
+      )
+    "All colors for Base16 Rebecca4k (bugdie4k's spin on Base16 Rebecca) are defined here.")
+  (deftheme base16-rebecca4k)
+  (base16-theme-define 'base16-rebecca4k base16-rebecca4k-colors)
+  (provide-theme 'base16-rebecca4k)
+  (load-theme 'base16-rebecca4k t))
+
+(use-package helm-themes)
 
 (use-package mode-line-bell
   :config
@@ -340,31 +384,70 @@
 
 (use-package powerline
   :config
+  ;; TODO: figure out what it does
+  ;; (set-face-attribute 'powerline-active0 nil
+  ;;                     :box nil
+  ;;                     :foreground (cl-getf base16-rebecca4k-colors :base0D)
+  ;;                     :background (cl-getf base16-rebecca4k-colors :base01))
+  (set-face-attribute 'powerline-active1 nil
+                      :box nil
+                      :foreground (cl-getf base16-rebecca4k-colors :base05)
+                      :background (cl-getf base16-rebecca4k-colors :base00))
+  (set-face-attribute 'powerline-active2 nil
+                      :box nil
+                      :foreground (cl-getf base16-rebecca4k-colors :base05)
+                      :background (cl-getf base16-rebecca4k-colors :base01))
+  ;; TODO: figure out what it does
+  ;; (set-face-attribute 'powerline-inactive0 nil
+  ;;                     :box nil
+  ;;                     :foreground (cl-getf base16-rebecca4k-colors :base0D)
+  ;;                     :background (cl-getf base16-rebecca4k-colors :base01))
+  (set-face-attribute 'powerline-inactive1 nil
+                      :box nil
+                      :foreground (cl-getf base16-rebecca4k-colors :base07)
+                      :background (cl-getf base16-rebecca4k-colors :base00))
+  (set-face-attribute 'powerline-inactive2 nil
+                      :box nil
+                      :foreground (cl-getf base16-rebecca4k-colors :base07)
+                      :background (cl-getf base16-rebecca4k-colors :base00))
+  
+  (set-face-attribute 'mode-line-buffer-id nil
+                      :foreground (cl-getf base16-rebecca4k-colors :base0B))
   (set-face-attribute 'mode-line nil
                       :box nil
-                      :background "SlateBlue4"
-                      :foreground "white")
+                      :foreground (cl-getf base16-rebecca4k-colors :base05)
+                      :background (cl-getf base16-rebecca4k-colors :base02))
+  
   (set-face-attribute 'mode-line-inactive nil
-                      :background "grey30"
-                      :foreground "grey60"
-                      :box nil)
-  (setq powerline-default-separator nil)
+                      :box nil
+                      :foreground (cl-getf base16-rebecca4k-colors :base07)
+                      :background (cl-getf base16-rebecca4k-colors :base00))
+  (setq powerline-default-separator nil) ;; 'arrow
   (powerline-center-evil-theme))
 
 (use-package hlinum
   :config
   (hlinum-activate)
+  (set-face-attribute 'fringe nil
+                      :foreground (cl-getf base16-rebecca4k-colors :base05) ;; (face-foreground 'default)
+                      :background (cl-getf base16-rebecca4k-colors :base00) ;; (face-background 'default)
+                      )
   (set-face-attribute 'linum-highlight-face nil
-                      :foreground "grey80"
-                      :background (face-background 'default)))
+                      :foreground (cl-getf base16-rebecca4k-colors :base05) ;; "grey80"
+                      :background (cl-getf base16-rebecca4k-colors :base00) ;; (face-background 'default)
+                      )
+  (set-face-attribute 'linum nil
+                      :foreground (cl-getf base16-rebecca4k-colors :base07)
+                      :background (cl-getf base16-rebecca4k-colors :base00) ;; (face-background 'default)
+                      ))
 
 (use-package pos-tip)
 
 (use-package company-quickhelp
   :config
   (company-quickhelp-mode 1)
-  (setq company-quickhelp-color-background "Grey10")
-  (setq company-quickhelp-color-foreground "Grey70"))
+  (setq company-quickhelp-color-background "grey10")
+  (setq company-quickhelp-color-foreground "grey70"))
 
 (use-package company-statistics
   :config
@@ -542,7 +625,7 @@
   (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
-  (colorize-parentheses-with "SeaGreen1" "Red"))
+  (colorize-parentheses-with "SeaGreen1" "red"))
 
 (use-package yaml-mode)
 (use-package json-mode)
@@ -594,7 +677,7 @@
 
 (use-package beacon
   :config
-  (setf beacon-color "#780fef")  
+  (setf beacon-color "#780fef")
   (add-to-list 'beacon-dont-blink-major-modes 'cider-repl-mode)
   (add-to-list 'beacon-dont-blink-major-modes 'slime-repl-mode)
   (beacon-mode 1))
@@ -903,7 +986,9 @@
  '(mode-line-bell-mode t)
  '(package-selected-packages
    (quote
-    (smart-comment mode-line-bell helm-emmet beacon helm-cider cider jdee company-tern tern clojure-mode markdown-mode+ company-tern tern ac-js2 autopair emacs-smart-home-end yasnippet-bundle emmet-mode helm-fuzzier js2-refactor company-web exec-path-from-shell lorem-ipsum minimap indium company-web-html web-mode slime-company ein lua-mode company-anaconda anaconda-mode el-patch flycheck-pyflakes company-jedi jedi json-mode yaml-mode discover-my-major fasd rainbow-delimiters company-go yasnippet volatile-highlights company-cmake ggtags flycheck-irony company-irony company-irony-c-headers irony cmake-ide helm-rtags company-rtags rtags workgroups cfw-ical calfw-cal calfw helm-projectile helm-flyspell flyspell-helm helm-flymake cyberpunk-theme easy-kill git-gutter-fringe flycheck expand-region magit window-numbering evil-matchit powerline company-statistics company-quickhelp helm-company company multiple-cursors highlight-symbol uniquify use-package smartparens helm-ag helm))))
+    (rainbow-mode smart-comment mode-line-bell helm-emmet beacon helm-cider cider jdee company-tern tern clojure-mode markdown-mode+ company-tern tern ac-js2 autopair emacs-smart-home-end yasnippet-bundle emmet-mode helm-fuzzier js2-refactor company-web exec-path-from-shell lorem-ipsum minimap indium company-web-html web-mode slime-company ein lua-mode company-anaconda anaconda-mode el-patch flycheck-pyflakes company-jedi jedi json-mode yaml-mode discover-my-major fasd rainbow-delimiters company-go yasnippet volatile-highlights company-cmake ggtags flycheck-irony company-irony company-irony-c-headers irony cmake-ide helm-rtags company-rtags rtags workgroups cfw-ical calfw-cal calfw helm-projectile helm-flyspell flyspell-helm helm-flymake cyberpunk-theme easy-kill git-gutter-fringe flycheck expand-region magit window-numbering evil-matchit powerline company-statistics company-quickhelp helm-company company multiple-cursors highlight-symbol uniquify use-package smartparens helm-ag helm)))
+ '(powerline-color1 "#3d3d68")
+ '(powerline-color2 "#292945"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

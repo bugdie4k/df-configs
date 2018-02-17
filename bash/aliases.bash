@@ -32,9 +32,9 @@ alias c-='cd -'
 ###### ls
 alias ls=exa-linux-x86_64 # 'ls --color=auto'
 alias sl=ls
-alias ll='ls -alFh'
-alias la='ls -Ah'
-alias l='ls -1Fh' # -C when ls
+alias ll='ls -alFh --git'
+alias la='ls -Ah --git'
+alias l='ls -1Fh --git' # -C when ls
 
 ###### sudo
 alias _="sudo"

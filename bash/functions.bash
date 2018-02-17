@@ -101,7 +101,7 @@ function wd() {
 function ep () {
     : "emacs with selecting recent files from fasd with fzf"
 
-    file_to_open=$(fasd -f -R | fzf --color=dark,hl:10,hl+:10 --preview "__ep_preview {}" | awk -F ' ' '{print $2}')
+    file_to_open=$(fasd -f -R | fzf --preview "__ep_preview {}" | awk -F ' ' '{print $2}')
     if [ -n "$file_to_open" ]; then
         emacs-client-or-daemon.sh "$file_to_open"
     else
@@ -112,7 +112,7 @@ function ep () {
 function cc () {
     : "cd selecting recent dirs from fasd with fzf"
     
-    dir_to_open=$(fasd -d -R | fzf --color=dark,hl:10,hl+:10 --preview "__ep_preview {}" | awk -F ' ' '{print $2}')
+    dir_to_open=$(fasd -d -R | fzf --preview "__ep_preview {}" | awk -F ' ' '{print $2}')
     if [ -n "$dir_to_open" ]; then
         cd "$dir_to_open"
     else
