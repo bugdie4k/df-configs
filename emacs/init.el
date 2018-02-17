@@ -277,13 +277,17 @@
 ;;   :config
 ;;   (load-theme 'exotica t))
 
-(use-package rainbow-mode)
+(use-package rainbow-mode
+  :config
+  (setq rainbow-x-colors 'auto)
+  (setq rainbow-html-colors 'auto)
+  (setq rainbow-ansi-colors 'auto))
 
 (use-package base16-theme
   :ensure t
   :config
   (defvar base16-rebecca4k-colors
-    '(:base00 "#0E0E16" ;; orig: "#292a44" ;; default background
+    '(:base00 "#09090E" ;; orig: "#292a44" ;; default background
       :base01 "#663399" ;; lighter background (status bar)
       :base02 "#383a62" ;; selection background
       :base03 "#666699" ;; comments, invisibles
@@ -296,7 +300,7 @@
       :base0A "#ae81ff" ;; search text background
       :base0B "#6dfedf" ;; strings
       :base0C "#8eaee0" ;; regex, escaped chars
-      :base0D "#2de0a7" ;; functons
+      :base0D "#2de0a7" ;; functions
       :base0E "#7aa5ff" ;; keywords
       :base0F "#ff79c6" ;; deprecations
       )
@@ -625,7 +629,8 @@
   (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
-  (colorize-parentheses-with "SeaGreen1" "red"))
+  (colorize-parentheses-with (cl-getf base16-rebecca4k-colors :base0D)
+                             (cl-getf base16-rebecca4k-colors :base0F)))
 
 (use-package yaml-mode)
 (use-package json-mode)
