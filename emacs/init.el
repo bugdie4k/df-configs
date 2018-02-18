@@ -60,6 +60,56 @@
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 (diminish 'hs-minor-mode)
 
+;; * themes i like:
+;; cyberpunk (covers a lot of stuff)
+;; rebecca (nice colors, cannot load it correctly, meant for spacemacs)
+;; exotica (nice colors, covers helm)
+;; cherry-blossom (nice colors)
+;; purple-haze (nice colors)
+;; ample (nice colors, covers helm)
+;; gruvbox (orangy)
+;; tao-yin (black and white)
+;; molokai (comments are to dark, otherwise nice)
+;; grandshell (two dark default text)
+;; phoenix-dark-pink
+;; leuven (LIGHT but nice)
+;; espreso (LIGHT but nice)
+;; bubbleberry
+;; django (greenish)
+;; underwater (blueish)
+;; * themes that cause troubles: sublime-themes, moe-theme
+
+;; (use-package exotica-theme
+;;   :config
+;;   (load-theme 'exotica t))
+
+(use-package base16-theme
+  :ensure t
+  :config
+  (defvar base16-rebecca4k-colors
+    '(:base00 "#050507" ;; orig: "#292a44" ;; default background
+      :base01 "#663399" ;; lighter background (status bar)
+      :base02 "#383a62" ;; selection background
+      :base03 "#666699" ;; comments, invisibles
+      :base04 "#a0a0c5" ;; dark foreground (status bar)
+      :base05 "#f1eff8" ;; default foreground
+      :base06 "#ccccff" ;; light foreground
+      :base07 "#53495d" ;; light background
+      :base08 "#a0a0c5" ;; variables
+      :base09 "#efe4a1" ;; constants
+      :base0A "#ae81ff" ;; search text background
+      :base0B "#6dfedf" ;; strings
+      :base0C "#8eaee0" ;; regex, escaped chars
+      :base0D "#2de0a7" ;; functions
+      :base0E "#7aa5ff" ;; keywords
+      :base0F "#ff79c6" ;; deprecations
+      )
+    "All colors for Base16 Rebecca4k (bugdie4k's spin on Base16 Rebecca) are defined here.")
+  (deftheme base16-rebecca4k)
+  (base16-theme-define 'base16-rebecca4k base16-rebecca4k-colors)
+  (provide-theme 'base16-rebecca4k)
+  (load-theme 'base16-rebecca4k t))
+
 (use-package exec-path-from-shell
   :config
   (when (memq window-system '(mac ns x))
@@ -229,12 +279,12 @@
   (with-eval-after-load 'helm-files
     (dolist (keymap (list helm-find-files-map helm-read-file-map))
       (define-key keymap (kbd "C-l") 'helm-execute-persistent-action)
-      (define-key keymap (kbd "C-h") 'helm-find-files-up-one-level)))
+      (define-key keymap (kbd "C-h") 'helm-find-files-up-one-level))
+    (set-face-attribute 'helm-ff-dotted-directory nil
+                        :foreground (cl-getf base16-rebecca4k-colors :base03)
+                        :background (cl-getf base16-rebecca4k-colors :base00)))
   (setq helm-split-window-default-side 'below)
-  (setq helm-split-window-inside-p t)
-  (set-face-attribute 'helm-ff-dotted-directory nil
-                      :foreground (cl-getf base16-rebecca4k-colors :base03)
-                      :background (cl-getf base16-rebecca4k-colors :base00))
+  (setq helm-split-window-inside-p t)  
   (helm-mode 1)
   :bind
   (("M-x" . helm-M-x)
@@ -257,60 +307,11 @@
 
 (use-package helm-projectile)
 
-;; * themes i like:
-;; cyberpunk (covers a lot of stuff)
-;; rebecca (nice colors, cannot load it correctly, meant for spacemacs)
-;; exotica (nice colors, covers helm)
-;; cherry-blossom (nice colors)
-;; purple-haze (nice colors)
-;; ample (nice colors, covers helm)
-;; gruvbox (orangy)
-;; tao-yin (black and white)
-;; molokai (comments are to dark, otherwise nice)
-;; grandshell (two dark default text)
-;; phoenix-dark-pink
-;; leuven (LIGHT but nice)
-;; espreso (LIGHT but nice)
-;; bubbleberry
-;; django (greenish)
-;; underwater (blueish)
-;; * themes that cause troubles: sublime-themes, moe-theme
-
-;; (use-package exotica-theme
-;;   :config
-;;   (load-theme 'exotica t))
-
 (use-package rainbow-mode
+  :diminish rainbow-mode
   :config
   (add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
   (add-hook 'sh-mode-hook 'rainbow-mode))
-
-(use-package base16-theme
-  :ensure t
-  :config
-  (defvar base16-rebecca4k-colors
-    '(:base00 "#050507" ;; orig: "#292a44" ;; default background
-      :base01 "#663399" ;; lighter background (status bar)
-      :base02 "#383a62" ;; selection background
-      :base03 "#666699" ;; comments, invisibles
-      :base04 "#a0a0c5" ;; dark foreground (status bar)
-      :base05 "#f1eff8" ;; default foreground
-      :base06 "#ccccff" ;; light foreground
-      :base07 "#53495d" ;; light background
-      :base08 "#a0a0c5" ;; variables
-      :base09 "#efe4a1" ;; constants
-      :base0A "#ae81ff" ;; search text background
-      :base0B "#6dfedf" ;; strings
-      :base0C "#8eaee0" ;; regex, escaped chars
-      :base0D "#2de0a7" ;; functions
-      :base0E "#7aa5ff" ;; keywords
-      :base0F "#ff79c6" ;; deprecations
-      )
-    "All colors for Base16 Rebecca4k (bugdie4k's spin on Base16 Rebecca) are defined here.")
-  (deftheme base16-rebecca4k)
-  (base16-theme-define 'base16-rebecca4k base16-rebecca4k-colors)
-  (provide-theme 'base16-rebecca4k)
-  (load-theme 'base16-rebecca4k t))
 
 (use-package helm-themes)
 
