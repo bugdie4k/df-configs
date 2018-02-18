@@ -860,7 +860,7 @@
 ;; https://github.com/bugdie4k/smart-backspace
 (add-to-list 'load-path "~/.emacs.d/downloaded/smart-backspace")
 (require 'smart-backspace)
-(global-set-key (kbd "<backspace>") 'smart-backspace)
+(define-key prog-mode-map (kbd "<backspace>") 'smart-backspace)
 
 (global-set-key [home] 'emacs-smart-home)
 (global-set-key (kbd "C-a") 'emacs-smart-home)

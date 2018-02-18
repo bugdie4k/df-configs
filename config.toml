@@ -24,6 +24,7 @@
 
 [tasks.midnight-commander]
     links=[[".local/share/mc/skins/demonasasin256.ini", "midnight-commander/demonasasin256.ini"],
+           [".local/share/mc/skins/rebecca4k.ini",      "midnight-commander/rebecca4k.ini"],
            [".config/mc/ini",                           "midnight-commander/mc/ini"],
            [".config/mc/mc.ext",                        "midnight-commander/mc/mc.ext"],
            [".config/mc/mc.keymap",                     "midnight-commander/mc/mc.keymap"],
