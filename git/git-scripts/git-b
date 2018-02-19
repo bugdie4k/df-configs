@@ -151,7 +151,8 @@ git_b_force_delete(){
 }
 
 git_b_new_branch(){
-    local branch_name;
+    # TODO: offer to add an annotation
+    local branch_name
     
     if [ -z "$1" ]; then
         read -p "branch name> " -r branch_name

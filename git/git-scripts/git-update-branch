@@ -34,7 +34,7 @@
 declare -ir GIT_UPD_LOG_NEUTRAL_COLOR=3
 declare -ir GIT_UPD_LOG_SUCCESS_COLOR=2
 declare -ir GIT_UPD_LOG_FAIL_COLOR=1
-declare -ir GIT_UPD_LOG_INFO_COLOR=12
+declare -ir GIT_UPD_LOG_INFO_COLOR=5
 
 # save state file
 declare -r GIT_UPD_DOTGIT=$(git rev-parse --show-toplevel)
