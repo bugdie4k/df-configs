@@ -254,7 +254,9 @@
         (set-match-data (list beg end)) t)))
   (setq slime-repl-font-lock-keywords
         (cons '(slime-repl-font-lock-find-prompt . 'slime-repl-prompt-face)
-              slime-repl-font-lock-keywords)))
+              slime-repl-font-lock-keywords))
+  (set-face-attribute 'slime-repl-prompt-face nil
+                      :foreground (cl-getf base16-rebecca4k-colors :base0A)))
 
 (use-package helm-ag)
 
@@ -1001,7 +1003,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(mc/cursor-face ((t (:inherit cursor :inverse-video nil))))
- '(slime-repl-prompt-face ((t (:foreground "medium orchid")))))
+ '(mc/cursor-face ((t (:inherit cursor :inverse-video nil)))))
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
