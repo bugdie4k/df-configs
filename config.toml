@@ -37,13 +37,13 @@
 
 [tasks.git]
     links=[[".gitconfig",            "git/.gitconfig"],
-           ["bin/git-update-branch", "git/git-scripts/git-update-branch"],
+           ["bin/git-update-branch", "git/git-scripts/git-update-branch/git-update-branch"],
            ["bin/git-s",             "git/git-scripts/git-s"],
            ["bin/git-ss",            "git/git-scripts/git-ss"],
            ["bin/git-sst",           "git/git-scripts/git-sst"],
            ["bin/git-dfs",           "git/git-scripts/git-dfs"],
            ["bin/git-dft",           "git/git-scripts/git-dft"],
-           ["bin/git-b",             "git/git-scripts/git-b"]]
+           ["bin/git-b",             "git/git-scripts/git-b/.legacy/git-b"]]
 
 [tasks.i3wm]
     links=[[".config/i3/config",       "i3wm/config"],

@@ -1,0 +1,6 @@
+[submodule "git/git-scripts/git-update-branch"]
+	path = git/git-scripts/git-update-branch
+	url = https://github.com/bugdie4k/git-update-branch
+[submodule "git/git-scripts/git-b"]
+	path = git/git-scripts/git-b
+	url = https://github.com/bugdie4k/git-b
