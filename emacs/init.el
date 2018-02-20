@@ -58,7 +58,7 @@
 (set-face-attribute 'trailing-whitespace nil
                     :background "grey15")
 (add-hook 'prog-mode-hook 'hs-minor-mode)
-(diminish 'hs-minor-mode)
+(diminish 'hs-minor-mode nil)
 
 ;; * themes i like:
 ;; cyberpunk (covers a lot of stuff)
@@ -114,6 +114,17 @@
   :config
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
+
+(use-package omni-scratch
+    :bind (("M-s $ DEL" . omni-scratch)
+           ("M-s $ -" . omni-scratch-major)
+           ("M-s $ _" . omni-scratch-buffer)
+           ("M-s $ $" . omni-scratch-goto-latest)
+           ("M-s $ b" . omni-scratch-buffers)))
+
+(use-package which-key
+  :config
+  (which-key-mode))
 
 ;; (use-package el-patch)
 
@@ -913,8 +924,6 @@
 ;;
 (global-auto-revert-mode -1)
 (diminish 'auto-revert-mode nil)
-;;
-(diminish 'hs-minor-mode nil)
 
 ;; c/c++
 (setq-default
@@ -994,12 +1003,13 @@
  '(mode-line-bell-mode t)
  '(package-selected-packages
    (quote
-    (rainbow-mode smart-comment mode-line-bell helm-emmet beacon helm-cider cider jdee company-tern tern clojure-mode markdown-mode+ company-tern tern ac-js2 autopair emacs-smart-home-end yasnippet-bundle emmet-mode helm-fuzzier js2-refactor company-web exec-path-from-shell lorem-ipsum minimap indium company-web-html web-mode slime-company ein lua-mode company-anaconda anaconda-mode el-patch flycheck-pyflakes company-jedi jedi json-mode yaml-mode discover-my-major fasd rainbow-delimiters company-go yasnippet volatile-highlights company-cmake ggtags flycheck-irony company-irony company-irony-c-headers irony cmake-ide helm-rtags company-rtags rtags workgroups cfw-ical calfw-cal calfw helm-projectile helm-flyspell flyspell-helm helm-flymake cyberpunk-theme easy-kill git-gutter-fringe flycheck expand-region magit window-numbering evil-matchit powerline company-statistics company-quickhelp helm-company company multiple-cursors highlight-symbol uniquify use-package smartparens helm-ag helm))))
+    (which-key omni-scratch rainbow-mode smart-comment mode-line-bell helm-emmet beacon helm-cider cider jdee company-tern tern clojure-mode markdown-mode+ company-tern tern ac-js2 autopair emacs-smart-home-end yasnippet-bundle emmet-mode helm-fuzzier js2-refactor company-web exec-path-from-shell lorem-ipsum minimap indium company-web-html web-mode slime-company ein lua-mode company-anaconda anaconda-mode el-patch flycheck-pyflakes company-jedi jedi json-mode yaml-mode discover-my-major fasd rainbow-delimiters company-go yasnippet volatile-highlights company-cmake ggtags flycheck-irony company-irony company-irony-c-headers irony cmake-ide helm-rtags company-rtags rtags workgroups cfw-ical calfw-cal calfw helm-projectile helm-flyspell flyspell-helm helm-flymake cyberpunk-theme easy-kill git-gutter-fringe flycheck expand-region magit window-numbering evil-matchit powerline company-statistics company-quickhelp helm-company company multiple-cursors highlight-symbol uniquify use-package smartparens helm-ag helm))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(mc/cursor-face ((t (:inherit cursor :inverse-video nil)))))
+ '(mc/cursor-face ((t (:inherit cursor :inverse-video nil))))
+ '(slime-repl-prompt-face ((t (:foreground "medium orchid")))))
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
