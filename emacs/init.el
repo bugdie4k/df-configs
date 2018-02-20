@@ -859,11 +859,6 @@
 (add-to-list 'load-path "~/.emacs.d/downloaded/emacs-smart-home-end")
 (require 'emacs-smart-home-end)
 
-;; https://github.com/bugdie4k/smart-backspace
-(add-to-list 'load-path "~/.emacs.d/downloaded/smart-backspace")
-(require 'smart-backspace)
-(define-key prog-mode-map (kbd "<backspace>") 'smart-backspace)
-
 (global-set-key [home] 'emacs-smart-home)
 (global-set-key (kbd "C-a") 'emacs-smart-home)
 (eval-after-load 'evil
@@ -918,6 +913,8 @@
 ;;
 (global-auto-revert-mode -1)
 (diminish 'auto-revert-mode nil)
+;;
+(diminish 'hs-minor-mode nil)
 
 ;; c/c++
 (setq-default
