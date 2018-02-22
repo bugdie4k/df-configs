@@ -86,6 +86,7 @@
 (use-package base16-theme
   :ensure t
   :config
+  ;; TODO: to separate file
   (defvar base16-rebecca4k-colors
     '(:base00 "#050507" ;; orig: "#292a44" ;; default background
       :base01 "#663399" ;; lighter background (status bar)
@@ -120,9 +121,12 @@
            ("M-s $ -" . omni-scratch-major)
            ("M-s $ _" . omni-scratch-buffer)
            ("M-s $ $" . omni-scratch-goto-latest)
-           ("M-s $ b" . omni-scratch-buffers)))
+           ("M-s $ b" . omni-scratch-buffers))
+    :config
+    (omni-scratch-mode))
 
 (use-package which-key
+  :diminish which-key
   :config
   (which-key-mode))
 
@@ -297,7 +301,7 @@
                         :foreground (cl-getf base16-rebecca4k-colors :base03)
                         :background (cl-getf base16-rebecca4k-colors :base00)))
   (setq helm-split-window-default-side 'below)
-  (setq helm-split-window-inside-p t)  
+  (setq helm-split-window-inside-p t)
   (helm-mode 1)
   :bind
   (("M-x" . helm-M-x)
@@ -361,7 +365,6 @@
    ("M-." . company-show-location)))
 
 (use-package evil
-  :demand
   :bind
   (:map evil-normal-state-map
    ("M-." . nil)
@@ -431,14 +434,14 @@
                       :box nil
                       :foreground (cl-getf base16-rebecca4k-colors :base07)
                       :background (cl-getf base16-rebecca4k-colors :base00))
-  
+
   (set-face-attribute 'mode-line-buffer-id nil
                       :foreground (cl-getf base16-rebecca4k-colors :base0B))
   (set-face-attribute 'mode-line nil
                       :box nil
                       :foreground (cl-getf base16-rebecca4k-colors :base05)
                       :background (cl-getf base16-rebecca4k-colors :base02))
-  
+
   (set-face-attribute 'mode-line-inactive nil
                       :box nil
                       :foreground (cl-getf base16-rebecca4k-colors :base07)
