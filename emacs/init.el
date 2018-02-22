@@ -123,7 +123,8 @@
            ("M-s $ $" . omni-scratch-goto-latest)
            ("M-s $ b" . omni-scratch-buffers))
     :config
-    (omni-scratch-mode))
+    (omni-scratch-mode)
+    (setq omni-scratch-pale-background nil))
 
 (use-package which-key
   :diminish which-key
