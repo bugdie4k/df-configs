@@ -6,14 +6,6 @@
 
 echo "MACHINE: $MACHINE"
 
-###### local settings ##########################################################
-
-case $MACHINE in
-    home|home2|kate) . ${LOCAL_CONFIGS}/local.home.bash ;;
-    work) . ${LOCAL_CONFIGS}/bash.local.work ;;
-    *) echo ".bashrc: Don't know where to find locals for this machine."
-esac
-
 ###### my stuff ################################################################
 
 . ${CONFIGS}/bash/default-stuff.bash
@@ -24,6 +16,14 @@ esac
 . ${CONFIGS}/bash/completion.bash
 . ${CONFIGS}/bash/logprint.bash
 . ${CONFIGS}/bash/prompt.bash
+
+###### local settings ##########################################################
+
+case $MACHINE in
+    home|home2|kate) . ${LOCAL_CONFIGS}/local.home.bash ;;
+    work) . ${LOCAL_CONFIGS}/bash.local.work ;;
+    *) echo ".bashrc: Don't know where to find locals for this machine."
+esac
 
 ###### also source #############################################################
 
