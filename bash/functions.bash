@@ -58,12 +58,17 @@ function dot2png(){
 function setvol(){
     : "arg is either +n or -n where n is volume %"
 
-    pactl -- set-sink-volume 0 "$1%"
+    case "$1" in
+        mute) pactl -- set-sink-mute 0 1 ;;
+        unmute) pactl -- set-sink-mute 0 0 ;;
+        toggle-mute) pactl -- set-sink-mute 0 toggle ;;
+        *) pactl -- set-sink-volume 0 "$1%" ;;
+    esac
 }
 
 function xautolock-disable-for(){
     : "disable xautolock for time"
-    
+
     if [ $# -eq 0 ] || [ "$1" = "ever" ]; then
         xautolock -disable
     else
@@ -73,7 +78,7 @@ function xautolock-disable-for(){
 
 function cpwd(){
     : "copy pwd with no newline at the end"
-    
+
     if [ $# -eq 0 ]; then
         local -r tocopy="$(pwd)"
     else
@@ -111,7 +116,7 @@ function ep () {
 
 function cc () {
     : "cd selecting recent dirs from fasd with fzf"
-    
+
     dir_to_open=$(fasd -d -R | fzf --preview "__ep_preview {}" | awk -F ' ' '{print $2}')
     if [ -n "$dir_to_open" ]; then
         cd "$dir_to_open"
