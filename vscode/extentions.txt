@@ -1,0 +1,14 @@
+HookyQR.beautify
+christian-kohler.npm-intellisense
+christian-kohler.path-intellisense
+dbaeumer.vscode-eslint
+eg2.vscode-npm-script
+jasonnutter.search-node-modules
+jmfirth.vsc-space-block-jumper
+lfs.vscode-emacs-friendly
+ms-python.python
+ms-vscode.cpptools
+peymanslh.blueberry-dark-theme
+vscodevim.vim
+waderyan.nodejs-extension-pack
+xabikos.JavaScriptSnippets

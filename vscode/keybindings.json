@@ -1,0 +1,27 @@
+// Place your key bindings in this file to overwrite the defaults
+[
+    {
+        "key": "ctrl+z",
+        "command": "workbench.action.toggleZenMode"
+    },
+    {
+        "key": "ctrl+space",
+        "command": "emacs.enterMarkMode"
+    },
+    {
+        "key": "alt-.",
+        "command": "editor.action.goToDeclaration"
+    },
+    {
+        "key": "alt-,",
+        "command": "workbench.action.navigateBack"
+    },
+    {
+        "key": "alt-shift-[",
+        "command": "spaceBlockJumper.moveUp"
+    },
+    {
+        "key": "alt-shift-]",
+        "command": "spaceBlockJumper.moveDown"
+    }
+]

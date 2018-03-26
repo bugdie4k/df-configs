@@ -1,0 +1,11 @@
+{    
+    "editor.fontSize": 13,
+    "workbench.activityBar.visible": false,
+    "window.menuBarVisibility": "toggle",
+    "vim.useCtrlKeys": false,
+    "vim.useSystemClipboard": true,
+    "workbench.colorTheme": "Blueberry dark theme",
+    "editor.tokenColorCustomizations": {
+        "keywords": "#c46ef0"
+    }
+}
