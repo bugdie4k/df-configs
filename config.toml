@@ -13,7 +13,8 @@
           "python",
           "bin",
           "timewarrior",
-          "base16"]
+          "base16",
+          "vscode"]
 
 ## linking. links=[[TARGET, SOURCE], ...]
 
@@ -71,3 +72,7 @@
 
 [tasks.base16]
     links=[[".config/tilix/schemes/base16-rebecca4k.json", "base16/rebecca4k/tilix-base16-rebecca4k.json"]]
+
+[tasks.vscode]
+    links=[[".conigs/Code/User/keybindings.json", "vscode/keybindings.json"],
+           [".conigs/Code/User/settings.json", "vscode/settings.json"]]
