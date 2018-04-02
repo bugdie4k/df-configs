@@ -195,11 +195,15 @@
   ;; (require 'smartparens-html)
   (diminish 'smartparens-mode nil)
   (sp-use-paredit-bindings)
+  ;; strict
   (add-hook 'clojure-mode-hook 'smartparens-strict-mode)
   (add-hook 'cider-repl-mode-hook 'smartparens-strict-mode)
   (add-hook 'lisp-mode-hook 'smartparens-strict-mode)
   (add-hook 'emacs-lisp-mode-hook 'smartparens-strict-mode)
   (add-hook 'clojure-mode-hook 'smartparens-strict-mode)
+  ;; non strict
+  (add-hook 'json-mode-hook 'smartparens-mode)
+  (add-hook 'js2-mode 'smartparens-mode)
   ;;
   ;; (add-hook 'prog-mode-hook 'smartparens-mode)
   ;; https://github.com/Fuco1/smartparens/issues/286#issuecomment-32324743
