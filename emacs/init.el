@@ -753,7 +753,6 @@
 ;; (setq electric-layout-rules '((?\{ . around) (?\} . around)))
 (add-hook 'c-mode-hook 'electric-pair-mode)
 (add-hook 'c++-mode-hook 'electric-pair-mode)
-(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
 (add-hook 'java-mode-hook 'electric-pair-mode)
 (add-hook 'js-mode-hook 'electric-pair-mode)
 (add-hook 'js2-mode-hook 'electric-pair-mode)
@@ -944,6 +943,7 @@
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 ;; - disable std=c++11 warnings
 (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
+(add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11")))
 ;; - go to corresponding .cpp or .h file
 (add-hook 'c-mode-common-hook
           (lambda()
