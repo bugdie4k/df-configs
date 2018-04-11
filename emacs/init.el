@@ -197,10 +197,10 @@
   (sp-use-paredit-bindings)
   ;; strict
   (add-hook 'clojure-mode-hook 'smartparens-strict-mode)
+  (add-hook 'clojure-mode-hook (lambda () (electric-pair-mode -1)))
   (add-hook 'cider-repl-mode-hook 'smartparens-strict-mode)
   (add-hook 'lisp-mode-hook 'smartparens-strict-mode)
   (add-hook 'emacs-lisp-mode-hook 'smartparens-strict-mode)
-  (add-hook 'clojure-mode-hook 'smartparens-strict-mode)
   ;; non strict
   (add-hook 'json-mode-hook 'smartparens-mode)
   (add-hook 'js2-mode 'smartparens-mode)
@@ -733,7 +733,7 @@
 
 (use-package web-mode
   :config
-  (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))  
+  (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
   (setq web-mode-enable-auto-pairing t)
   (setq web-mode-enable-auto-closing t)
   (setq web-mode-enable-auto-expanding t)
@@ -753,6 +753,7 @@
 ;; (setq electric-layout-rules '((?\{ . around) (?\} . around)))
 (add-hook 'c-mode-hook 'electric-pair-mode)
 (add-hook 'c++-mode-hook 'electric-pair-mode)
+(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
 (add-hook 'java-mode-hook 'electric-pair-mode)
 (add-hook 'js-mode-hook 'electric-pair-mode)
 (add-hook 'js2-mode-hook 'electric-pair-mode)

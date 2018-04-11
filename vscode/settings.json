@@ -7,9 +7,9 @@
     "vim.handleKeys": {
         "backspace": false
     },
-    "workbench.colorTheme": "Blueberry dark theme",
     "editor.tokenColorCustomizations": {
-        "keywords": "#c46ef0"
-    },
-    "editor.renderWhitespace": "none"
+        // "keywords": "#c46ef0"
+    },    
+    "editor.renderWhitespace": "none",
+    "python.pythonPath": "/usr/bin/python3"
 }
