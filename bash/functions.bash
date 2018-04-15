@@ -4,17 +4,18 @@
 
 . ${CONFIGS}/bash/functions.switch-emacs.bash
 
-function qbc (){
-    : "quick bc"
-
-    echo "$@" | bc -l
+function =() {
+    : "p as +, x as *"
+    local calc="${*//p/+}"
+    calc="${calc//x/*}"
+    bc -l <<< "scale=10;$calc"
 }
 
 function gi(){
     : "generates gitignore file based on the input, needs internet connection"
     : "run 'gi list' to see possble arguments"
 
-    curl -L -s https://www.gitignore.io/api/$@ ;
+    curl -L -s https://www.gitignore.io/api/$@
 }
 
 function indent-with(){
@@ -31,7 +32,6 @@ function fibo(){
     local -ir n=${1:-0}
     [ $n -eq 0 ] && return 0
     [ $n -lt 0 ] && { echo-color -f red "amount can't be < 0, man"; return 1; }
-    [ $n -le 2 ] && echo-color -f yellow "nums <= 2 are useless, man"
     [ $n -gt 0 ] && acc[0]=0
     [ $n -gt 1 ] && acc[1]=1
     for ((i=2; i<$n; i++)); do
