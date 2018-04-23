@@ -15,26 +15,36 @@
 #   alias z='fasd_cd -d'
 #   alias zz='fasd_cd -d -i'
 #
-eval "$(fasd --init auto)"
+if command -v fasd >/dev/null 2>&1; then
+    eval "$(fasd --init auto)"
 
-# do not use them usually
-unalias d f
+    # do not use them usually
+    unalias d f
 
-# redefine
-#   z  -> c
-#   zz -> cc
-unalias z zz
-alias c='fasd_cd -d'
-# alias cc='fasd_cd -d -i' # dunno if ok
-_fasd_bash_hook_cmd_complete c cc
+    # redefine
+    #   z  -> c
+    #   zz -> cc
+    unalias z zz
+    alias c='fasd_cd -d'
+    # alias cc='fasd_cd -d -i' # dunno if ok
+    _fasd_bash_hook_cmd_complete c cc
+fi
 alias c-='cd -'
 
 ###### ls
-alias ls=exa-linux-x86_64 # 'ls --color=auto'
+
+if command -v exa-linux-x86_64 >/dev/null 2>&1; then
+    alias ls=exa-linux-x86_64
+    alias ll='ls -alFh --git'
+    alias la='ls -Ah --git'
+    alias l='ls -1Fh --git'
+else
+    alias ls='ls --color=auto'
+    alias ll='ls -alFh -C'
+    alias la='ls -Ah -C'
+    alias l='ls -1Fh -C'
+fi
 alias sl=ls
-alias ll='ls -alFh --git'
-alias la='ls -Ah --git'
-alias l='ls -1Fh --git' # -C when ls
 
 ###### sudo
 alias _="sudo"
