@@ -324,7 +324,7 @@ def translate(ptexts, pargs):
                     ind = wdelim.index('\n')
                     width = len(wdelim[ind+1:])
                 else:
-                    width += len(wdelim)                    
+                    width += len(wdelim)
                 i += 1
 
             tdelim = ''
@@ -339,7 +339,7 @@ def translate(ptexts, pargs):
                 active_width -= len(tdelim)
 
             newpart = nextword + wdelim + tdelim
-            
+
             if active_width >= int(pargs['-w']):
                 text += '\n'
                 width = len(newpart)

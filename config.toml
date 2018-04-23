@@ -45,8 +45,7 @@
            ["bin/git-dfs",           "git/git-scripts/git-dfs"],
            ["bin/git-dft",           "git/git-scripts/git-dft"],
            ["bin/git-b.sh",          "git/git-scripts/git-b/.legacy/git-b"],
-           ["bin/git-b",             "git/git-scripts/git-b/git-b"],
-           ["bin/git-b.compiled",    "git/git-scripts/git-b/bin/git-b"]]
+           ["bin/git-b",             "git/git-scripts/git-b/git-b"]]
 
 [tasks.i3wm]
     links=[[".config/i3/config",       "i3wm/config"],

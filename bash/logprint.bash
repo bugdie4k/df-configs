@@ -25,10 +25,14 @@ __get_level_prefix(){
 }
 
 __.log_help(){
-    echo "USAGE:"
-    echo "  .log [-h|--help] [-l|--level LEVEL] [-f|--file FILE] [[-t|--text] TEXT]"
+    echo "NAME"
+    echo "      .log - Source the logprint.bash file and use this for scripts"
     echo
-    echo "  --level specifies the severity level (https://en.wikipedia.org/wiki/Syslog#Severity_level)."
+    echo "SYNOPSIS:"
+    echo "      .log [-h|--help] [-l|--level LEVEL] [-f|--file FILE] [[-t|--text] TEXT]"
+    echo
+    echo "      --level, -l"
+    echo "          specifies the severity level (https://en.wikipedia.org/wiki/Syslog#Severity_level)."
     echo "          Levels are:"
     echo "            0 - emerg"
     echo "            1 - alert"
@@ -39,16 +43,23 @@ __.log_help(){
     echo "            6 - info"
     echo "            7 - debug"
     echo "          If none is specified level 6 (info) is assumed."
-    echo "  --file  a file to output to. Default is to output to stdout."
-    echo "  --text  text of a log message."
+    echo
+    echo "      --file"
+    echo "          a file to output to. Default is to output to stdout."
+    echo
+    echo "      --text"
+    echo "          text of a log message."
     echo
     echo "  When given an arg without an option assumes it is TEXT for log message."
     echo
-    echo "CUSTOMIZATION VARS:"
-    echo "  LOG_LEVEL - specifies maximum log level to output."
-    echo "              .log outputs only if LEVEL specified with --level option is less then LOG_LEVEL."
-    echo "              Default is LOG_LEVEL=6."
-    echo "  LOG_PREFIX - specifies a prefix to put in front of all .log messages. By default is empty."
+    echo "ENVIRONMENT VARS:"
+    echo "      LOG_LEVEL"
+    echo "          specifies maximum log level to output."
+    echo "          .log outputs only if LEVEL specified with --level option is less then LOG_LEVEL."
+    echo "          Default is LOG_LEVEL=6."
+    echo
+    echo "      LOG_PREFIX"
+    echo "          specifies a prefix to put in front of all .log messages. By default is empty."
     echo
     echo "There're also functions "
     echo -e " .log-emerg\n .log-alert\n .log-crit\n .log-err\n .log-warning\n .log-notice\n .log-info\n .log-debug"
@@ -57,7 +68,7 @@ __.log_help(){
 }
 
 .log(){
-    local level=6
+    local -i level=6
     local txt=''
     local file=''
 
