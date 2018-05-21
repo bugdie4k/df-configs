@@ -103,7 +103,7 @@ function wd() {
     fi
 }
 
-function ep () {
+function ep() {
     : "emacs with selecting recent files from fasd with fzf"
 
     file_to_open=$(fasd -f -R | fzf --preview "__ep_preview {}" | awk -F ' ' '{print $2}')
@@ -114,7 +114,7 @@ function ep () {
     fi
 }
 
-function cc () {
+function cc() {
     : "cd selecting recent dirs from fasd with fzf"
 
     dir_to_open=$(fasd -d -R | fzf --preview "__ep_preview {}" | awk -F ' ' '{print $2}')
@@ -123,4 +123,12 @@ function cc () {
     else
         echo "cc: nothing happened"
     fi
+}
+
+function psg() {
+    ps -aux | grep $@
+}
+
+function psa() {
+    ps -aux | ag $@
 }
