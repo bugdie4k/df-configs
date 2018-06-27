@@ -114,7 +114,7 @@ if [ ! -e $LCKSH_LOCKFILE ]; then
         local -r wrongtxt="NOPE"
 
         i3lock \
-            -i ~/Pictures/wallpapers/road-with-palms-"$MACHINE".png \
+            -i ~/Pictures/wallpapers/road-with-palms-"$DF_THIS_MACHINE".png \
             --ringcolor="$main" \
             --keyhlcolor="$active" \
             --insidecolor="$dim" \
@@ -143,7 +143,7 @@ if [ ! -e $LCKSH_LOCKFILE ]; then
             --nofork
     }
 
-    if [ "$MACHINE" = "work" ]; then
+    if [ "$DF_THIS_MACHINE" = "work" ]; then
         lcksh_on_locking && lcksh_i3lock && lcksh_on_unlocking
     else
         lcksh_i3lock

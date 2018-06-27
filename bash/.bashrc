@@ -2,30 +2,25 @@
 
 # This file is to be sourced
 
-###### HELLO WORLD #############################################################
+###### Source configs #########################################################
 
-echo "MACHINE: $MACHINE"
+. ${DF_CONFIGS}/bash/.bashrc.default-stuff
+. ${DF_CONFIGS}/bash/.bashrc.variables
+. ${DF_CONFIGS}/bash/.bashrc.misc
+. ${DF_CONFIGS}/bash/.bashrc.functions
+. ${DF_CONFIGS}/bash/.bashrc.aliases
+. ${DF_CONFIGS}/bash/.bashrc.completion
+. ${DF_CONFIGS}/bash/.bashrc.prompt
 
-###### my stuff ################################################################
+###### Source local configs ###################################################
 
-. ${CONFIGS}/bash/default-stuff.bash
-. ${CONFIGS}/bash/variables.bash
-. ${CONFIGS}/bash/coloring.bash
-. ${CONFIGS}/bash/functions.bash
-. ${CONFIGS}/bash/aliases.bash
-. ${CONFIGS}/bash/completion.bash
-. ${CONFIGS}/bash/logprint.bash
-. ${CONFIGS}/bash/prompt.bash
-
-###### local settings ##########################################################
-
-case $MACHINE in
-    home|home2|kate) . ${LOCAL_CONFIGS}/local.home.bash ;;
-    work) . ${LOCAL_CONFIGS}/bash.local.work ;;
-    *) echo ".bashrc: Don't know where to find locals for this machine."
+case $DF_THIS_MACHINE in
+    home|home2|kate) . ${DF_LOCAL_CONFIGS}/.bashrc.local.home ;;
+    work) . ${DF_LOCAL_CONFIGS}/bash.local.work ;;
+    *) echo ".bashrc: Don't know where to find local configs for this machine." ;;
 esac
 
-###### also source #############################################################
+###### Also source ############################################################
 
 also_source() {
     if [ -f $1 ]; then

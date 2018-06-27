@@ -4,22 +4,20 @@
 
 ###### source scm stuff
 
-source ${CONFIGS}/bash/prompt.scm_info.bash
+. ${DF_CONFIGS}/bash/.bashrc.prompt.scm_info
 
 ###### colors
 
 export PROMPT_BRACKET_COLOR=93
 export PROMPT_PREV_RETURN_COLOR=129
 export PROMPT_USER_COLOR=171
-export PROMPT_TIME_DATE_COLOR=177
+# export PROMPT_TIME_DATE_COLOR=177
 export PROMPT_SCM_COLOR=183
 export PROMPT_PATH_COLOR=189
 
 ###### make prompt function
 
 function prompt-set-ps1 () {
-    : "echoes string that should be put to PS1 var to make up a prompt"
-
     ## components
 
     local bracket_left="$(tput setaf ${PROMPT_BRACKET_COLOR})["
@@ -29,7 +27,7 @@ function prompt-set-ps1 () {
     local prev_return="$(tput setaf ${PROMPT_PREV_RETURN_COLOR})\$?"
     local user="$(tput setaf ${PROMPT_USER_COLOR})\u";
     local path="$(tput setaf ${PROMPT_PATH_COLOR})\w";
-    local time_date="$(tput setaf ${PROMPT_TIME_DATE_COLOR})\D{%a %d/%m/%y %T}";
+    # local time_date="$(tput setaf ${PROMPT_TIME_DATE_COLOR})\D{%a %d/%m/%y %T}";
     local normal="\[\e[0m\]"
 
     ## components to blocks
@@ -40,7 +38,7 @@ function prompt-set-ps1 () {
     local prev_return_code_block=$(make-block $prev_return)
     local user_block=$(make-block $user)
     local path_block=$(make-block $path)
-    local time_date_block=$(make-block $time_date)
+    # local time_date_block=$(make-block $time_date)
 
     ## nested shell indicator
     # if i am in the nested shell, echoes a dot. useful to see quickly if mc is running
@@ -65,7 +63,8 @@ function prompt-set-ps1 () {
         SCM_THEME_PROMPT_DIRTY=''
         SCM_THEME_PROMPT_CLEAN=''
     fi
-    PS1="${line1_start}${prev_return_code_block}${user_block}${time_date_block}\$(scm_prompt_info)${path_block}$(nested-shell-indicator)
+    # now it does not use time_date_block because it is useless
+    PS1="${line1_start}${prev_return_code_block}${user_block}\$(scm_prompt_info)${path_block}$(nested-shell-indicator)
 └─ \$ ${normal}"
     #^ don't know why but making second line start with $line2_start messed my prompt somehow
 }
@@ -75,7 +74,7 @@ function prompt-set-ps1 () {
 function prompt-set-bracket-color () { PROMPT_BRACKET_COLOR=$1 ; prompt-set-ps1 ; }
 function prompt-set-prev-return-color () { PROMPT_PREV_RETURN_COLOR=$1 ; prompt-set-ps1 ; }
 function prompt-set-user-color () { PROMPT_USER_COLOR=$1 ; prompt-set-ps1 ; }
-function prompt-set-time-date-color() { PROMPT_TIME_DATE_COLOR=$1 ; prompt-set-ps1 ; }
+# function prompt-set-time-date-color() { PROMPT_TIME_DATE_COLOR=$1 ; prompt-set-ps1 ; }
 function prompt-set-scm-color () { PROMPT_SCM_COLOR=$1 ; prompt-set-ps1 ; }
 function prompt-set-path-color () { PROMPT_PATH_COLOR=$1 ; prompt-set-ps1 ; }
 function prompt-show-colors () {
@@ -96,12 +95,12 @@ function prompt-set-colors () {
     prompt-set-bracket-color $1
     prompt-set-prev-return-color $2
     prompt-set-user-color $3
-    prompt-set-time-date-color $4
-    prompt-set-scm-color $5
-    prompt-set-path-color $6
+    # prompt-set-time-date-color $4
+    prompt-set-scm-color $4
+    prompt-set-path-color $5
 }
 
-if [ $MACHINE = "work" ] ; then
+if [ $DF_THIS_MACHINE = "work" ] ; then
     prompt-set-ps1 min
 else
     prompt-set-ps1

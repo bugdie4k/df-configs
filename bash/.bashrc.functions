@@ -2,7 +2,7 @@
 
 # This file is to be sourced
 
-. ${CONFIGS}/bash/functions.switch-emacs.bash
+##### This file contains definitions for functions to be used in command line
 
 function =() {
     : "p as +, x as *"

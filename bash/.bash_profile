@@ -1,47 +1,47 @@
 # -*- mode: shell-script -*-
 
+# This file is to be sourced
+
+##### Variables exported here are going into the global environment ###########
+
 export SHELL=/bin/bash
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/root/.local/bin:/root/bin
 
-###### determine my location and some dependent variables ######################
+##### Determine my location and some dependent variables ######################
 
-if [[ $(whoami) = "dfedorov" ]]; then
-    MACHINE="work"
-    CONFIGS=~/configs
-    LOCAL_CONFIGS=~/sensitive-configs
-elif [[ $(whoami) = "bugdie4k" ]]; then
-    MACHINE="home"
-    CONFIGS=~/configs
-    LOCAL_CONFIGS=$CONFIGS/bash
-elif [[ $(whoami) = "kate" ]]; then
-    MACHINE="kate"
-    CONFIGS=~/configs
-    LOCAL_CONFIGS=$CONFIGS/bash
-elif [[ $(whoami) = "bugdie4k2" ]]; then
-    MACHINE="home2"
-    CONFIGS=~/configs
-    LOCAL_CONFIGS=$CONFIGS/bash
-elif [[ $(whoami) = "bugdie4kdndz" ]]; then
-    MACHINE="dndz"
-    CONFIGS=~/configs
-    LOCAL_CONFIGS=$CONFIGS/bash
+export DF_THIS_MACHINE=''
+export DF_CONFIGS=''
+export DF_LOCAL_CONFIGS=''
+
+if [ "$(whoami)" = 'dfedorov' ]; then
+    DF_THIS_MACHINE='work'
+    DF_CONFIGS=~/configs
+    DF_LOCAL_CONFIGS=~/sensitive-configs
+elif [ "$(whoami)" = 'bugdie4k' ]; then
+    DF_THIS_MACHINE='home'
+    DF_CONFIGS=~/configs
+    DF_LOCAL_CONFIGS=$DF_CONFIGS/bash
+elif [ "$(whoami)" = 'kate' ]; then
+    DF_THIS_MACHINE='kate'
+    DF_CONFIGS=~/configs
+    DF_LOCAL_CONFIGS=$DF_CONFIGS/bash
+elif [ $(whoami) = 'bugdie4k2' ]; then
+    DF_THIS_MACHINE='home2';
+    DF_CONFIGS=~/configs
+    DF_LOCAL_CONFIGS=$DF_CONFIGS/bash
+elif [ $(whoami) = 'bugdie4kdndz' ]; then
+    DF_THIS_MACHINE='dndz'
+    DF_CONFIGS=~/configs
+    DF_LOCAL_CONFIGS=$DF_CONFIGS/bash
 fi
 
-export MACHINE
-export CONFIGS_REPO
-export CONFIGS
-export LOCAL_CONFIGS
-
-###### PATHs ###################################################################
+###### PATHs ##################################################################
 
 # dir with custom scripts
-export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+PATH="$PATH:$HOME/bin"
+# another location for per user executables
+PATH="$PATH:$HOME/.local/bin"
 
-export PATH="$HOME/.cargo/bin:$PATH"
-
-export PATH="$HOME/.cargo/bin:$PATH"
-
-###### if running bash source bashrc ###########################################
+###### If running bash source bashrc ##########################################
 
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists

@@ -1,27 +1,39 @@
 # -*- mode: shell-script -*-
 
-# This file is to be sourced
+##### switch-emacs - the silly switcher for Emacs configs #####################
 
-# TODO: make a separate script
-
+# file name with this prefix is used to save the name
+# of the current emacs config
 _SE_CUR_NAME_FILE_PREFIX=~/.switch-emacs.current-emacs
+# this suffix is added to stored .emacs.d dirs
 _SE_SUFFIX=se
 
+# colors
 _SE_MAGENTA=201
 _SE_YELLOW=3
 _SE_RED=1
 
 __switch-emacs_help(){
-    echo 'USAGE:'
-    echo '  switch-emacs [--list|-l] [--new|-n NEWNAME] [--help|-h] [NAME]'
+    echo 'NAME'
+    echo '       switch-emacs - the silly switcher for Emacs configs'
     echo
-    echo '  [--list|-l]'
-    echo '      Prints all available dotemacses.'
-    echo '      Without args prints name of current emacs.'
-    echo '      NAME is a name of emacs to switch to.'
-    echo '  [--new|-n NEWNAME]'
-    echo '      Creates new dir for new config.'
-    echo '      NEWNAME is LNAME+SNAME or LNAME SNAME (with space) or LNAME'
+    echo 'SYNOPSIS'
+    echo '       switch-emacs [--list|-l] [--new|-n NEWNAME] [--help|-h] [NAME]'
+    echo
+    echo 'DESCRIPTION'
+    echo '           Without args prints the name of current Emacs.'    
+    echo '           NAME is a name of Emacs to switch to.'
+    echo
+    echo 'OPTIONS'
+    echo '       [--list|-l]'
+    echo '           Prints all available dotemacses.'    
+    echo
+    echo '       [--new|-n NEWNAME]'
+    echo '           Creates new dir for new config.'
+    echo '           NEWNAME is LNAME+SNAME or LNAME SNAME (with space) or LNAME.'
+    echo '           LNAME is a long name for new config.'
+    echo '           SNAME is a short alias name for new config.'
+    echo "           Avoid the '+' sign in names"
 }
 
 __switch-emacs_list(){
@@ -81,6 +93,17 @@ __switch-emacs_new(){
     fi
 }
 
+__switch-emacs_figlet_echo() {
+    local -r msg="$1"
+    shift
+    local -r figlet_options="$@"
+    if [ $(command -v figlet) ]; then
+        figlet $figlet_options $msg
+    else
+        echo $msg
+    fi
+}
+
 switch-emacs(){
     # figure out current emacs
     local full_curr scurr lcurr
@@ -94,7 +117,7 @@ switch-emacs(){
     if [ $# -eq 0 ]; then
         tput setaf $_SE_MAGENTA
         echo "CURRENT: ${lcurr^^} ($scurr)" # ^^ for upcase
-        figlet -f kban -w 160 ${lcurr^^}
+        __switch-emacs_figlet_echo ${lcurr^^} -f kban -w 160
         tput sgr0
 
         return 0
@@ -125,7 +148,7 @@ switch-emacs(){
     # tell about previous emacs
     tput setaf $_SE_YELLOW
     echo "PREVIOUS: ${lcurr^^} ($scurr)"
-    figlet -f kban -w 160 ${lcurr^^}
+    __switch-emacs_figlet_echo ${lcurr^^} -f kban -w 160
     tput sgr0
 
     # report if they are the same
@@ -158,6 +181,8 @@ switch-emacs(){
     # tell about current emacs
     tput setaf $_SE_MAGENTA
     echo "CURRENT: ${lnew^^} ($snew)"
-    figlet -f kban -w 160 ${lnew^^}
+    __switch-emacs_figlet_echo ${lnew^^} -f kban -w 160
     tput sgr0
 }
+
+switch-emacs $@

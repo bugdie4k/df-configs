@@ -3,6 +3,8 @@
 import sys
 import string
 
+# TODO: rewrite to something less insane maybe
+
 alphabet = {'а':'A',  'б':'b',   'в':'B', 'г':'G',   \
             'д':'D',  'е':'E',   'ё':'E', 'ж':'}I{', \
             'з':'3',  'и':'N',   'й':'N', 'к':'K',   \

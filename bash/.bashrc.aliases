@@ -2,6 +2,8 @@
 
 # This file is to be sourced
 
+##### This file contains definitions for aliases to be used in command line
+
 ###### fasd
 
 # defines as aliases: f a s d z zz sd sf
@@ -89,8 +91,8 @@ alias killemacs='killall emacs'
 alias esf='e $(fasd -sif)'
 
 ###### edit bashrc
-alias ebf="emacs-client-or-daemon.sh ${CONFIGS}/bash/functions.bash"
-alias eba="emacs-client-or-daemon.sh ${CONFIGS}/bash/aliases.bash"
+# alias ebf="emacs-client-or-daemon.sh ${DF_CONFIGS}/bash/functions.bash"
+# alias eba="emacs-client-or-daemon.sh ${DF_CONFIGS}/bash/aliases.bash"
 
 ###### kdiff3
 alias kd3="kdiff3"

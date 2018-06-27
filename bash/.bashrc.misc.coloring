@@ -18,7 +18,7 @@
 #
 #  colorlist # for parsing
 
-source ${CONFIGS}/bash/coloring.data.bash
+source ${DF_CONFIGS}/bash/.bashrc.misc.coloring.data
 
 __general_coloring_help(){
     echo

@@ -1,6 +1,6 @@
 # -*- mode: shell-script -*-
 
-# This file is to be sourced
+# This file is to be sourced by bash
 
 # inspired by https://stackoverflow.com/questions/8455991/elegant-way-for-verbose-mode-in-scripts
 
@@ -99,33 +99,33 @@ __.log_help(){
 }
 
 .log-emerg(){
-    .log -l 0 "$@"
+    .log -l 0 $@
 }
 
 .log-alert(){
-    .log -l 1 "$@"
+    .log -l 1 $@
 }
 
 .log-crit(){
-    .log -l 2 "$@"
+    .log -l 2 $@
 }
 
 .log-err(){
-    .log -l 3 "$@"
+    .log -l 3 $@
 }
 
 .log-warning(){
-    .log -l 4 "$@"
+    .log -l 4 $@
 }
 
 .log-notice(){
-    .log -l 5 "$@"
+    .log -l 5 $@
 }
 
 .log-info(){
-    .log -l 6 "$@"
+    .log -l 6 $@
 }
 
 .log-debug(){
-    .log -l 7 "$@"
+    .log -l 7 $@
 }

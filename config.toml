@@ -64,7 +64,8 @@
 [tasks.bin]
     links=[["bin/catt"],
            ["bin/__ep_preview"],
-           ["bin/rus2dumb"]]
+           ["bin/rus2dumb"],
+           ["bin/switch-emacs"]]
 
 [tasks.timewarrior]
     links=[[".timewarrior/timewarrior.cfg", "timewarrior/timewarrior.cfg"]]

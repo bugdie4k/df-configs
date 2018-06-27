@@ -2,6 +2,8 @@
 
 # This file is to be sourced
 
+###### Variables exported here are going into the environment of shell process
+
 export GREP_COLOR='1;33'
 
 # This is what i did:
@@ -15,13 +17,17 @@ export IBUS_ENABLE_SYNC_MODE=1
 # colorful terminal
 export TERM=xterm-256color
 
+# figlet fonts place
+export FIGLET_FONTDIR=~/.local/share/figlet
+
 # golang
 export GOPATH=~/projects/goworkspace
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOPATH/bin
 
-# figlet fonts place
-export FIGLET_FONTDIR=~/.local/share/figlet
+# rust things
+PATH="$PATH:$HOME/.cargo/bin"
+PATH="$PATH:$HOME/.cargo/bin"
 
 # lein
 export LEIN_JAR=~/.lein/self-installs/leiningen-2.8.1-standalone.jar
@@ -35,8 +41,7 @@ export LEIN_JAR=~/.lein/self-installs/leiningen-2.8.1-standalone.jar
 # Base16 Rebecca4k (bugdie4k's spin on Base16 Rebecca)
 # Author: Victor Borja (http://github.com/vic) based on Rebecca Theme (http://github.com/vic/rebecca-theme)
 
-_gen_fzf_default_opts() {
-
+gen_fzf_default_opts() {
     local color00='#050507'
     local color01='#663399'
     local color02='#383a62'
@@ -62,4 +67,5 @@ _gen_fzf_default_opts() {
 
 }
 
-_gen_fzf_default_opts
+gen_fzf_default_opts
+unset -f gen_fzf_default_opts

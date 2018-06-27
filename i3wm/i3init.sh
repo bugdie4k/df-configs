@@ -26,9 +26,15 @@ xset s 1800
 # disable desktop so that nautilus stops screwing i3 workspace
 gsettings set org.gnome.desktop.background show-desktop-icons false
 
-# browser
-[ $MACHINE = 'home2' ] && BROWSER=firefox.desktop || BROWSER=vivaldi-stable.desktop
+BROWSER=vivaldi-stable.desktop
+if [ $DF_THIS_MACHINE = 'home2' ]; then
+    BROWSER=firefox.desktop
+fi
 xdg-settings set default-web-browser $BROWSER
 
 # launch terminal
-tilix &
+if [ $(command -v tilix) ]; then
+    tilix &
+elif [ $(command -v gnome-terminal) ]; then
+    gnome-terminal &
+fi

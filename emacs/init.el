@@ -46,10 +46,10 @@
 (add-to-list 'load-path "~/.emacs.d/downloaded")
 
 ;; local
-(when (string= (getenv "MACHINE") "work")
+(when (string= (getenv "DF_THIS_MACHINE") "work")
   (use-package minor-mode-hack)
   (require 'auto-par-mode)
-  (load (concat (getenv "LOCAL_CONFIGS") "/sensitive.el")))
+  (load (concat (getenv "DF_LOCAL_CONFIGS") "/sensitive.el")))
 
 (setq-default show-trailing-whitespace nil)
 ;; (defun toggle-trailing-whitespace ()
@@ -197,7 +197,8 @@
   (sp-use-paredit-bindings)
   ;; strict
   (add-hook 'clojure-mode-hook 'smartparens-strict-mode)
-  (add-hook 'clojure-mode-hook (lambda () (electric-pair-mode -1)))
+  ;; (add-hook 'clojure-mode-hook (lambda () (electric-pair-mode -1)))
+  (add-hook 'clojure-mode-hook (lambda () (modify-syntax-entry ?! "w")))
   (add-hook 'cider-repl-mode-hook 'smartparens-strict-mode)
   (add-hook 'lisp-mode-hook 'smartparens-strict-mode)
   (add-hook 'emacs-lisp-mode-hook 'smartparens-strict-mode)
