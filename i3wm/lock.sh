@@ -115,6 +115,7 @@ if [ ! -e $LCKSH_LOCKFILE ]; then
 
         i3lock \
             -i ~/Pictures/wallpapers/road-with-palms-"$DF_THIS_MACHINE".png \
+            -t \
             --ringcolor="$main" \
             --keyhlcolor="$active" \
             --insidecolor="$dim" \
