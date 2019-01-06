@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# Made specifically for use with 'ep' function
+# Find it in bash/functions.bash
+
+catt "$(echo $@ | cut -d ' ' -f 2-)" | head -300

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# The default (no args) is to compare the working tree to the index,
+# repeating 'git diff' semantics
+
+if [ $# -eq 0 ]; then
+    git difftool
+elif [[ "$@" = "-h" ]] || [[ "$@" = "--help" ]] || [[ "$@" = "help" ]]; then
+    git help difftool
+else
+    git difftool $@
+fi

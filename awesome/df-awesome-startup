@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# set background
+feh --bg-scale ~/Pictures/wallpapers/city-road-purp.jpg
+
+# enable touchpad tapping
+if [[ $DF_THIS_MACHINE = 'home' ]]; then
+  xinput set-prop 'ETPS/2 Elantech Touchpad' 'libinput Tapping Enabled' 1
+fi
+
+# network manager applet
+nm-applet &
+
+# they say its good for eyes
+if ! pgrep redshift; then
+  redshift -l 50.4:30.5 -t 5700:4000 &
+fi
+
+# autolock after 5 min being idle
+xautolock -noclose -locker df-lockscreen -time 5 &
+
+# blank screen after 30 min
+xset s 1800
+
+# autostart a terminal
+x-terminal-emulator &

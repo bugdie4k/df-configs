@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# key : promise
+# name : when-promise
+# --
+when.promise((resolve, reject) => {$0})

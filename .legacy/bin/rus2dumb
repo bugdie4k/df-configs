@@ -1,0 +1,374 @@
+#!/usr/bin/env python3
+
+import sys
+import string
+
+# TODO: rewrite to something less insane maybe
+
+alphabet = {'а':'A',  'б':'b',   'в':'B', 'г':'G',   \
+            'д':'D',  'е':'E',   'ё':'E', 'ж':'}I{', \
+            'з':'3',  'и':'N',   'й':'N', 'к':'K',   \
+            'л':'JI', 'м':'M',   'н':'H', 'о':'O',   \
+            'п':'I1', 'р':'P',   'с':'C', 'т':'T',   \
+            'у':'Y',  'ф':'0I0', 'х':'X', 'ц':'U',   \
+            'ч':'4',  'ш':'W',   'щ':'W', 'ъ':'b',   \
+            'ы':'bI', 'ь':'b',   'э':'3', 'ю':'I0', 'я':'9I'}
+
+special = {'«':'<<', '»':'>>', '…':'...'}
+
+# utils
+
+def find_if(s, fn):
+    for i, c in enumerate(s):
+        if fn(c):
+            return i
+    return None
+
+def strip_saving(text, chars=' '):
+    not_to_strip = lambda c: c not in chars
+    lindex = find_if(text, not_to_strip)
+    if lindex is not None:
+        lstripped = text[:lindex]
+        # s[::-1] is s reversed
+        rindex = find_if(text[::-1], not_to_strip)
+        rstripped = text[len(text) - rindex:]
+    else:
+        lstripped, rstripped = '', ''
+    return text.strip(chars), lstripped, rstripped
+
+def allspaces(s):
+    for c in s:
+        if c not in string.whitespace or c == '\n':
+            return False
+    return True
+
+# parsing options and syntax setup
+
+def option(s):
+    return s[0] == '-'
+
+def parse_text_arg(argv, texts=[]):
+    if argv:
+        arg = argv[0]
+
+        if option(arg):
+            return texts, argv
+
+        texts.append(arg)
+        return parse_text_arg(argv[1:], texts)
+    else:
+        return texts, []
+
+def parse_translate_arg(argv, pairs=[]):
+    # print('pta-', argv, pairs)
+    if len(argv) >= 2:
+        arg1 = argv[0]
+        arg2 = argv[1]
+
+        if option(arg1):
+            return pairs, argv
+
+        if option(arg2):
+            return pairs, argv[1:]
+
+        pairs.append((arg1, arg2))
+        return parse_translate_arg(argv[2:], pairs)
+    else:
+        return pairs, []
+
+def mk_set_to(val):
+    return lambda argv: [val, argv]
+
+def mk_read_amount(n):
+    return lambda argv: [argv[:n], argv[n:]]
+
+def read_one(argv):
+    arg, rest = mk_read_amount(1)(argv)
+    return arg[0], rest
+
+set_true = mk_set_to(True)
+
+def init_opt_dicts(args_dict):
+    long_short, opt_action, opt_default, opt_help = {}, {}, {}, {}
+
+    for opts, attrs in args_dict.items():
+        if type(opts) is tuple:
+            long_short[opts[1]] = opts[0]
+            opt = opts[0]
+        elif type(opts) is str:
+            opt = opts
+        else:
+            raise RuntimeError('{} is wring. Must be a tuple of short and long options or a string'.format(opts))
+
+        if type(attrs) is dict:
+            try:
+                fn = attrs['action']
+            except KeyError as e:
+                print('{} option must have an action'.format(opt))
+                raise e
+
+            try:
+                default = attrs['default']
+            except KeyError:
+                default = None
+
+            try:
+                hlp = attrs['help']
+            except KeyError:
+                hlp = ''
+
+        elif callable(attrs):
+            fn = attrs
+            default = None
+            hlp = ''
+        else:
+            raise RuntimeError('{} is wrong. Must be a dict with "action" key or a callable fn(argv) -> val, rest'.format(attrs))
+
+        opt_action[opt] = fn
+        opt_default[opt] = default
+        opt_help[opt] = hlp
+
+    script = sys.argv[0]
+    i = find_if(script[::-1], lambda ch: ch == '/')
+    help_str = 'NAME\n  {}\n\n'.format(script[len(script)-i:])
+    help_str += 'OPTIONS\n  {}'.format('\n\n  '.join([ '{}|{} {}'.format(l, s, opt_help[s]) for l, s in long_short.items() ]))
+
+    long_short['--help'] = '-h'
+
+    def print_help(argv):
+        print(help_str)
+        exit(0)
+
+    opt_action['-h'] = print_help
+
+    return long_short, opt_action, opt_default
+
+# options definition
+long_short, opt_action, opt_default = \
+    init_opt_dicts({('-tr', '--translate') : {'action':parse_translate_arg,
+                                              'help':'PAIR+ \n'\
+                                              + '      PAIR is two chars. The first one is translated to the second one.'},\
+                    ('-tx', '--text') : {'action':parse_text_arg,
+                                         'help':'TEXT+'},\
+                    ('-f', '--file') : {'action':read_one,
+                                        'help':'FILE'},\
+                    ('-s', '--strip') : {'action':set_true},\
+                    ('-td', '--texts-delimiter') : {'action':read_one,
+                                                    'default':'   ',
+                                                    'help':'STR'},\
+                    ('-cd', '--chars-delimiter') : {'action':read_one,
+                                                    'default':' ',
+                                                    'help':'STR'},\
+                    ('-wd', '--words-delimiter') : {'action':read_one,
+                                                    'default':'   ',
+                                                    'help':'STR'},\
+                    ('-w', '--width') : {'action':read_one,
+                                         'default':100,
+                                         'help':'INT'},
+                    '-vk' : {'action':set_true,
+                             'default':False}})
+
+def shorten(opt):
+    try:
+        return long_short[opt]
+    except KeyError:
+        return opt
+
+def run_opt_parser(opt, argv):
+    return opt_action[opt](argv)
+
+def parse_args(argv, parsed=opt_default):
+    if argv:
+        arg = shorten(argv[0])
+        try:
+            parsed[arg], rest = run_opt_parser(arg, argv[1:])
+            return parse_args(rest, parsed)
+        except KeyError:
+            # try to treat it as text
+            if option(arg):
+                print("rus2dumb: don't know this option: {}".format(arg))
+                return parsed
+            else:
+                parsed['-tx'], rest = parse_text_arg(argv)
+                return parse_args(rest, parsed)
+    else:
+        return parsed
+
+# parse test
+
+def parse_word(text):
+    def recur(text, word=''):
+        if text:
+            if text[0] != ' ' and text[0] != '\n':
+                word += text[0]
+                return recur(text[1:], word)
+            else:
+                return word, text
+        else:
+            return word, ''
+
+    return recur(text)
+
+def parse_whitespace(text, delim=''):
+    if text:
+        if text[0] in string.whitespace:
+            return parse_whitespace(text[1:], delim + text[0])
+        else:
+            return delim, text
+    else:
+        return delim, ''
+
+class Lexem:
+    def __init__(self, type, contents):
+        self.type = type
+        self.has_nl = True if '\n' in contents else False
+        self.contents = contents
+
+def parse_text(text, pargs):
+    text, lstripped, rstripped = strip_saving(text, string.whitespace)
+
+    ptext = {'lstripped':lstripped, 'rstripped':rstripped}
+    def recur(text, pwords=[]):
+        if text:
+            if text[0] in string.whitespace:
+                lexem, rest = parse_whitespace(text)
+                type = 'ws'
+            else:
+                lexem, rest = parse_word(text)
+                type = 'w'
+            pwords.append(Lexem(type, lexem))
+            # pwords.append(lexem)
+            return recur(rest, pwords)
+        else:
+            return pwords
+
+    ptext['words'] = recur(text)
+    return ptext
+
+def parse_texts(pargs):
+    maybe_strip = lambda t: t.strip() if pargs['-s'] else t
+
+    if pargs['-tx'] is None and pargs['-f'] is None:
+        raise RuntimeError('rus2dumb: Need a text source!')
+
+    ptexts = []
+
+    if pargs['-tx'] is not None:
+        ptexts += [ parse_text(maybe_strip(t), pargs) for t in pargs['-tx'] ]
+
+    if pargs['-f'] is not None:
+        with open(pargs['-f'], 'r') as f:
+            t = f.read()
+            ptext_from_file = parse_text(maybe_strip(t), pargs)
+            ptexts.append(ptext_from_file)
+
+    return ptexts
+
+# translate
+
+def pretranslate_aux(lexem, pargs):
+    if lexem.type == 'ws':
+        if lexem.has_nl:
+            newword = lexem.contents
+        elif pargs['-wd'] in lexem.contents:
+            newword = lexem.contents
+        else:
+            newword = pargs['-wd']
+    elif lexem.type == 'w':
+        newword = lexem.contents
+        if pargs['-tr'] is not None:
+            for pair in pargs['-tr']:
+                newword = newword.replace(pair[0], pair[1])
+
+    return newword
+
+def pretranslate(ptexts, pargs):
+    for ptext in ptexts:
+        ptext['words'] = [ pretranslate_aux(lexem, pargs) for lexem in ptext['words'] ]
+    return ptexts
+
+def to_dumb(s):
+    new_s = ''
+    for c in s:
+        try:
+            new_s += alphabet[c.lower()]
+        except KeyError:
+            try:
+                new_s += special[c]
+            except KeyError:
+                new_s += c
+
+    return new_s
+
+def translate(ptexts, pargs):
+    ptexts = pretranslate(ptexts, pargs)
+
+    td_allspaces = allspaces(pargs['-td'])
+    # wd_allspaces = allspaces(pargs['-wd'])
+
+    texts = []
+    width = 0
+    for k in range(len(ptexts)):
+        ptext = ptexts[k]
+        text = ptext['lstripped']
+        width += len(text)
+        words = ptext['words']
+        i = 0
+        while i < len(words):
+            nextword = to_dumb(pargs['-cd'].join(list(words[i])))
+            width += len(nextword)
+
+            i += 1
+            wdelim = ''
+            if i < len(words):
+                wdelim = words[i]
+                if '\n' in wdelim:
+                    ind = wdelim.index('\n')
+                    width = len(wdelim[ind+1:])
+                else:
+                    width += len(wdelim)
+                i += 1
+
+            tdelim = ''
+            if i == len(words) and k != len(ptexts)-1:
+                tdelim = pargs['-td']
+                width += len(tdelim)
+
+            active_width = width
+            if allspaces(wdelim):
+                active_width -= len(wdelim)
+            if td_allspaces:
+                active_width -= len(tdelim)
+
+            newpart = nextword + wdelim + tdelim
+
+            if active_width >= int(pargs['-w']):
+                text += '\n'
+                width = len(newpart)
+
+            text += newpart
+        texts.append(text + ptext['rstripped'])
+
+    return pargs['-td'].join(texts)
+
+def print_ptexts(ptexts):
+    for ptext in ptexts:
+        print('rls', ptext['lstripped'], '|', ptext['rstripped'])
+        print('words', [ l.contents for l in ptext['words'] ])
+
+def run():
+    pargs = parse_args(sys.argv[1:])
+    ptexts = parse_texts(pargs)
+    # print_ptexts(ptexts)
+    result = translate(ptexts, pargs)
+    print(result)
+    if pargs['-vk']:
+        print('---')
+        print(result.replace(' ', '&#8194;'))
+        print('---')
+
+if __name__ == '__main__':
+    run()
+
+# ./rus2dumb а жизнь прекрасный карнавал
+# ./rus2dumb слабым дай смерть, сильным дай боль

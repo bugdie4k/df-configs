@@ -1,0 +1,64 @@
+,"(If the first column is empty, its a comment)"
+,
+,"This file is used to generate bash script for placing symlinks to files from repo in proper places."
+,"col 1: filename, col 2: dir for symbolic link, col 3: directory with file 'filename' in $CONFIGS_PATH."
+,"Rows with one word are the names of sections."
+,
+Bash
+.bashrc, ~/, /bash/
+.profile, ~/, /bash/
+.bash_profile, ~/, /bash/
+,
+Midnight Commander
+demonasasin256.ini, ~/.local/share/mc/skins/, /midnight-commander/
+ini, ~/.config/mc/, /midnight-commander/mc/
+mc.ext, ~/.config/mc/, /midnight-commander/mc/
+mc.keymap, ~/.config/mc/, /midnight-commander/mc/
+panels.ini, ~/.config/mc/, /midnight-commander/mc/
+,
+Emacs
+,init.el, ~/.emacs.d/, /emacs/
+emacs-client-or-daemon.sh, ~/bin/, /emacs/
+,
+Spacemacs
+.spacemacs, ~/, /spacemacs/
+private, ~/.emacs.d/, /spacemacs/
+,
+Git
+.gitconfig, ~/, /git/
+git-update-branch, ~/bin/, /git/git-scripts/
+git-sst, ~/bin/, /git/git-scripts/
+git-dfs, ~/bin/, /git/git-scripts/
+git-dft, ~/bin/, /git/git-scripts/
+git-b, ~/bin/, /git/git-scripts/
+git-s, ~/bin/, /git/git-scripts/
+git-ss, ~/bin/, /git/git-scripts/
+,
+Lisp
+projects.conf, ~/.config/common-lisp/source-registry.conf.d/, /lisp/
+,.sbclrc, ~/, /lisp/
+,
+Taskwarrior
+.taskrc, ~/, /taskwarrior/
+,
+Timewarrior
+timewarrior.cfg, ~/.timewarrior/, /timewarrior/
+,
+Python
+flake8, ~/.config/, /python/
+,
+i3wm
+config, ~/.config/i3/, /i3wm/
+config, ~/.config/i3blocks/, /i3wm/i3blocks/
+lock.sh, ~/bin/, /i3wm/
+j4dmenu.sh, ~/bin/, /i3wm/
+i3init.sh, ~/bin/, /i3wm/
+i3blocks-scripts, ~/bin/, /i3wm/i3blocks/
+,
+Pictures
+wallpapers, ~/Pictures/, /pictures/
+logos, ~/Pictures/, /pictures/
+,
+Peco
+config.json, ~/.peco/config.json, /peco/
+

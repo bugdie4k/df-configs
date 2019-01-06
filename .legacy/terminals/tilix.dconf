@@ -1,0 +1,29 @@
+[profiles/2b7c4080-0ddd-46c5-8f23-563fd3ba789d]
+foreground-color='#C5C5C8C8C6C6'
+visible-name='Default'
+login-shell=false
+palette=['#28282A2A2E2E', '#A5A542424242', '#8B8B94944040', '#DEDE93935E5E', '#5F5F80809D9D', '#848466668F8F', '#5E5E8D8D8787', '#707078788080', '#37373B3B4141', '#CCCC66666666', '#B5B5BDBD6868', '#C6C6A9A97070', '#8181A2A2BEBE', '#B2B29494BBBB', '#8181A2A2BEBE', '#C5C5C8C8C6C6']
+badge-color-set=false
+scroll-on-output=false
+cursor-colors-set=false
+highlight-colors-set=false
+use-system-font=false
+bold-color-set=false
+font='DejaVu Sans Mono 10.5'
+use-theme-colors=false
+scrollback-unlimited=true
+terminal-title='${directory}'
+background-color='#000000000000'
+background-transparency-percent=0
+dim-transparency-percent=0
+
+[/]
+sidebar-on-right=false
+terminal-title-style='none'
+theme-variant='dark'
+control-scroll-zoom=true
+enable-wide-handle=false
+app-title='[${sessionNumber}] ${activeTerminalTitle} [${rows}x${columns}]'
+warn-vte-config-issue=false
+control-click-titlebar=true
+window-style='disable-csd-hide-toolbar'

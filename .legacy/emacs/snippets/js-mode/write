@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# key : write
+# name : write
+# --
+process.stdout.write($0);

@@ -1,0 +1,13 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# key : break
+# name : break
+# contributor : Danylo Fedorov <fedorough@gmail.com>
+
+# NOTE:
+# With placeholders left intact acts like echo.
+# You can enter elements one by one on $0, and they are all going to be printed
+# with ~A formatting.
+# If you want to know more about CL's format control string:
+#       https://www.cs.cmu.edu/Groups/AI/html/cltl/clm/node200.html
+# --
+(break ${1:"~@{~A~^ ~}~%"} $0)

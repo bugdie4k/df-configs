@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# menmonic is:
+# git st  -  status
+# git sst - Silent status
+# silent about untracked files
+
+# -uno == --untracked-files=no
+git status -uno $@

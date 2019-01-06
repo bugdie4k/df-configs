@@ -1,0 +1,78 @@
+[tasks.default]
+    deps=["links"]
+
+# NOTE: DO NOT FORGET TO ADD NEW LINK HERE
+
+[tasks.links]
+    deps=["bash",
+          "midnight-commander",
+          "emacs",
+          "git",
+          "i3wm",
+          "pictures",
+          "python",
+          "bin",
+          "timewarrior",
+          "base16",
+          "vscode"]
+
+## linking. links=[[TARGET, SOURCE], ...]
+
+[tasks.bash]
+    links=[[".bash_profile", "bash/.bash_profile"],
+           [".profile",      "bash/.profile"],
+           [".bashrc",       "bash/.bashrc"]]
+
+[tasks.midnight-commander]
+    links=[[".local/share/mc/skins/demonasasin256.ini", "midnight-commander/demonasasin256.ini"],
+           [".local/share/mc/skins/rebecca4k.ini",      "midnight-commander/rebecca4k.ini"],
+           [".config/mc/ini",                           "midnight-commander/mc/ini"],
+           [".config/mc/mc.ext",                        "midnight-commander/mc/mc.ext"],
+           [".config/mc/mc.keymap",                     "midnight-commander/mc/mc.keymap"],
+           [".config/mc/panels.ini",                    "midnight-commander/mc/panels.ini"]]
+
+[tasks.emacs]
+    links=[[".emacs.d/init.el",              "emacs/init.el"],
+           ["bin/emacs-client-or-daemon.sh", "emacs/emacs-client-or-daemon.sh"],
+           [".emacs.d/snippets",             "emacs/snippets"]]
+
+[tasks.git]
+    links=[[".gitconfig",            "git/.gitconfig"],
+           ["bin/git-update-branch", "git/git-scripts/git-update-branch/git-update-branch"],
+           ["bin/git-s",             "git/git-scripts/git-s"],
+           ["bin/git-ss",            "git/git-scripts/git-ss"],
+           ["bin/git-sst",           "git/git-scripts/git-sst"],
+           ["bin/git-dfs",           "git/git-scripts/git-dfs"],
+           ["bin/git-dft",           "git/git-scripts/git-dft"],
+           ["bin/git-b.sh",          "git/git-scripts/git-b/.legacy/git-b"],
+           ["bin/git-b",             "git/git-scripts/git-b/git-b"]]
+
+[tasks.i3wm]
+    links=[[".config/i3/config",       "i3wm/config"],
+           [".config/i3blocks/config", "i3wm/i3blocks/config"],
+           ["bin/lock.sh",             "i3wm/lock.sh"],
+           ["bin/j4dmenu.sh",          "i3wm/j4dmenu.sh"],
+           ["bin/i3init.sh",           "i3wm/i3init.sh"],
+           ["bin/i3blocks-scripts",    "i3wm/i3blocks/i3blocks-scripts"]]
+
+[tasks.pictures]
+    links=[["Pictures/logos", "pictures/logos"]]
+
+[tasks.python]
+    links=[[".config/flake8", "python/flake8"]]
+
+[tasks.bin]
+    links=[["bin/catt"],
+           ["bin/__ep_preview"],
+           ["bin/rus2dumb"],
+           ["bin/switch-emacs"]]
+
+[tasks.timewarrior]
+    links=[[".timewarrior/timewarrior.cfg", "timewarrior/timewarrior.cfg"]]
+
+[tasks.base16]
+    links=[[".config/tilix/schemes/base16-rebecca4k.json", "base16/rebecca4k/tilix-base16-rebecca4k.json"]]
+
+[tasks.vscode]
+    links=[[".conigs/Code/User/keybindings.json", "vscode/keybindings.json"],
+           [".conigs/Code/User/settings.json", "vscode/settings.json"]]

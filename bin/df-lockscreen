@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+readonly MAIN='#ff00ffaa'
+readonly BLANK='#00000000'
+readonly TINT='#000000bb'
+readonly VERIF='#b45bcfaa'
+readonly ACTIVE='#2de0a7aa'
+readonly WRONG='#ff0000ff'
+readonly FONT=monospace
+
+i3lock-color \
+--image ~/Pictures/wallpapers/road-with-palms-kate.png \
+--tiling \
+--indicator \
+--clock \
+\
+--veriftext='' \
+--wrongtext='' \
+--noinputtext='' \
+\
+--linecolor=$BLANK \
+--separatorcolor=$BLANK \
+\
+--timecolor=$MAIN \
+--datecolor=$MAIN \
+\
+--ringcolor=$MAIN \
+--insidecolor=$TINT \
+--ringvercolor=$VERIF \
+--insidevercolor=$TINT \
+--ringwrongcolor=$WRONG \
+--insidewrongcolor=$TINT \
+--keyhlcolor=$ACTIVE \
+--bshlcolor=$ACTIVE \
+\
+--timestr="%H:%M:%S" \
+--datestr="%A %d.%m.%Y" \
+--time-font=$FONT \
+--date-font=$FONT

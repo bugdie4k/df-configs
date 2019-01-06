@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# menmonic is:
+# git s  - short status
+# git ss - Silent short status
+# silent about untracked files
+
+# -s == --short
+# -uno == --untracked-files=no
+git status -s -uno "$@"

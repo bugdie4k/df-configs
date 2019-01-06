@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+readonly HEAD_INDEX="$1"
+shift
+git diff "HEAD~${HEAD_INDEX:-0}" "$@"

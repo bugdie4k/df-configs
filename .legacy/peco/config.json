@@ -1,0 +1,15 @@
+{
+    "Keymap": {
+        "C-j": "peco.SelectDown",
+        "C-k": "peco.SelectUp",
+        "C-h": "peco.BackwardChar",
+        "C-l": "peco.ForwardChar"
+    },
+    "Style": {
+        "Basic": ["default", "on_default", "default"],
+        "SavedSelection": ["bold", "on_yellow", "white"],
+        "Selected": ["default", "on_green", "black"],
+        "Query": ["bold", "on_default", "yellow"],
+        "Matched": ["bold", "on_default", "yellow"]
+    }
+}

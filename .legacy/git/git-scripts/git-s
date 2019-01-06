@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# mnemonic is:
+# 'git st' is longer then 'git s' => s is for short status
+
+# -s == --short
+git status -s $@

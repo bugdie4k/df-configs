@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+readonly SERVERNAME=DF_GVIM_SERVER
+TO_OPEN=''
+if [[ $# -gt 0 ]]; then
+  # Everything after the --remote-silent
+  # is already treated by gvim as a list of files.
+  #
+  # From ":help clientserver":
+  #     --remote-silent [+{cmd}] {file} ...
+  #
+  # So there is a need to skip past the "--" arg
+  # to avoid opening "--" as a file.
+  if [[ $1 = '--' ]]; then
+    shift
+  fi
+  TO_OPEN="--remote-silent $*"
+fi
+
+gvim --servername $SERVERNAME $TO_OPEN
