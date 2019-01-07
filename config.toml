@@ -43,6 +43,8 @@
            ["bin/git-sst",           "git/git-scripts/git-sst"],
            ["bin/git-dfs",           "git/git-scripts/git-dfs"],
            ["bin/git-dft",           "git/git-scripts/git-dft"],
+           ["bin/git-dfh",           "git/git-scripts/git-dfh"],
+           ["bin/git-fix",           "git/git-scripts/git-fix"],
            ["bin/git-b.sh",          "git/git-scripts/git-b/.legacy/git-b"],
            ["bin/git-b",             "git/git-scripts/git-b/git-b"]]
 
