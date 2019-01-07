@@ -20,7 +20,6 @@
 
 [tasks.bash]
     links=[[".bash_profile", "bash/.bash_profile"],
-           [".profile",      "bash/.profile"],
            [".bashrc",       "bash/.bashrc"]]
 
 [tasks.midnight-commander]

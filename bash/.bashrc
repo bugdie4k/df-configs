@@ -1,36 +1,32 @@
 # -*- mode: shell-script -*-
+# vi:syntax=sh
 
 # This file is to be sourced
 
-###### Source configs #########################################################
+export DF_CONFIGS
+export DF_LOCAL_CONFIGS
+export DF_THIS_MACHINE
+if [[ $(whoami) = 'df' ]]; then
+  DF_THIS_MACHINE=home
+  DF_CONFIGS=~/wd/df-configs
+  DF_LOCAL_CONFIGS=$DF_CONFIGS/local
+elif [[ $(whoami) = 'dfedorov' ]]; then
+  DF_THIS_MACHINE=work
+  DF_CONFIGS=~/configs
+  DF_LOCAL_CONFIGS=~/sensitive-configs
+fi
+readonly DF_CONFIGS
+readonly DF_LOCAL_CONFIGS
+readonly DF_THIS_MACHINE
 
-. ${DF_CONFIGS}/bash/.bashrc.default-stuff
-. ${DF_CONFIGS}/bash/.bashrc.variables
-. ${DF_CONFIGS}/bash/.bashrc.misc
-. ${DF_CONFIGS}/bash/.bashrc.functions
-. ${DF_CONFIGS}/bash/.bashrc.aliases
-. ${DF_CONFIGS}/bash/.bashrc.completion
-. ${DF_CONFIGS}/bash/.bashrc.prompt
+setxkbmap -layout us -option 'ctrl:swapcaps'
+setxkbmap -layout 'us,ru'
+setxkbmap -option 'grp:win_space_toggle'
 
-###### Source local configs ###################################################
+# dir with custom scripts
+mkdir -p "$HOME/bin"
+PATH="$PATH:$HOME/bin"
 
-case $DF_THIS_MACHINE in
-    home|home2|kate) . ${DF_LOCAL_CONFIGS}/.bashrc.local.home ;;
-    work) . ${DF_LOCAL_CONFIGS}/bash.local.work ;;
-    *) echo ".bashrc: Don't know where to find local configs for this machine." ;;
-esac
-
-###### Also source ############################################################
-
-also_source() {
-    if [ -f $1 ]; then
-        . $1
-    else
-        echo ".bashrc: Wanted to source $1 but didn't find one."
-    fi
-}
-
-also_source /etc/profile.d/vte-2.91.sh
-also_source ~/.fzf.bash
-
-unset -f also_source
+for part in $(/bin/ls -A $DF_CONFIGS/bash/.bashrc.d/*.*.bashrc); do
+  . "$part"
+done
