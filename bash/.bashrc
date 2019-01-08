@@ -30,3 +30,5 @@ PATH="$PATH:$HOME/bin"
 for part in $(/bin/ls -A $DF_CONFIGS/bash/.bashrc.d/*.*.bashrc); do
   . "$part"
 done
+
+. $DF_LOCAL_CONFIGS/local.bashrc
