@@ -4,4 +4,4 @@
 # 'git st' is longer then 'git s' => s is for short status
 
 # -s == --short
-git status -s $@
+git status -s "$@"

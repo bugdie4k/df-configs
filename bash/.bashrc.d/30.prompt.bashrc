@@ -3,8 +3,12 @@
 
 # This file is to be sourced
 
-readonly _DF_PROMPT_COLOR1=4
-readonly _DF_PROMPT_COLOR2=3
+readonly _DF_PROMPT_COLOR_RETCODE=4
+readonly _DF_PROMPT_COLOR_USER=4
+readonly _DF_PROMPT_COLOR_GIT=3
+readonly _DF_PROMPT_COLOR_PATH=3
+readonly _DF_PROMPT_COLOR_SHLVL=4
+readonly _DF_PROMPT_COLOR_DOLLAR=4
 readonly _DF_PROMPT_COLOR_GREEN=2
 readonly _DF_PROMPT_COLOR_RED=1
 readonly _DF_PROMPT_COLOR_RESET='\[\e[0m\]'
@@ -17,7 +21,7 @@ function _df_prompt_shlvl {
  fi
 }
 
-function _df_prompt_git_status {  
+function _df_prompt_git_status {
   if git rev-parse --git-dir &>/dev/null; then
     local branch
     if ! git rev-parse HEAD &>/dev/null; then
@@ -25,13 +29,17 @@ function _df_prompt_git_status {
     else
       branch="$(git rev-parse --abbrev-ref HEAD)"
     fi
-    branch="$(tput setaf $_DF_PROMPT_COLOR2)$branch"
+    branch="$(tput setaf $_DF_PROMPT_COLOR_GIT)$branch"
+    if [[ $(git rev-parse --is-inside-git-dir) = 'true' ]]; then
+      echo "$branch$(tput setaf $_DF_PROMPT_COLOR_RED).git "
+      return
+    fi
     if [[ $1 = 'only-branch' ]]; then
       echo "$branch "
       return
     fi
     local -a stats=($(
-    git status --porcelain | awk '
+    git status --porcelain 2>/dev/null | awk '
 BEGIN {
   untracked=0;
   unstaged=0;
@@ -57,35 +65,35 @@ END {
     local -r unstaged="${stats[1]}"
     local -r staged="${stats[2]}"
     if [[ $untracked = '0' ]] && [[ $unstaged = '0' ]] && [[ $staged = '0' ]]; then
-      echo "$branch$(tput setaf $_DF_PROMPT_COLOR_GREEN).$(tput setaf $_DF_PROMPT_COLOR2) "
+      echo "$branch$(tput setaf $_DF_PROMPT_COLOR_GREEN). "
       return
     fi
     local untracked_report unstaged_report staged_report
     [[ $untracked = '0' ]] &&
       untracked_report='' ||
-      untracked_report="$(tput setaf $_DF_PROMPT_COLOR_RED)?$(tput setaf $_DF_PROMPT_COLOR2)$untracked"
+      untracked_report="$(tput setaf $_DF_PROMPT_COLOR_RED)?$(tput setaf $_DF_PROMPT_COLOR_GIT)$untracked"
     [[ $unstaged = '0' ]] &&
       unstaged_report='' ||
-      unstaged_report="$(tput setaf $_DF_PROMPT_COLOR_RED)+$(tput setaf $_DF_PROMPT_COLOR2)$unstaged"
+      unstaged_report="$(tput setaf $_DF_PROMPT_COLOR_RED)+$(tput setaf $_DF_PROMPT_COLOR_GIT)$unstaged"
     [[ $staged = '0' ]] &&
       staged_report='' ||
-      staged_report="$(tput setaf $_DF_PROMPT_COLOR_GREEN)*$(tput setaf $_DF_PROMPT_COLOR2)$staged"
+      staged_report="$(tput setaf $_DF_PROMPT_COLOR_GREEN)*$(tput setaf $_DF_PROMPT_COLOR_GIT)$staged"
     echo "$branch$untracked_report$unstaged_report$staged_report "
     return
   fi
 }
 
 function _df_prompt_set_ps1 {
-  local -r retcode="$(tput setaf $_DF_PROMPT_COLOR1)\$?$_DF_PROMPT_COLOR_RESET"
-  local -r user="$(tput setaf $_DF_PROMPT_COLOR1)\\u$_DF_PROMPT_COLOR_RESET"  
+  local -r retcode="$(tput setaf $_DF_PROMPT_COLOR_RETCODE)\$?$_DF_PROMPT_COLOR_RESET"
+  local -r user="$(tput setaf $_DF_PROMPT_COLOR_USER)\\u$_DF_PROMPT_COLOR_RESET"
   if [[ $DF_THIS_MACHINE = 'work' ]]; then
     local -r git_status_arg='only-branch'
   fi
-  local -r git="$(tput setaf $_DF_PROMPT_COLOR2)\$(_df_prompt_git_status $git_status_arg)$_DF_PROMPT_COLOR_RESET"
-  local -r dir="$(tput setaf $_DF_PROMPT_COLOR2)\\w$_DF_PROMPT_COLOR_RESET"
-  local -r shlvl="$(tput setaf $_DF_PROMPT_COLOR1)$(_df_prompt_shlvl)$_DF_PROMPT_COLOR_RESET"
-  # local -r dolar="$(tput setaf $_DF_PROMPT_COLOR1)\$$_DF_PROMPT_COLOR_RESET"
-  PS1="$retcode $user $git$dir $shlvl $(tput setaf $_DF_PROMPT_COLOR1)
+  local -r git="$(tput setaf $_DF_PROMPT_COLOR_GIT)\$(_df_prompt_git_status $git_status_arg)$_DF_PROMPT_COLOR_RESET"
+  local -r path="$(tput setaf $_DF_PROMPT_COLOR_PATH)\\w$_DF_PROMPT_COLOR_RESET"
+  local -r shlvl="$(tput setaf $_DF_PROMPT_COLOR_SHLVL)$(_df_prompt_shlvl)$_DF_PROMPT_COLOR_RESET"
+  # local -r dollar="$(tput setaf $_DF_PROMPT_COLOR_DOLLAR)\$$_DF_PROMPT_COLOR_RESET"
+  PS1="$retcode $user $git$path $shlvl $(tput setaf $_DF_PROMPT_COLOR_DOLLAR)
 \$ $_DF_PROMPT_COLOR_RESET"
   # tput on the second line messes up prompt
 }

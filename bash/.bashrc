@@ -8,7 +8,7 @@ export DF_LOCAL_CONFIGS
 export DF_THIS_MACHINE
 if [[ $(whoami) = 'df' ]]; then
   DF_THIS_MACHINE=home
-  DF_CONFIGS=~/wd/df-configs
+  DF_CONFIGS=~/df-configs
   DF_LOCAL_CONFIGS=$DF_CONFIGS/local
 elif [[ $(whoami) = 'dfedorov' ]]; then
   DF_THIS_MACHINE=work

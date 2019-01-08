@@ -6,4 +6,4 @@
 # silent about untracked files
 
 # -uno == --untracked-files=no
-git status -uno $@
+git status -uno "$@"

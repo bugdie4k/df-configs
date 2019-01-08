@@ -6,11 +6,12 @@
 # ls
 if type exa-linux-x86_64 >/dev/null 2>&1; then
   alias ls=exa-linux-x86_64
+  alias l='ls -aFh'
 else
   alias ls='ls --color=auto'
+  alias l='ls -aFhC'
 fi
 alias ll='ls -aFhl'
-alias l='ls -aFhC'
 
 # sudo
 alias _="sudo"
@@ -60,7 +61,10 @@ alias e=emacs-client-or-daemon
 alias ra=ranger
 
 # timewarrior
-alias tw=timewarrior
+alias tw=timew
+
+# taskwarrior
+alias t=task
 
 # make executable
 alias mkexec='chmod u+x'
