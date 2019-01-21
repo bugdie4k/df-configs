@@ -20,7 +20,8 @@
 
 [tasks.bash]
     links=[[".bash_profile", "bash/.bash_profile"],
-           [".bashrc",       "bash/.bashrc"]]
+           [".bashrc",       "bash/.bashrc"],
+           [".bashrc.d",       "bash/.bashrc.d"]]
 
 [tasks.midnight-commander]
     links=[[".local/share/mc/skins/demonasasin256.ini", "midnight-commander/demonasasin256.ini"],

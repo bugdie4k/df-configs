@@ -25,6 +25,7 @@ shopt -s histappend
 # https://unix.stackexchange.com/questions/1288/preserve-bash-history-in-multiple-terminal-windows#comment67052_48116
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
+DF_HIGHLIGHT_STYLE=denim
 if [[ $(whoami) = 'df' ]]; then
   DF_THIS_MACHINE=home
   DF_CONFIGS=~/df-configs
