@@ -1,5 +1,4 @@
-# -*- mode: shell-script -*-
-# vi:syntax=sh
+#!/usr/bin/env bash
 
 # This file is to be sourced
 
@@ -51,6 +50,9 @@ pbcopyn(){ echo -n "$1" | pbcopy; } # copy name
 alias layua='setxkbmap -layout "us,ua"'
 alias layru='setxkbmap -layout "us,ru"'
 
+# gvim
+alias vi=gvim-client-or-server
+
 # visual studio code
 alias vc=code
 
@@ -58,7 +60,7 @@ alias vc=code
 alias e=emacs-client-or-daemon
 
 # ranger
-alias ra=ranger
+alias ra='. ranger'
 
 # timewarrior
 alias tw=timew
@@ -69,5 +71,7 @@ alias t=task
 # make executable
 alias mkexec='chmod u+x'
 
-#ripgrep
+# ripgrep, silversearcher
 alias rg='rg --hidden'
+alias ag='ag --hidden'
+

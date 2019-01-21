@@ -1,5 +1,4 @@
-# -*- mode: shell-script -*-
-# vi:syntax=sh
+#!/usr/bin/env bash
 
 # This file is to be sourced
 
