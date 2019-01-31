@@ -2,11 +2,11 @@
 
 # L I M - link maker
 
-# This file is a "library" to be sourced
+# This file is a "library" and is to be sourced
 
-# Provides the 'lim' and 'lim_report' functions
-# and a possibility to configure them through vars
-# TARG_PREF and LINK_PREF
+# Provides 'lim' and 'lim_report' functions
+# and a possibility to configure them through
+# TARG_PREF and LINK_PREF variables
 
 # Author: Danylo Fedorov
 

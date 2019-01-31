@@ -2,7 +2,7 @@
 
 . lim.sh
 
-CONFIGS_DIR=$(cd "$(dirname ${BASH_SOURCE[0]})" && pwd)
+CONFIGS_DIR=$(cd "$(dirname ${BASH_SOURCE[0]})" && pwd)/targets
 readonly CONFIGS_DIR
 
 # bash
