@@ -181,6 +181,9 @@ install "$CONFIGS_DIR/awesome/df-theme" ~/.config/awesome/themes/df-theme
 install "$CONFIGS_DIR/awesome/df-awesome-startup" ~/.config/awesome/df-awesome-startup
 # bin
 install "$CONFIGS_DIR/bin/df-lockscreen" ~/bin/df-lockscreen
+# vscode
+install "$CONFIGS_DIR/vscode/settings.json" ~/.config/Code/User/settings.json
+install "$CONFIGS_DIR/vscode/keybindings.json" ~/.config/Code/User/keybindings.json
 
 report_summary
 
