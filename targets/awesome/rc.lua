@@ -142,7 +142,21 @@ vicious.register(brighttext, get_brigthness, " $1", 30)
 
 -- Disk
 local disktext = wibox.widget.textbox()
-vicious.register(disktext, vw.fs, "DISK ${/ avail_gb}G / ${/ size_gb}G", 5)
+vicious.register(
+  disktext,
+  vw.fs,
+  -- "DISK ${/ avail_gb}G / ${/ size_gb}G",
+  function (widget, args)
+    local avail_p, avail_gb, total_gb = args["{/ avail_p}"], args["{/ avail_gb}"], args["{/ size_gb}"]
+    local color = beautiful.get().fg_normal
+    if avail_p <= 25 then
+      color = "yellow"
+    elseif avail_p <= 5 then
+      color = "red"
+    end
+    return string.format("<tt>DISK <span color=\"%s\">%3.1fG</span> / %3.1fG</tt>", color, avail_gb, total_gb)
+  end,
+  5)
 
 -- Memory
 vicious.cache(vw.mem)
@@ -153,14 +167,24 @@ memgraph.color = beautiful.get().fg_normal
 memgraph.background_color = beautiful.get().bg_normal
 memgraph = wibox.container.mirror(memgraph, { horizontal = true })
 local memtext = wibox.widget.textbox()
-function get_mem_gb (format, warg)
-  local res = vw.mem(format, warg)
-  local usage, total = res[2], res[3]
-  return {
-    math.floor(usage * 100 / 1024) / 100,
-    math.floor(total * 100 / 1024) / 100}
-end
-vicious.register(memtext, get_mem_gb, "MEM $1G / $2G ", 1)
+vicious.register(
+  memtext,
+  vw.mem,
+  function (widget, args)
+    local percents, used, total = args[1], args[2], args[3]
+    local color = beautiful.get().fg_normal
+    if percents >= 75 then
+      color = "yellow"
+    elseif percents >= 95 then
+      color = "red"
+    end
+    return string.format(
+      "<tt>MEM <span color=\"%s\">%2.2fG</span> / %2.2fG</tt>",
+      color,
+      math.floor(used * 100 / 1024) / 100,
+      math.floor(total * 100 / 1024) / 100)
+  end,
+  1)
 
 -- CPU
 vicious.cache(vw.cpu)
@@ -171,14 +195,23 @@ cpugraph.color = beautiful.get().fg_normal
 cpugraph.background_color = beautiful.get().bg_normal
 cpugraph = wibox.container.mirror(cpugraph, { horizontal = true })
 local cputext = wibox.widget.textbox()
-function get_cpu (format, warg)
-  local percentage = vw.cpu(format, warg)[1]
-  return { string.format("%3d", percentage) }
-end
-vicious.register(cputext, get_cpu, "CPU $1% ", 1)
+vicious.register(
+  cputext,
+  vw.cpu,
+  function (widget, args)
+    local percents = args[1]
+    local color = beautiful.get().fg_normal
+    if percents >= 75 then
+      color = "yellow"
+    elseif percents >= 95 then
+      color = "red"
+    end
+    return string.format("<tt>CPU <span color=\"%s\">%3d%%</span></tt>", color, percents)
+  end,
+  1)
 
 -- Separator
-local sep=wibox.widget.textbox("<span color=\"#111111\">  |  </span>")
+local sep=wibox.widget.textbox("<span color=\"#333333\">  |  </span>")
 
 awful.screen.connect_for_each_screen(
   function(s)
