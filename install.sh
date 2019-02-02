@@ -35,9 +35,9 @@ LINK_PREF=~/
 lim -NAME .gitconfig
 TARG_PREF=$CONFIGS_DIR/git/git-scripts
 LINK_PREF=~/bin
-lim -NAME git-dh 
-lim -NAME git-s 
-lim -NAME git-ss 
+lim -NAME git-dh
+lim -NAME git-s
+lim -NAME git-ss
 lim -NAME git-sst
 lim -NAME git-fix
 # ranger
@@ -51,7 +51,7 @@ lim -NAME commands.py
 TARG_PREF=$CONFIGS_DIR/awesome/
 LINK_PREF=~/.config/awesome/
 lim -NAME rc.lua
-lim -NAME df-theme
+lim -NAME df-theme          -LINK themes/
 lim -NAME df-awesome-startup
 # bin
 TARG_PREF=$CONFIGS_DIR/bin/
@@ -62,5 +62,13 @@ TARG_PREF=$CONFIGS_DIR/vscode/
 LINK_PREF=~/.config/Code/User/
 lim -NAME settings.json
 lim -NAME keybindings.json
+# gtk
+TARG_PREF=$CONFIGS_DIR/gtk/
+LINK_PREF=~/
+lim -NAME .gtkrc-2.0
+LINK_PREF=~/.config
+lim -NAME settings.ini -LINK gtk-3.0/
+lim -NAME settings.ini -LINK gtk-4.0/
+
 
 lim_report
