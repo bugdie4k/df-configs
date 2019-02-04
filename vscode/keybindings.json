@@ -1,36 +1,54 @@
 // Place your key bindings in this file to overwrite the defaults
 [
-    {
-        "key": "ctrl+z",
-        "command": "workbench.action.toggleZenMode"
-    },
-    {
-        "key": "ctrl+space",
-        "command": "emacs.enterMarkMode"
-    },
-    {
-        "key": "alt-.",
-        "command": "editor.action.goToDeclaration"
-    },
-    {
-        "key": "alt-,",
-        "command": "workbench.action.navigateBack"
-    },
-    {
-        "key": "alt-shift-[",
-        "command": "spaceBlockJumper.moveUp"
-    },
-    {
-        "key": "alt-shift-]",
-        "command": "spaceBlockJumper.moveDown"
-    },
-    {
-        "key": "backspace",
-        "command": "deleteLeft",
-        "when": "editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "ctrl+shift+/",
-        "command": "redo"
-    }
+  {
+    "key": "ctrl+z",
+    "command": "workbench.action.toggleZenMode"
+  },
+  {
+    "key": "ctrl+space",
+    "command": "emacs.enterMarkMode"
+  },
+  {
+    "key": "alt-.",
+    "command": "editor.action.goToTypeDefinition"
+  },
+  {
+    "key": "alt-,",
+    "command": "workbench.action.navigateBack"
+  },
+  {
+    "key": "alt-shift-[",
+    "command": "spaceBlockJumper.moveUp"
+  },
+  {
+    "key": "alt-shift-]",
+    "command": "spaceBlockJumper.moveDown"
+  },
+  {
+    "key": "backspace",
+    "command": "deleteLeft",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+shift+/",
+    "command": "redo"
+  },
+  {
+    "key": "ctrl+shift+\\",
+    "command": "editor.action.jumpToBracket"
+  },
+  {
+    "key": "ctrl+[",
+    "command": "extension.vim_escape"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "workbench.action.quickOpenSelectNext",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "workbench.action.quickOpenSelectPrevious",
+    "when": "inQuickOpen"
+  }
 ]

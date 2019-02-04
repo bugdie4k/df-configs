@@ -42,9 +42,7 @@
            ["bin/git-s",             "git/git-scripts/git-s"],
            ["bin/git-ss",            "git/git-scripts/git-ss"],
            ["bin/git-sst",           "git/git-scripts/git-sst"],
-           ["bin/git-dfs",           "git/git-scripts/git-dfs"],
-           ["bin/git-dft",           "git/git-scripts/git-dft"],
-           ["bin/git-dfh",           "git/git-scripts/git-dfh"],
+           ["bin/git-dh",            "git/git-scripts/git-dh"],
            ["bin/git-fix",           "git/git-scripts/git-fix"],
            ["bin/git-b.sh",          "git/git-scripts/git-b/.legacy/git-b"],
            ["bin/git-b",             "git/git-scripts/git-b/git-b"]]
@@ -76,5 +74,5 @@
     links=[[".config/tilix/schemes/base16-rebecca4k.json", "base16/rebecca4k/tilix-base16-rebecca4k.json"]]
 
 [tasks.vscode]
-    links=[[".conigs/Code/User/keybindings.json", "vscode/keybindings.json"],
-           [".conigs/Code/User/settings.json", "vscode/settings.json"]]
+    links=[[".config/Code/User/keybindings.json", "vscode/keybindings.json"],
+           [".config/Code/User/settings.json", "vscode/settings.json"]]
