@@ -4,17 +4,21 @@
 
 [alias]
   # basic aliases
+
   a   = add
+  au  = add -uv
   br  = branch
-  ci  = commit
+  c   = commit
   co  = checkout
   co0 = checkout HEAD --
-  df  = diff
+  d   = diff
+  ds  = diff --stat
   h   = help
   m   = merge
   mt  = mergetool
   pl  = pull
-  ps  = push
+  p   = push
+  pforce = push --force
   rb  = rebase
   rs  = reset
   rv  = revert
@@ -27,16 +31,6 @@
   b  = !"_(){ : git branch ; git-b $@; }; _"
   bl = !"git b --list"
   bh = !"git b --history"
-
-  # diffs to master
-  dfm  = !"git df master"
-  dfsm = !"git dfs master"
-  dftm = !"git dft master"
-
-  # add update - pass changed tracked files to staging area
-  au = !"git add -uv"
-
-  psforce = !"git push --force"
 
   # slightly changed pretty logs from
   # https://github.com/dotphiles/dotphiles/blob/master/git/gitconfig

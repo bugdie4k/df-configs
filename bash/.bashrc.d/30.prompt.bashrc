@@ -1,17 +1,20 @@
-# -*- mode: shell-script -*-
-# vi:syntax=sh
+#!/usr/bin/env bash
 
 # This file is to be sourced
 
-readonly _DF_PROMPT_COLOR_RETCODE=4
-readonly _DF_PROMPT_COLOR_USER=4
-readonly _DF_PROMPT_COLOR_GIT=3
-readonly _DF_PROMPT_COLOR_PATH=3
-readonly _DF_PROMPT_COLOR_SHLVL=4
-readonly _DF_PROMPT_COLOR_DOLLAR=4
+readonly _DF_PROMPT_COLOR_1=241
+readonly _DF_PROMPT_COLOR_2=134
+readonly _DF_PROMPT_COLOR_3=87
 readonly _DF_PROMPT_COLOR_GREEN=2
 readonly _DF_PROMPT_COLOR_RED=1
 readonly _DF_PROMPT_COLOR_RESET='\[\e[0m\]'
+
+readonly _DF_PROMPT_COLOR_RETCODE=$_DF_PROMPT_COLOR_1
+readonly _DF_PROMPT_COLOR_USER=$_DF_PROMPT_COLOR_1
+readonly _DF_PROMPT_COLOR_GIT=$_DF_PROMPT_COLOR_2
+readonly _DF_PROMPT_COLOR_PATH=$_DF_PROMPT_COLOR_3
+readonly _DF_PROMPT_COLOR_SHLVL=$_DF_PROMPT_COLOR_1
+readonly _DF_PROMPT_COLOR_DOLLAR=$_DF_PROMPT_COLOR_1
 
 function _df_prompt_shlvl {
   if [[ $SHLVL -gt 1 ]]; then

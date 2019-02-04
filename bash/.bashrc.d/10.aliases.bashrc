@@ -51,13 +51,13 @@ alias layua='setxkbmap -layout "us,ua"'
 alias layru='setxkbmap -layout "us,ru"'
 
 # gvim
-alias vi=gvim-client-or-server
-
-# visual studio code
-alias vc=code
+alias v=gvim-client-or-server
 
 # emacs
 alias e=emacs-client-or-daemon
+
+# visual studio code
+alias vc=code
 
 # ranger
 alias ra='. ranger'
@@ -74,4 +74,6 @@ alias mkexec='chmod u+x'
 # ripgrep, silversearcher
 alias rg='rg --hidden'
 alias ag='ag --hidden'
+
+alias less='less -r'
 

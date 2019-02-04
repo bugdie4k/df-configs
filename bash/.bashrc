@@ -8,10 +8,6 @@ shopt -s autocd
 # Disable ^S and ^Q
 stty -ixon
 
-# dir with custom scripts
-mkdir -p "$HOME/bin"
-PATH="$PATH:$HOME/bin"
-
 # History settings
 HISTCONTROL=ignoredups:erasedups
 HISTTIMEFORMAT="%Y.%m.%d %H:%M:%S "
@@ -25,25 +21,12 @@ shopt -s histappend
 # https://unix.stackexchange.com/questions/1288/preserve-bash-history-in-multiple-terminal-windows#comment67052_48116
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
-DF_HIGHLIGHT_STYLE=denim
-if [[ $(whoami) = 'df' ]]; then
-  DF_THIS_MACHINE=home
-  DF_CONFIGS=~/df-configs
-  # DF_LOCAL_CONFIGS=$DF_CONFIGS/local
-elif [[ $(whoami) = 'dfedorov' ]]; then
-  DF_THIS_MACHINE=work
-  DF_CONFIGS=~/configs
-  DF_LOCAL_CONFIGS=~/sensitive-configs
-fi
-readonly DF_CONFIGS
-readonly DF_LOCAL_CONFIGS
-readonly DF_THIS_MACHINE
-
 # source chunks
 for bashrc_chunk  in $(/bin/ls -A ~/.bashrc.d/*.*.bashrc); do
   . "$bashrc_chunk"
 done
 
+# source local configs
 if [[ ! -z $DF_LOCAL_CONFIGS ]]; then
   . $DF_LOCAL_CONFIGS/local.bashrc
 fi
