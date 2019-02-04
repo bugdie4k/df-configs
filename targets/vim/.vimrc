@@ -79,6 +79,6 @@ let NERDTreeShowHidden=1
 map <C-n> :NERDTreeToggle<CR>
 " CtrlP
 let g:ctrlp_show_hidden=1
-let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_cmd = 'CtrlPMRU'
 " Automatically remove trailing whitespace on save
 autocmd BufWritePost * FixWhitespace
