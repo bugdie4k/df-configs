@@ -78,3 +78,11 @@ function sho {
   done
   return $retcode
 }
+
+function j {
+  if [[ $# -ne 0 ]]; then
+    cd $(autojump "$@") || return 1
+    return
+  fi
+  cd "$(autojump -s | sed '/_____/Q; s/^[0-9,.:]*\s*//' |  fzf --height 40% --reverse --inline-info)" || return 1
+}

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-. lim.sh
+. lim.bash
 
 CONFIGS_DIR=$(cd "$(dirname ${BASH_SOURCE[0]})" && pwd)/targets
 readonly CONFIGS_DIR
