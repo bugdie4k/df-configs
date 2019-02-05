@@ -3,9 +3,6 @@
   "workbench.activityBar.visible": false,
   "window.menuBarVisibility": "toggle",
   "vim.useSystemClipboard": true,
-  "vim.handleKeys": {
-    "backspace": true
-  },
   "workbench.colorCustomizations": {
     // "tab.activeBackground": "#1f2531"
   },
@@ -36,7 +33,7 @@
   "gitlens.views.lineHistory.enabled": true,
   "breadcrumbs.enabled": true,
   "workbench.statusBar.visible": true,
-  "trailing-spaces.trimOnSave": true,
+  // "trailing-spaces.trimOnSave": true,
   "trailing-spaces.highlightCurrentLine": false,
   "trailing-spaces.syntaxIgnore": ["markdown"]
 }

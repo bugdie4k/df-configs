@@ -25,11 +25,6 @@
     "command": "spaceBlockJumper.moveDown"
   },
   {
-    "key": "backspace",
-    "command": "deleteLeft",
-    "when": "editorTextFocus && !editorReadonly"
-  },
-  {
     "key": "ctrl+shift+/",
     "command": "redo"
   },
