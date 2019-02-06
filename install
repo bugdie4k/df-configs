@@ -69,6 +69,15 @@ lim -NAME .gtkrc-2.0
 LINK_PREF=~/.config
 lim -NAME settings.ini -LINK gtk-3.0/
 lim -NAME settings.ini -LINK gtk-4.0/
-
+# i3
+TARG_PREF=$CONFIGS_DIR/i3/
+LINK_PREF=~/.config/
+lim -NAME config          -LINK i3/
+lim -NAME i3blocks/config
+LINK_PREF=~/bin
+lim -NAME lock.sh
+lim -NAME j4dmenu.sh
+lim -NAME i3init.sh
+lim -NAME i3blocks-scripts -TARGET i3blocks/
 
 lim_report

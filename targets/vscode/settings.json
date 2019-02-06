@@ -1,4 +1,19 @@
 {
-"editor.tabSize": 2,
-"window.zoomLevel": 0,
+  "editor.tabSize": 2,
+  "window.zoomLevel": 0,
+  "editor.fontSize": 13,
+  "workbench.activityBar.visible": false,
+  "window.menuBarVisibility": "toggle",
+  "vim.useSystemClipboard": true,
+  "window.titleBarStyle": "native",
+  "editor.renderWhitespace": "none",
+  "workbench.editor.showTabs": true,
+  "window.zoomLevel": 0,
+  "workbench.editor.enablePreview": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "breadcrumbs.enabled": true,
+  "workbench.statusBar.visible": true,
+  // "trailing-spaces.trimOnSave": true,
+  "trailing-spaces.highlightCurrentLine": false,
+  "trailing-spaces.syntaxIgnore": ["markdown"]
 }

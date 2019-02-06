@@ -48,7 +48,15 @@ setxkbmap -layout us -option 'ctrl:swapcaps'
 setxkbmap -layout 'us,ru'
 setxkbmap -option 'grp:win_space_toggle'
 
+if [ $DF_THIS_MACHINE = 'work' ]; then
+  xrandr --output HDMI1 --auto --output VGA1 --auto --left-of HDMI1
+fi
+
 # invoke global X session script
-STARTUP=/usr/bin/awesome
+if [ $DF_THIS_MACHINE = 'work' ]; then
+  STARTUP=/usr/bin/i3
+else
+  STARTUP=/usr/bin/awesome
+fi
 . /etc/X11/Xsession
 
