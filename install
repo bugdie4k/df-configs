@@ -47,6 +47,7 @@ lim -NAME rc.conf
 lim -NAME scope.sh
 lim -NAME rifle.conf
 lim -NAME commands.py
+lim -NAME autojump.py -LINK plugins/
 # awesome
 TARG_PREF=$CONFIGS_DIR/awesome/
 LINK_PREF=~/.config/awesome/
