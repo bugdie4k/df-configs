@@ -28,7 +28,7 @@
   # to enable autocompletion for git scripts (enabled with the null command ':' thanks to git-completion.bash)
   # https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
 
-  b  = !"_(){ : git branch ; git-b $@; }; _"
+  b  = !"_(){ : git branch; git-b $@; }; _"
   bl = !"git b --list"
   bh = !"git b --history"
 
