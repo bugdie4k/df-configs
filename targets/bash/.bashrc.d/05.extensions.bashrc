@@ -14,3 +14,7 @@ __git_complete g __git_main
 . ~/fzf-completion.bash
 # https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.bash
 . ~/fzf-keybindings.bash
+
+# npm
+# https://docs.npmjs.com/cli/completion.html
+. ~/npm-completion.bash

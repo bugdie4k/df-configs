@@ -15,5 +15,8 @@
   "workbench.statusBar.visible": true,
   // "trailing-spaces.trimOnSave": true,
   "trailing-spaces.highlightCurrentLine": false,
-  "trailing-spaces.syntaxIgnore": ["markdown"]
+  "trailing-spaces.syntaxIgnore": [
+    "markdown"
+  ],
+  "workbench.iconTheme": "vscode-icons"
 }
