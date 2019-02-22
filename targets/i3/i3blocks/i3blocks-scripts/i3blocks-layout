@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-a=$(xkblayout-state print %s) && echo -n ${a^^};
