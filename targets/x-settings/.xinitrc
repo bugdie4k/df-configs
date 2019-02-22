@@ -20,7 +20,7 @@ if [ "$(whoami)" = 'df' ]; then
   # DF_LOCAL_CONFIGS=$DF_CONFIGS/local
 elif [ "$(whoami)" = 'dfedorov' ]; then
   DF_THIS_MACHINE=work
-  DF_CONFIGS=~/configs
+  DF_CONFIGS=~/df-configs
   DF_LOCAL_CONFIGS=~/sensitive-configs
 fi
 readonly DF_CONFIGS
@@ -53,10 +53,6 @@ setxkbmap -option 'grp:win_space_toggle'
 # fi
 
 # invoke global X session script
-if [ $DF_THIS_MACHINE = 'work' ]; then
-  STARTUP=/usr/bin/i3
-else
-  STARTUP=/usr/bin/awesome
-fi
+STARTUP=/usr/bin/awesome
 . /etc/X11/Xsession
 

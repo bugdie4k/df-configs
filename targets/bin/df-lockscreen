@@ -8,9 +8,14 @@ readonly ACTIVE='#2de0a7aa'
 readonly WRONG='#ff0000ff'
 readonly FONT=monospace
 
+IMAGE=~/Pictures/wallpapers/road-with-palms-kate.png
+if [[ $DF_THIS_MACHINE == 'work' ]]; then
+  IMAGE=~/Pictures/wallpapers/road-with-palms-work.png
+fi
+readonly IMAGE
+
 i3lock-color \
---image ~/Pictures/wallpapers/road-with-palms-kate.png \
---tiling \
+--image $IMAGE \
 --indicator \
 --clock \
 \

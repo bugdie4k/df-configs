@@ -2,9 +2,6 @@
 
 # This file is to be sourced
 
-# No cd, just enter the path
-shopt -s autocd
-
 # Disable ^S and ^Q
 stty -ixon
 

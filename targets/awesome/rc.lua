@@ -3,8 +3,7 @@ local awful = require('awful')
 require('awful.autofocus')
 local wibox = require('wibox')
 local beautiful = require('beautiful')
-local naughty = require('naughty')
-local menubar = require('menubar')
+local naughty = require('naughty') local menubar = require('menubar')
 local hotkeys_popup = require('awful.hotkeys_popup').widget
 local vicious = require('vicious')
 
@@ -121,37 +120,39 @@ end
 local kbtext = wibox.widget.textbox()
 vicious.register(kbtext, get_kb_layout, '<tt>KB $1</tt>', 43)
 
--- Battery
-local battext = wibox.widget.textbox()
-vicious.register(battext, vw.bat, '<tt>BAT $1 $2% ($3)</tt>', 11, 'BAT1')
+if os.getenv('DF_THIS_MACHINE') == 'home' then
+  -- Battery
+  local battext = wibox.widget.textbox()
+  vicious.register(battext, vw.bat, '<tt>BAT $1 $2% ($3)</tt>', 11, 'BAT1')
 
--- Volume
-local volumetext = wibox.widget.textbox()
-vicious.register(
-  volumetext,
-  vw.volume,
-  function (widget, args)
-    return string.format('<tt>VOL %3d</tt>', args[1])
-  end,
-  47,
-  'Master')
+  -- Volume
+  local volumetext = wibox.widget.textbox()
+  vicious.register(
+    volumetext,
+    vw.volume,
+    function (widget, args)
+      return string.format('<tt>VOL %3d</tt>', args[1])
+    end,
+    47,
+    'Master')
 
--- Brightness
-local io = { popen = io.popen }
-function get_brigthness ()
-  local f = io.popen('xbacklight -get')
-  local brightness = f:read('*all')
-  f:close()
-  return { math.floor(tonumber(brightness)) }
+  -- Brightness
+  local io = { popen = io.popen }
+  function get_brigthness ()
+    local f = io.popen('xbacklight -get')
+    local brightness = f:read('*all')
+    f:close()
+    return { math.floor(tonumber(brightness)) }
+  end
+  local brighttext = wibox.widget.textbox()
+  vicious.register(
+    brighttext,
+    get_brigthness,
+    function (widget, args)
+      return string.format('<tt>BRI %3d</tt>', args[1])
+    end,
+    53)
 end
-local brighttext = wibox.widget.textbox()
-vicious.register(
-  brighttext,
-  get_brigthness,
-  function (widget, args)
-    return string.format('<tt>BRI %3d</tt>', args[1])
-  end,
-  53)
 
 -- Disk
 local disktext = wibox.widget.textbox()
@@ -272,6 +273,26 @@ awful.screen.connect_for_each_screen(
       },
     }
 
+    local infowidgets = { layout = wibox.layout.fixed.horizontal }
+    table.insert(infowidgets, cputext)
+    table.insert(infowidgets, cpugraph)
+    table.insert(infowidgets, sep)
+    table.insert(infowidgets, memtext)
+    table.insert(infowidgets, memgraph)
+    table.insert(infowidgets, sep)
+    table.insert(infowidgets, disktext)
+    table.insert(infowidgets, sep)
+    if os.getenv('DF_THIS_MACHINE') == 'home' then
+      table.insert(infowidgets, brighttext)
+      table.insert(infowidgets, sep)
+      table.insert(infowidgets, volumetext)
+      table.insert(infowidgets, sep)
+      table.insert(infowidgets, battext)
+      table.insert(infowidgets, sep)
+    end
+    table.insert(infowidgets, kbtext)
+    table.insert(infowidgets, sep)
+    table.insert(infowidgets, clocktext)
     s.mywiboxbot:setup {
       layout = wibox.layout.align.horizontal,
       {
@@ -279,18 +300,7 @@ awful.screen.connect_for_each_screen(
         s.mypromptbox,
       },
       { layout = wibox.layout.fixed.horizontal },
-      {
-        layout = wibox.layout.fixed.horizontal,
-        i,
-        cputext, cpugraph, sep,
-        memtext, memgraph, sep,
-        disktext, sep,
-        brighttext, sep,
-        volumetext, sep,
-        battext, sep,
-        kbicon, kbtext, sep,
-        clockicon, clocktext
-      },
+      infowidgets,
     }
   end)
 -- }}}
