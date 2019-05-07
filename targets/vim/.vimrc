@@ -37,6 +37,8 @@ Plugin 'ctrlpvim/ctrlp.vim'
 " Plugin 'xolox/vim-lua-inspect'
 " Lua IDE for Vim/gVim/Neovim.
 Plugin 'wolfgangmehner/lua-support'
+" Vim motions on speed!
+Plugin 'easymotion/vim-easymotion'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -50,8 +52,10 @@ syntax on
 set tabstop=8 softtabstop=0 expandtab shiftwidth=2 smarttab
 " Consider shell script to be a Bash script by default
 let g:is_bash=1
-" Highlight words during search
+" Highligh search. Highlight words during search
 set hlsearch
+" Incremental search. Highligh words during typing for a search.
+set incsearch
 " Line numbers
 set number
 highlight LineNr ctermfg=grey

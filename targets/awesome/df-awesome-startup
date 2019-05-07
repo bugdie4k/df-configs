@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # set background
-feh --bg-scale ~/Pictures/wallpapers/city-road-purp.jpg
+feh --bg-max ~/Pictures/wallpapers/CURRENT-WALLPAPER.png
 
 # enable touchpad tapping
 if [[ $DF_THIS_MACHINE = 'home' ]]; then

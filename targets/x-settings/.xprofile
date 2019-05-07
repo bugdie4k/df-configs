@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Used by Gnome Display Manager
+
+. ~/.env-setup.sh

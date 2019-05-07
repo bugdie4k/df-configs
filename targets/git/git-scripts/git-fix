@@ -1,3 +1,23 @@
 #!/usr/bin/env bash
 
-git commit --amend --no-edit "$@"
+function log {
+  tput setaf 12
+  echo -n ">> $*"
+  tput sgr0
+  echo
+}
+
+function report_head {
+  git show --shortstat --pretty=format:'%C(yellow)%h %C(cyan)%cn %C(blue)%cr%C(reset) %s %C(red)%d' HEAD
+}
+
+log 'Amend this commit'
+report_head
+
+git commit --quiet --amend --no-edit "$@"
+
+log 'Into this commit'
+report_head
+
+log 'Diff'
+git diff --stat 'HEAD@{1}' 'HEAD'

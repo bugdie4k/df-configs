@@ -20,5 +20,15 @@
     "key": "ctrl+p",
     "command": "workbench.action.quickOpenSelectPrevious",
     "when": "inQuickOpen"
-  }
+  },
+  { "key": "alt+shift+d", "command": "workbench.view.debug" },
+  { "key": "alt+shift+e", "command": "workbench.view.explorer" },
+  { "key": "alt+shift+x", "command": "workbench.view.extensions" },
+  { "key": "alt+shift+g", "command": "workbench.view.scm" },
+  { "key": "alt+shift+f", "command": "workbench.view.search" },
+  { "key": "alt+b", "command": "workbench.action.toggleSidebarVisibility" },
+  { "key": "alt+`", "command": "workbench.action.terminal.toggleTerminal" },
+  { "key": "alt+j", "command": "workbench.action.togglePanel" },
+  { "key": "ctrl+z", "command": "workbench.action.toggleZenMode" },
+  { "key": "ctrl+q", "command": "workbench.action.closeActiveEditor" }
 ]

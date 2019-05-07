@@ -33,7 +33,6 @@
 
   b  = !"_(){ : git branch; git-b $@; }; _"
   bl = !"git b --list"
-  bh = !"git b --history"
 
   # slightly changed pretty logs from
   # https://github.com/dotphiles/dotphiles/blob/master/git/gitconfig

@@ -1,44 +1,69 @@
 #!/usr/bin/env bash
 
-readonly MAIN='#ff00ffaa'
-readonly BLANK='#00000000'
-readonly TINT='#000000bb'
-readonly VERIF='#b45bcfaa'
-readonly ACTIVE='#2de0a7aa'
-readonly WRONG='#ff0000ff'
-readonly FONT=monospace
 
-IMAGE=~/Pictures/wallpapers/road-with-palms-kate.png
-if [[ $DF_THIS_MACHINE == 'work' ]]; then
-  IMAGE=~/Pictures/wallpapers/road-with-palms-work.png
-fi
-readonly IMAGE
 
-i3lock-color \
---image $IMAGE \
---indicator \
---clock \
-\
---veriftext='' \
---wrongtext='' \
---noinputtext='' \
-\
---linecolor=$BLANK \
---separatorcolor=$BLANK \
-\
---timecolor=$MAIN \
---datecolor=$MAIN \
-\
---ringcolor=$MAIN \
---insidecolor=$TINT \
---ringvercolor=$VERIF \
---insidevercolor=$TINT \
---ringwrongcolor=$WRONG \
---insidewrongcolor=$TINT \
---keyhlcolor=$ACTIVE \
---bshlcolor=$ACTIVE \
-\
---timestr="%H:%M:%S" \
---datestr="%A %d.%m.%Y" \
---time-font=$FONT \
---date-font=$FONT
+function circle {
+  local -r IMAGE=~/Pictures/wallpapers/CURRENT-LOCKSCREEN-BACKGROUND.circle.png
+  local -r MAIN='#ff00ffaa'
+  local -r BLANK='#00000000'
+  local -r TINT='#000000bb'
+  local -r VERIF='#b45bcfaa'
+  local -r ACTIVE='#2de0a7aa'
+  local -r WRONG='#ff0000ff'
+  local -r FONT=monospace
+
+  i3lock-color \
+    --image $IMAGE \
+    --indicator \
+    --clock \
+    \
+    --veriftext='' \
+    --wrongtext='' \
+    --noinputtext='' \
+    \
+    --linecolor=$BLANK \
+    --separatorcolor=$BLANK \
+    \
+    --timecolor=$MAIN \
+    --datecolor=$MAIN \
+    \
+    --ringcolor=$MAIN \
+    --insidecolor=$TINT \
+    --ringvercolor=$VERIF \
+    --insidevercolor=$TINT \
+    --ringwrongcolor=$WRONG \
+    --insidewrongcolor=$TINT \
+    --keyhlcolor=$ACTIVE \
+    --bshlcolor=$ACTIVE \
+    \
+    --timestr="%H:%M:%S" \
+    --datestr="%A %d.%m.%Y" \
+    --time-font=$FONT \
+    --date-font=$FONT
+}
+
+function bar {
+  local -r IMAGE=~/Pictures/wallpapers/CURRENT-LOCKSCREEN-BACKGROUND.bar.png
+
+  i3lock-color \
+    --image $IMAGE \
+    --bar-indicator \
+    --bar-position h \
+    --bar-direction 1 \
+    --bar-max-height 20 \
+    --bar-base-width 20 \
+    --bar-periodic-step 50 \
+    --bar-step 50 \
+    --bar-width 250 \
+    --bar-color 00000033 \
+    --keyhlcolor 000000aa \
+    --bshlcolor ffffffaa \
+    --ringvercolor 000000aa \
+    --ringwrongcolor ff0000aa \
+    --verifcolor ffffff00 \
+    --wrongcolor ffffff00
+}
+
+
+# circle
+bar

@@ -5,6 +5,4 @@
 # git ss - Silent short status
 # silent about untracked files
 
-# -s == --short
-# -uno == --untracked-files=no
-git status -s -uno "$@"
+git status --short --untracked-files=no "$@"

@@ -1,0 +1,141 @@
+#!/usr/bin/env bash
+
+CONFIGS=$(cd "$(dirname ${BASH_SOURCE[0]})" && pwd)
+
+. "$CONFIGS/lim.bash"
+
+TARGETS=$CONFIGS/targets
+readonly TARGETS
+
+LIM_ACTION=${1:-install}
+
+### X_ACTION
+# At home I let Gnome Display Manager do the work because I wasn't able to start Xorg...
+### X_ORG_ACTION
+# Also I was not able to set up adjusting brightness with Nvidia
+# so I decided that I should use Intel before I really need Nvidia.
+# There is 'switch-graphics' script.
+#
+# Intel needs xorg.conf to use xbacklight,
+# Nvidia crushes with this xorg.conf...
+### HTOP_ACTION
+# I only have config for home
+case $DF_THIS_MACHINE in
+  work)
+    X_ACTION=install
+    X_ACTION_REVERSE=remove
+    HTOP_ACTION=remove
+    ;;
+  home)
+    X_ACTION=remove
+    X_ACTION_REVERSE=install
+    HTOP_ACTION=install
+    case $(prime-select query) in
+      intel)
+        X_ORG_ACTION=install
+        ;;
+      nvidia)
+        X_ORG_ACTION=remove
+        ;;
+    esac
+    ;;
+  *)
+    echo DF_THIS_MACHINE has unexpected value or is unset! Take a look:
+    echo DF_THIS_MACHINE=$DF_THIS_MACHINE
+    exit 1
+    ;;
+esac
+
+# env setup
+LIM_TARGP=$TARGETS
+LIM_LINKP=~/
+lim -NAME .env-setup.sh
+
+# bash
+LIM_TARGP=$TARGETS/bash/
+LIM_LINKP=~/
+lim -NAME .bash_profile -ACTION $X_ACTION
+lim -NAME .bashrc
+lim -NAME .bashrc.d
+
+# x-settings
+LIM_TARGP=$TARGETS/x-settings/
+LIM_LINKP=~/
+# xinit uses ~/.xinitrc
+lim -NAME .xinitrc  -ACTION $X_ACTION
+# Gnome Display Manager uses ~/.xprofile
+lim -NAME .xprofile -ACTION $X_ACTION_REVERSE
+LIM_LINKP=''
+# lim -NAME xorg.conf -LINK /etc/X10/
+lim -NAME xorg.conf -LINK /etc/X11/ -ACTION $X_ORG_ACTION -SUDO
+
+# apt
+# _lim_install "$TARGETS/apt/99df-apt-configs" /etc/apt/apt.conf.d/99df-apt-configs
+# _lim_install "$TARGETS/apt/df-sources.list" /etc/apt/sources.list.d/df-sources.list
+
+# vim
+LIM_TARGP=$TARGETS/vim/
+LIM_LINKP=''
+lim -NAME .vimrc                -LINK ~/
+lim -NAME gvim-client-or-server -LINK ~/bin/
+
+# emacs
+LIM_TARGP=$TARGETS/emacs/
+LIM_LINKP=''
+lim -NAME emacs-client-or-daemon -LINK ~/bin/
+lim -NAME init.el                -LINK ~/.emacs.d/
+
+# git
+LIM_TARGP=$TARGETS/git/
+LIM_LINKP=~/
+lim -NAME .gitconfig
+LIM_TARGP=$TARGETS/git/git-scripts
+LIM_LINKP=~/bin
+lim -NAME git-dh
+lim -NAME git-s
+lim -NAME git-ss
+lim -NAME git-fix
+lim -NAME git-wip
+
+# ranger
+LIM_TARGP=$TARGETS/ranger/
+LIM_LINKP=~/.config/ranger/
+lim -NAME rc.conf
+lim -NAME scope.sh
+lim -NAME rifle.conf
+lim -NAME commands.py
+lim -NAME autojump.py -LINK plugins/
+
+# awesome
+LIM_TARGP=$TARGETS/awesome/
+LIM_LINKP=~/.config/awesome/
+lim -NAME rc.lua
+lim -NAME df-theme          -LINK themes/
+lim -NAME df-awesome-startup
+
+# bin
+LIM_TARGP=$TARGETS/bin/
+LIM_LINKP=~/bin/
+lim -NAME df-lockscreen
+lim -NAME switch-graphics
+
+# vscode
+LIM_TARGP=$TARGETS/vscode/
+LIM_LINKP=~/.config/Code/User/
+lim -NAME settings.json
+lim -NAME keybindings.json
+
+# gtk
+LIM_TARGP=$TARGETS/gtk/
+LIM_LINKP=~/
+lim -NAME .gtkrc-2.0
+LIM_LINKP=~/.config
+lim -NAME settings.ini -LINK gtk-3.0/
+lim -NAME settings.ini -LINK gtk-4.0/
+
+# htop
+LIM_TARGP=$TARGETS/htop/
+LIM_LINKP=~/.config/htop/
+lim -NAME htoprc -ACTION $HTOP_ACTION
+
+lim_summary

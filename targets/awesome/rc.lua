@@ -120,13 +120,15 @@ end
 local kbtext = wibox.widget.textbox()
 vicious.register(kbtext, get_kb_layout, '<tt>KB $1</tt>', 43)
 
+-- Battery
+local battext = wibox.widget.textbox()
 if os.getenv('DF_THIS_MACHINE') == 'home' then
-  -- Battery
-  local battext = wibox.widget.textbox()
   vicious.register(battext, vw.bat, '<tt>BAT $1 $2% ($3)</tt>', 11, 'BAT1')
+end
 
-  -- Volume
-  local volumetext = wibox.widget.textbox()
+-- Volume
+local volumetext = wibox.widget.textbox()
+if os.getenv('DF_THIS_MACHINE') == 'home' then
   vicious.register(
     volumetext,
     vw.volume,
@@ -135,16 +137,22 @@ if os.getenv('DF_THIS_MACHINE') == 'home' then
     end,
     47,
     'Master')
+end
 
-  -- Brightness
-  local io = { popen = io.popen }
-  function get_brigthness ()
-    local f = io.popen('xbacklight -get')
-    local brightness = f:read('*all')
-    f:close()
-    return { math.floor(tonumber(brightness)) }
+-- Brightness
+local io = { popen = io.popen }
+function get_brigthness ()
+  local f = io.popen('xbacklight -get')
+  local brightness = f:read('*all')
+  f:close()
+  local brightness_num = tonumber(brightness)
+  if brightness_num == nil then
+    return { -1 }
   end
-  local brighttext = wibox.widget.textbox()
+  return { math.floor(brightness_num) }
+end
+local brighttext = wibox.widget.textbox()
+if os.getenv('DF_THIS_MACHINE') == 'home' then
   vicious.register(
     brighttext,
     get_brigthness,
@@ -514,6 +522,8 @@ awful.rules.rules = {
   -- All clients will match this rule.
   { rule = { },
     properties = {
+      -- See https://stackoverflow.com/a/29788645/7788768
+      size_hints_honor = false,
       border_width = beautiful.border_width,
       border_color = beautiful.border_normal,
       focus = awful.client.focus.filter,

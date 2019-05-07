@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+CURRENT=$(prime-select query)
+readonly CURRENT
+
+function switch {
+  echo "$(tput setaf 11)Switching to $1 ...$(tput sgr0)"
+  echo
+
+  sudo prime-select "$1" &&
+    $DF_CONFIGS/rc.lim
+
+  if [[ $? -eq 0 ]]; then
+    echo
+    echo "$(tput setaf 11)Switched to $1$(tput sgr0)"
+  fi
+}
+
+case $CURRENT in
+  intel)
+    switch nvidia
+    ;;
+  nvidia)
+    switch intel
+    ;;
+  *)
+    echo "Unexpected prime-select query: $CURRENT"
+    exit 1
+    ;;
+esac
+

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+git commit -am "[WIP]$*"
+
+# Only the first -m option takes effect

@@ -1,22 +1,37 @@
 {
   "editor.tabSize": 2,
-  "window.zoomLevel": -1,
-  "editor.fontSize": 13,
+  "window.zoomLevel": 0,
+  "editor.fontSize": 12.5,
+  "terminal.integrated.fontSize": 12.5,
   "workbench.activityBar.visible": false,
   "window.menuBarVisibility": "toggle",
   "vim.useSystemClipboard": true,
+  "vim.easymotion": true,
+  "vim.camelCaseMotion.enable": true,
+  "vim.hlsearch": true,
   "window.titleBarStyle": "native",
   "editor.renderWhitespace": "none",
   "workbench.editor.showTabs": true,
-  "window.zoomLevel": 0,
   "workbench.editor.enablePreview": false,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "breadcrumbs.enabled": true,
   "workbench.statusBar.visible": true,
   // "trailing-spaces.trimOnSave": true,
+  "editor.formatOnSave": true,
   "trailing-spaces.highlightCurrentLine": false,
-  "trailing-spaces.syntaxIgnore": [
-    "markdown"
-  ],
-  "workbench.iconTheme": "vscode-icons"
+  "trailing-spaces.syntaxIgnore": ["markdown"],
+  "workbench.iconTheme": "vscode-icons",
+  "editor.parameterHints.cycle": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

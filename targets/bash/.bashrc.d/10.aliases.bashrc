@@ -75,5 +75,9 @@ alias mkexec='chmod u+x'
 alias rg='rg --hidden'
 alias ag='ag --hidden'
 
-alias less='less -r'
+# ANSI "color" escape sequences are output in "raw" form
+alias less='less --RAW-CONTROL-CHARS'
+
+# show all man pages
+alias man='man -a'
 
