@@ -13,6 +13,11 @@
 # - LIM_LINKP
 # - LIM_ACTION
 
+# Actions are
+# - install
+# - remove
+# - skip
+
 # Author: Danylo Fedorov
 
 # ---
@@ -229,22 +234,41 @@ function _lim_install {
 
 function _lim_remove {
   local -r  target=$1
-  local -ri sudo=$2
+  local -r  link="$2"
+  local -ri sudo="$3"
 
   echo -n 'R> '
-  echo_fb 0 12 "$target"
+  echo_fb 0 12 "$link"
 
-  if [[ ! -e $target ]]; then
-    echo "Already doesn't exist: $target"
+  if [[ ! -e $link ]]; then
+    echo "Doesn't exist: $link"
     return 30
   fi
 
+  if [[ ! -L $link ]]; then
+    echo_f 1 "Cannot remove because is not a link: $link"
+    ls -la $link
+    return 10
+  fi
+
   if [[ $sudo -eq 1 ]]; then
-    sudo rm -v "$target"
+    sudo rm -v "$link"
   else
-    rm -v "$target"
+    rm -v "$link"
   fi
   return $?
+}
+
+function _lim_skip {
+  local -r  target=$1
+  local -r  link="$2"
+  local -ri sudo="$3"
+
+  echo -n 'S> '
+  echo_nfb 0 8 "$link"
+  echo -n ' -> '
+  echo_fb 0 8 "$target"
+  return 0
 }
 
 # to pass things around when executing entry
@@ -319,8 +343,17 @@ function _lim_perform_action {
       return $?
       ;;
     remove)
-      _lim_remove "$link" "$sudo"
+      _lim_remove "$target" "$link" "$sudo"
       return $?
+      ;;
+    skip)
+      _lim_skip "$target" "$link" "$sudo"
+      return $?
+      ;;
+    *)
+      echo_f 1 "?> target=$target link=$link action=$action sudo=$sudo"
+      echo_f 1 "Unknown action: $action"
+      return 5
       ;;
   esac
 }
@@ -336,6 +369,8 @@ declare -i EXISTING=0
 declare -i REMOVED=0
 declare -i NOT_REMOVED=0
 declare -i NOT_EXISTING=0
+
+declare -i SKIPPED=0
 
 declare -i ERRORS=0
 
@@ -391,6 +426,22 @@ function _lim_report_action {
           ;;
       esac
       ;;
+    skip)
+      if [[ $retcode -eq 0 ]]; then
+        echo_fb 0 8 "SKIPPED"
+        SKIPPED+=1
+        return
+      else
+        echo_b 1 "NOT SKIPPED?"
+        ERRORS+=1
+      fi
+      ;;
+    *)
+      echo_b 1 '!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+      echo_b 1 'Exception: Unhandled action!'
+      echo_b 1 '!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+      return
+      ;;
   esac
 
   echo_b 1 "ERROR"
@@ -416,7 +467,7 @@ function lim_summary {
   fi
 
   if [[ $INSTALLED -gt 0 ]] || [[ $NOT_INSTALLED -gt 0 ]] || [[ $EXISTING -gt 0 ]]; then
-    echo 'I> '
+    echo 'I>'
     if [[ $INSTALLED -gt 0 ]]; then
       report 'Installed' 10 $INSTALLED
     fi
@@ -429,7 +480,7 @@ function lim_summary {
   fi
 
   if [[ $REMOVED -gt 0 ]] || [[ $NOT_REMOVED -gt 0 ]] || [[ $NOT_EXISTING -gt 0 ]]; then
-    echo 'R> '
+    echo 'R>'
     if [[ $REMOVED -gt 0 ]]; then
       report 'Removed' 10 $REMOVED
     fi
@@ -439,6 +490,11 @@ function lim_summary {
     if [[ $NOT_EXISTING -gt 0 ]]; then
       report 'Not existing' 2 $NOT_EXISTING
     fi
+  fi
+
+  if [[ $SKIPPED -gt 0 ]]; then
+    echo 'S>'
+    report 'Skipped' 8 $SKIPPED
   fi
 
   if [[ $ERRORS -gt 0 ]]; then
