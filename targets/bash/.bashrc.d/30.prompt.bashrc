@@ -32,7 +32,7 @@ function _df_prompt_git_status {
     else
       branch="$(git rev-parse --abbrev-ref HEAD)"
     fi
-    branch="$(tput setaf $_DF_PROMPT_COLOR_GIT)$branch"
+    branch="$(tput setaf $_DF_PROMPT_COLOR_GIT)$branch$(tput sgr0)"
     if [[ $(git rev-parse --is-inside-git-dir) = 'true' ]]; then
       echo "$branch$(tput setaf $_DF_PROMPT_COLOR_RED).git "
       return
@@ -74,30 +74,30 @@ END {
     local untracked_report unstaged_report staged_report
     [[ $untracked = '0' ]] &&
       untracked_report='' ||
-      untracked_report="$(tput setaf $_DF_PROMPT_COLOR_RED)?$(tput setaf $_DF_PROMPT_COLOR_GIT)$untracked"
+        untracked_report="$(tput setaf $_DF_PROMPT_COLOR_RED)?$(tput setaf $_DF_PROMPT_COLOR_GIT)$untracked$(tput sgr0)"
     [[ $unstaged = '0' ]] &&
       unstaged_report='' ||
-      unstaged_report="$(tput setaf $_DF_PROMPT_COLOR_RED)+$(tput setaf $_DF_PROMPT_COLOR_GIT)$unstaged"
+        unstaged_report="$(tput setaf $_DF_PROMPT_COLOR_RED)+$(tput setaf $_DF_PROMPT_COLOR_GIT)$unstaged$(tput sgr0)"
     [[ $staged = '0' ]] &&
       staged_report='' ||
-      staged_report="$(tput setaf $_DF_PROMPT_COLOR_GREEN)*$(tput setaf $_DF_PROMPT_COLOR_GIT)$staged"
+        staged_report="$(tput setaf $_DF_PROMPT_COLOR_GREEN)*$(tput setaf $_DF_PROMPT_COLOR_GIT)$staged$(tput sgr0)"
     echo "$branch$untracked_report$unstaged_report$staged_report "
     return
   fi
 }
 
 function _df_prompt_set_ps1 {
-  local -r retcode="$(tput setaf $_DF_PROMPT_COLOR_RETCODE)\$?$_DF_PROMPT_COLOR_RESET"
-  local -r user="$(tput setaf $_DF_PROMPT_COLOR_USER)\\u$_DF_PROMPT_COLOR_RESET"
+  local -r retcode="$(tput setaf $_DF_PROMPT_COLOR_RETCODE)\$?$(tput sgr0)"
+  local -r user="$(tput setaf $_DF_PROMPT_COLOR_USER)\\u$(tput sgr0)"
   if [[ $DF_THIS_MACHINE = 'work' ]]; then
     local -r git_status_arg='only-branch'
   fi
-  local -r git="$(tput setaf $_DF_PROMPT_COLOR_GIT)\$(_df_prompt_git_status $git_status_arg)$_DF_PROMPT_COLOR_RESET"
-  local -r path="$(tput setaf $_DF_PROMPT_COLOR_PATH)\\w$_DF_PROMPT_COLOR_RESET"
-  local -r shlvl="$(tput setaf $_DF_PROMPT_COLOR_SHLVL)$(_df_prompt_shlvl)$_DF_PROMPT_COLOR_RESET"
-  # local -r dollar="$(tput setaf $_DF_PROMPT_COLOR_DOLLAR)\$$_DF_PROMPT_COLOR_RESET"
+  local -r git="$(tput setaf $_DF_PROMPT_COLOR_GIT)\$(_df_prompt_git_status $git_status_arg)$(tput sgr0)"
+  local -r path="$(tput setaf $_DF_PROMPT_COLOR_PATH)\\w$(tput sgr0)"
+  local -r shlvl="$(tput setaf $_DF_PROMPT_COLOR_SHLVL)$(_df_prompt_shlvl)$(tput sgr0)"
+  # local -r dollar="$(tput setaf $_DF_PROMPT_COLOR_DOLLAR)\$$(tput sgr0)"
   PS1="$retcode $user $git$path $shlvl $(tput setaf $_DF_PROMPT_COLOR_DOLLAR)
-\$ $_DF_PROMPT_COLOR_RESET"
+\$$_DF_PROMPT_COLOR_RESET "
   # tput on the second line messes up prompt
 }
 

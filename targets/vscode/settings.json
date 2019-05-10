@@ -17,7 +17,7 @@
   "breadcrumbs.enabled": true,
   "workbench.statusBar.visible": true,
   // "trailing-spaces.trimOnSave": true,
-  "editor.formatOnSave": true,
+  // "editor.formatOnSave": true,
   "trailing-spaces.highlightCurrentLine": false,
   "trailing-spaces.syntaxIgnore": ["markdown"],
   "workbench.iconTheme": "vscode-icons",
