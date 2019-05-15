@@ -11,6 +11,9 @@ fi
 # network manager applet
 nm-applet &
 
+# an applet for managing bluetooth
+blueman-applet &
+
 # they say its good for eyes
 if ! pgrep redshift; then
   redshift -l 50.4:30.5 -t 5700:4000 &
@@ -21,6 +24,11 @@ xautolock -noclose -locker df-lockscreen -time 5 &
 
 # blank screen after 30 min
 xset s 1800
+
+# keyboard
+setxkbmap -layout us -option 'ctrl:swapcaps'
+setxkbmap -layout 'us,ru'
+setxkbmap -option 'grp:win_space_toggle'
 
 # autostart a terminal
 x-terminal-emulator &
