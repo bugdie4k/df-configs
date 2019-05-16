@@ -19,7 +19,7 @@ Plugin 'tpope/vim-commentary'
 " Highlights trailing whitespace in red and provides :FixWhitespace to fix it.
 Plugin 'bronson/vim-trailing-whitespace'
 " A tree explorer plugin for vim.
-Plugin 'scrooloose/nerdtree'
+" Plugin 'scrooloose/nerdtree'
 " lean & mean status/tabline for vim that's light as air
 Plugin 'vim-airline/vim-airline'
 " A dark Vim/Neovim color scheme inspired by Atom's One Dark syntax theme.

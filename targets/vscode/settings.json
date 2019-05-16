@@ -1,7 +1,7 @@
 {
   "editor.tabSize": 2,
   "window.zoomLevel": 0,
-  "editor.fontSize": 12.5,
+  "editor.fontSize": 13,
   "terminal.integrated.fontSize": 12.5,
   "workbench.activityBar.visible": false,
   "window.menuBarVisibility": "toggle",
@@ -32,6 +32,9 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }

@@ -1,23 +1,34 @@
 #!/usr/bin/env bash
 
-function log {
-  tput setaf 12
-  echo -n ">> $*"
+# Arguments of git-fix are arguments to git-commit
+
+function echo_f {
+  tput setaf $1
+  shift
+  echo -n "$*"
   tput sgr0
   echo
 }
 
-function report_head {
-  git show --shortstat --pretty=format:'%C(yellow)%h %C(cyan)%cn %C(blue)%cr%C(reset) %s %C(red)%d' HEAD
+function log {
+  echo_f 12 ">> $*"
 }
 
-log 'Amend this commit'
-report_head
+function report_commit {
+  git show --shortstat --pretty=format:'%C(yellow)%h %C(cyan)%cn %C(blue)%cr%C(reset) %s %C(red)%d' $1
+}
 
 git commit --quiet --amend --no-edit "$@"
+if [[ $? -ne 0 ]]; then
+  echo_f 1 'git-fix: Failed to commit'
+  exit 1
+fi
+
+log 'Amend this commit'
+report_commit 'HEAD@{1}'
 
 log 'Into this commit'
-report_head
+report_commit 'HEAD'
 
 log 'Diff'
 git diff --stat 'HEAD@{1}' 'HEAD'

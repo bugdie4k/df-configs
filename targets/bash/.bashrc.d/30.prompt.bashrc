@@ -74,13 +74,13 @@ END {
     local untracked_report unstaged_report staged_report
     [[ $untracked = '0' ]] &&
       untracked_report='' ||
-        untracked_report="$(tput setaf $_DF_PROMPT_COLOR_RED)?$(tput setaf $_DF_PROMPT_COLOR_GIT)$untracked"
+        untracked_report="$(tput setaf $_DF_PROMPT_COLOR_RED)?$(tput setaf $_DF_PROMPT_COLOR_GIT)$untracked$(tput sgr0)"
     [[ $unstaged = '0' ]] &&
       unstaged_report='' ||
-        unstaged_report="$(tput setaf $_DF_PROMPT_COLOR_RED)+$(tput setaf $_DF_PROMPT_COLOR_GIT)$unstaged"
+        unstaged_report="$(tput setaf $_DF_PROMPT_COLOR_RED)+$(tput setaf $_DF_PROMPT_COLOR_GIT)$unstaged$(tput sgr0)"
     [[ $staged = '0' ]] &&
       staged_report='' ||
-        staged_report="$(tput setaf $_DF_PROMPT_COLOR_GREEN)*$(tput setaf $_DF_PROMPT_COLOR_GIT)$staged"
+        staged_report="$(tput setaf $_DF_PROMPT_COLOR_GREEN)*$(tput setaf $_DF_PROMPT_COLOR_GIT)$staged$(tput sgr0)"
     echo "$branch$untracked_report$unstaged_report$staged_report "
     return
   fi

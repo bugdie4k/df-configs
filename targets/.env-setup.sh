@@ -33,10 +33,6 @@ export TERMINAL=gnome-terminal
 SHELL="$(command -v bash)"
 export SHELL
 
-setxkbmap -layout us -option 'ctrl:swapcaps'
-setxkbmap -layout 'us,ru'
-setxkbmap -option 'grp:win_space_toggle'
-
 # if [ $DF_THIS_MACHINE = 'work' ]; then
 #   xrandr --output HDMI1 --auto --output VGA1 --auto --left-of HDMI1
 # fi

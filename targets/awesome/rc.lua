@@ -168,14 +168,14 @@ vicious.register(
   disktext,
   vw.fs,
   function (widget, args)
-    local avail_p, avail_gb, total_gb = args['{/ avail_p}'], args['{/ avail_gb}'], args['{/ size_gb}']
+    local used_p, used_gb, total_gb, x = args['{/ used_p}'], args['{/ used_gb}'], args['{/ size_gb}']
     local color = beautiful.get().fg_normal
-    if avail_p <= 25 then
+    if used_p >= 75 then
       color = 'yellow'
-    elseif avail_p <= 5 then
+    elseif used_p >= 95 then
       color = 'red'
     end
-    return string.format('<tt>DISK <span color=\'%s\'>%3.1fG</span> / %3.1fG</tt>', color, avail_gb, total_gb)
+    return string.format('<tt>DISK <span color=\'%s\'>%3.1fG</span> / %3.1fG</tt>', color, used_gb, total_gb)
   end,
   5)
 
