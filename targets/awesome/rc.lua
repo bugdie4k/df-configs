@@ -112,6 +112,7 @@ vicious.register(clocktext, vw.date, ' <tt>%Y.%m.%d <span color="#54ffc8"><b>%H:
 
 -- Keyboard
 function get_kb_layout ()
+  -- popen is blocking!
   local f = io.popen('xkblayout-state print %s')
   local lang = f:read('*all')
   f:close()
@@ -140,8 +141,8 @@ if os.getenv('DF_THIS_MACHINE') == 'home' then
 end
 
 -- Brightness
-local io = { popen = io.popen }
 function get_brigthness ()
+  -- popen is blocking!
   local f = io.popen('xbacklight -get')
   local brightness = f:read('*all')
   f:close()
@@ -325,13 +326,11 @@ globalkeys = gears.table.join(
   -- Brightness
   awful.key({}, 'XF86MonBrightnessDown',
     function ()
-      awful.spawn('xbacklight -dec 15')
-      vicious.force({ brighttext })
+      awful.spawn.easy_async('xbacklight -dec 15', function () vicious.force({ brighttext }) end)
     end),
   awful.key({}, 'XF86MonBrightnessUp',
     function ()
-      awful.spawn('xbacklight -inc 15')
-      vicious.force({ brighttext })
+      awful.spawn.easy_async('xbacklight -inc 15', function () vicious.force({ brighttext }) end)
     end),
 
   -- Volume
