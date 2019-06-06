@@ -17,10 +17,10 @@
   "breadcrumbs.enabled": true,
   "workbench.statusBar.visible": true,
   // "trailing-spaces.trimOnSave": true,
-  // "editor.formatOnSave": true,
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.formatOnSave": false,
   "trailing-spaces.highlightCurrentLine": false,
   "trailing-spaces.syntaxIgnore": ["markdown"],
-  "workbench.iconTheme": "vscode-icons",
   "editor.parameterHints.cycle": true,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

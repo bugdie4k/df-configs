@@ -30,5 +30,13 @@
   { "key": "alt+`", "command": "workbench.action.terminal.toggleTerminal" },
   { "key": "alt+j", "command": "workbench.action.togglePanel" },
   { "key": "ctrl+z", "command": "workbench.action.toggleZenMode" },
-  { "key": "ctrl+q", "command": "workbench.action.closeActiveEditor" }
+  { "key": "ctrl+q", "command": "workbench.action.closeActiveEditor" },
+  {
+    "key": "alt+shift+c a",
+    "command": "copyFilePath"
+  },
+  {
+    "key": "alt+shift+c r",
+    "command": "copyRelativeFilePath"
+  }
 ]
