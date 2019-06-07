@@ -260,19 +260,20 @@ awful.screen.connect_for_each_screen(
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
 
-    function reverse(t)
-      local n = #t
-      local i = 1
-      while i < n do
-        t[i],t[n] = t[n],t[i]
-        i = i + 1
-        n = n - 1
-      end
-    end
+    -- function reverse(t)
+    --   local n = #t
+    --   local i = 1
+    --   while i < n do
+    --     t[i],t[n] = t[n],t[i]
+    --     i = i + 1
+    --     n = n - 1
+    --   end
+    -- end
 
     -- Create a tasklist widget
     function update(w, buttons, label, data, clients)
-      reverse(clients)
+      -- TODO: How to do this properly
+      -- reverse(clients)
       return awful.widget.common.list_update(w, buttons, label, data, clients)
     end
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons, {}, update)
