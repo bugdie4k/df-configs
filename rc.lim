@@ -30,7 +30,7 @@ case $DF_THIS_MACHINE in
   home)
     X_ACTION=remove
     X_ACTION_REVERSE=link
-    HTOP_ACTION=link # TODO: change to 'copy' once it is implemented
+    HTOP_ACTION=copy
     if command -v prime-select; then
       case $(prime-select query) in
         intel)

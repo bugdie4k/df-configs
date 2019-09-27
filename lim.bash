@@ -200,8 +200,9 @@ function _lim_install_exists {
   if [[ -L "$link_or_copypath" ]]; then
     local -r existing_link_target=$(readlink "$link_or_copypath")
     echo "File is a link to $existing_link_target"
-    if [[ "$existing_link_target" = "$target" ]]; then
-      echo No need to install, alredy points to target
+
+    if [[ $action != 'copy' ]] && [[ "$existing_link_target" = "$target" ]]; then
+      echo No need to create a link, alredy points to target
       return 30
     else
       echo "Need to manually check the link: $link_or_copypath -> $existing_link_target"
@@ -213,7 +214,8 @@ function _lim_install_exists {
       echo_f 2 "But there is no diff!"
 
       if [[ $action = 'copy' ]]; then
-        return
+        echo No need to copy
+        return 30
       fi
 
       local choice
@@ -267,9 +269,11 @@ function _lim_install {
   local -r  link_or_copypath="$4"
 
   if [[ $action = 'link' ]]; then
-    echo -n 'L> '
+    echo_nfb 0 255 'L>'
+    echo -n ' '
   else
-    echo -n 'C> '
+    echo_nfb 0 249 'C>'
+    echo -n ' '
   fi 
   echo_nb 4 "$link_or_copypath"
   echo -n ' -> '
@@ -279,7 +283,6 @@ function _lim_install {
 
   local -r link_dirname="$(dirname $link_or_copypath)"
 
-    echo I AM HERER
   if _is_broken_link "$link_or_copypath"; then
     if [[ $action = 'link' ]]; then
       _lim_install_link_broken_link "$target" "$link_or_copypath" "$sudo"
@@ -306,7 +309,9 @@ function _lim_remove {
   local -r  target=$2
   local -r  link_or_copypath="$3"
 
-  echo -n 'R> '
+  # echo -n 'R> '
+  echo_nfb 255 243 'R>'
+  echo -n ' '
   echo_b 4 "$link_or_copypath"
 
   if [[ ! -e $link_or_copypath ]]; then
@@ -328,7 +333,8 @@ function _lim_skip {
   local -r  target=$1
   local -r  link_or_copypath="$2"
 
-  echo -n 'S> '
+  echo_nfb 255 237 'R>'
+  echo -n ' '
   echo_nfb 0 8 "$link_or_copypath"
   echo -n ' -> '
   echo_fb 0 8 "$target"
@@ -431,9 +437,13 @@ declare -i COUNT=0
 
 declare -i DECLARATION_ERRORS=0
 
-declare -i INSTALLED=0
-declare -i NOT_INSTALLED=0
-declare -i EXISTING=0
+declare -i LINKED=0
+declare -i NOT_LINKED=0
+declare -i LINKS_EXISTING=0
+
+declare -i COPIED=0
+declare -i NOT_COPIED=0
+declare -i COPIES_EXISTING=0
 
 declare -i REMOVED=0
 declare -i NOT_REMOVED=0
@@ -461,24 +471,39 @@ function _lim_report_action {
       case $retcode in
         0)
           echo_fb 0 10 "LINK CREATED"
-          INSTALLED+=1
+          LINKED+=1
           return
           ;;
         20)
           echo_fb 0 3 "LINK IS NOT CREATED"
-          NOT_INSTALLED+=1
+          NOT_LINKED+=1
           return
           ;;
         30)
           echo_f 2 "LINK ALREADY EXISTS"
-          EXISTING+=1
+          LINKS_EXISTING+=1
           return
           ;;
       esac
       ;;
     copy)
-      # TODO: implement
-      return
+      case $retcode in
+        0)
+          echo_fb 0 10 "COPIED"
+          COPIED+=1
+          return
+          ;;
+        20)
+          echo_fb 0 3 "IS NOT COPIED"
+          NOT_COPIED+=1
+          return
+          ;;
+        30)
+          echo_f 2 "COPY ALREADY EXISTS"
+          COPIES_EXISTING+=1
+          return
+          ;;
+      esac
       ;;
     remove)
       case $retcode in
@@ -539,21 +564,35 @@ function lim_summary {
     report 'BAD DECLARATIONS' 1 $DECLARATION_ERRORS
   fi
 
-  if [[ $INSTALLED -gt 0 ]] || [[ $NOT_INSTALLED -gt 0 ]] || [[ $EXISTING -gt 0 ]]; then
-    echo 'I>'
-    if [[ $INSTALLED -gt 0 ]]; then
-      report 'Installed' 10 $INSTALLED
+  if [[ $LINKED -gt 0 ]] || [[ $NOT_LINKED -gt 0 ]] || [[ $LINKS_EXISTING -gt 0 ]]; then
+    echo_fb 0 255 'L>'
+    if [[ $LINKED -gt 0 ]]; then
+      report 'Linked' 10 $LINKED
     fi
-    if [[ $NOT_INSTALLED -gt 0 ]]; then
-      report 'Not installed' 3 $NOT_INSTALLED
+    if [[ $NOT_LINKED -gt 0 ]]; then
+      report 'Not linked' 3 $NOT_LINKED
     fi
-    if [[ $EXISTING -gt 0 ]]; then
-      report 'Existing' 2 $EXISTING
+    if [[ $LINKS_EXISTING -gt 0 ]]; then
+      report 'Links existing' 2 $LINKS_EXISTING
+    fi
+  fi
+
+
+  if [[ $COPIED -gt 0 ]] || [[ $NOT_COPIED -gt 0 ]] || [[ $COPIES_EXISTING -gt 0 ]]; then
+    echo_fb 0 249 'C>'
+    if [[ $COPIED -gt 0 ]]; then
+      report 'Copied' 10 $COPIED
+    fi
+    if [[ $NOT_COPIED -gt 0 ]]; then
+      report 'Not copied' 3 $NOT_COPIED
+    fi
+    if [[ $COPIES_EXISTING -gt 0 ]]; then
+      report 'Copies existig' 2 $COPIES_EXISTING
     fi
   fi
 
   if [[ $REMOVED -gt 0 ]] || [[ $NOT_REMOVED -gt 0 ]] || [[ $NOT_EXISTING -gt 0 ]]; then
-    echo 'R>'
+    echo_fb 255 243 'R>'
     if [[ $REMOVED -gt 0 ]]; then
       report 'Removed' 10 $REMOVED
     fi
@@ -566,7 +605,7 @@ function lim_summary {
   fi
 
   if [[ $SKIPPED -gt 0 ]]; then
-    echo 'S>'
+    echo_fb 255 237 'S>'
     report 'Skipped' 8 $SKIPPED
   fi
 
