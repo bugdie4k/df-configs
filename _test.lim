@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+. ./lim.bash
+
+mkdir -p test_targets_dir
+mkdir -p test_links_dir
+
+# TODO:

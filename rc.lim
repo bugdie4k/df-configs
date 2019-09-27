@@ -7,7 +7,7 @@ CONFIGS=$(cd "$(dirname ${BASH_SOURCE[0]})" && pwd)
 TARGETS=$CONFIGS/targets
 readonly TARGETS
 
-LIM_ACTION=${1:-install}
+LIM_ACTION=${1:-link}
 
 ### X_ACTION
 # At home I let Gnome Display Manager do the work because I wasn't able to start Xorg...
@@ -22,19 +22,19 @@ LIM_ACTION=${1:-install}
 # I only have config for home
 case $DF_THIS_MACHINE in
   work)
-    X_ACTION=install
+    X_ACTION=link
     X_ACTION_REVERSE=remove
     HTOP_ACTION=skip
     X_ORG_ACTION=remove
     ;;
   home)
     X_ACTION=remove
-    X_ACTION_REVERSE=install
-    HTOP_ACTION=install
+    X_ACTION_REVERSE=link
+    HTOP_ACTION=link # TODO: change to 'copy' once it is implemented
     if command -v prime-select; then
       case $(prime-select query) in
         intel)
-          X_ORG_ACTION=install
+          X_ORG_ACTION=link
           ;;
         nvidia)
           X_ORG_ACTION=remove
@@ -76,8 +76,8 @@ LIM_LINKP=''
 lim -NAME xorg.conf -LINK /etc/X11/ -ACTION $X_ORG_ACTION -SUDO
 
 # apt
-# _lim_install "$TARGETS/apt/99df-apt-configs" /etc/apt/apt.conf.d/99df-apt-configs
-# _lim_install "$TARGETS/apt/df-sources.list" /etc/apt/sources.list.d/df-sources.list
+# _lim_install 0 link "$TARGETS/apt/99df-apt-configs" /etc/apt/apt.conf.d/99df-apt-configs
+# _lim_install 0 link "$TARGETS/apt/df-sources.list" /etc/apt/sources.list.d/df-sources.list
 
 # vim
 LIM_TARGP=$TARGETS/vim/

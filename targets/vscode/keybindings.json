@@ -13,6 +13,16 @@
   },
   {
     "key": "ctrl+n",
+    "command": "selectNextSuggestion",
+    "when": "suggestWidgetVisible"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "selectPrevSuggestion",
+    "when": "suggestWidgetVisible"
+  },
+  {
+    "key": "ctrl+n",
     "command": "workbench.action.quickOpenSelectNext",
     "when": "inQuickOpen"
   },
@@ -28,7 +38,16 @@
   { "key": "alt+shift+f", "command": "workbench.view.search" },
   { "key": "alt+b", "command": "workbench.action.toggleSidebarVisibility" },
   { "key": "alt+`", "command": "workbench.action.terminal.toggleTerminal" },
-  { "key": "alt+j", "command": "workbench.action.togglePanel" },
+  {
+    "key": "alt+j",
+    "command": "editor.action.moveLinesDownAction",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "alt+k",
+    "command": "editor.action.moveLinesUpAction",
+    "when": "editorTextFocus && !editorReadonly"
+  },
   { "key": "ctrl+z", "command": "workbench.action.toggleZenMode" },
   { "key": "ctrl+q", "command": "workbench.action.closeActiveEditor" },
   {

@@ -18,7 +18,7 @@
   "workbench.statusBar.visible": true,
   // "trailing-spaces.trimOnSave": true,
   "editor.acceptSuggestionOnCommitCharacter": false,
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "trailing-spaces.highlightCurrentLine": false,
   "trailing-spaces.syntaxIgnore": ["markdown"],
   "editor.parameterHints.cycle": true,
@@ -52,5 +52,7 @@
         }
       ]
     }
-  ]
+  ],
+  "sassFormat.indent": 2,
+  "prettier.semi": false,
 }

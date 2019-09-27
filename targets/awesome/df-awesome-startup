@@ -27,7 +27,7 @@ xset s 1800
 
 # keyboard
 setxkbmap -layout us -option 'ctrl:swapcaps'
-setxkbmap -layout 'us,ru'
+setxkbmap -layout 'us,ua'
 setxkbmap -option 'grp:win_space_toggle'
 
 # autostart a terminal
