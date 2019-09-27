@@ -15,7 +15,7 @@
 
 # Actions are
 # - link
-# - copy (not implemented yet)
+# - copy
 # - remove
 # - skip
 
@@ -30,6 +30,10 @@
 # - 20 - Action not performed because of interactive choice
 # - 30 - Action not performed because of pre-existing success state
 # ('already exists' for 'link' action or 'already does not exist' for 'remove')
+
+# ---
+
+# Colorful output utils
 
 function echo_nf {
   tput setaf "$1"
@@ -68,6 +72,10 @@ function echo_fb {
   echo_nfb "$@"
   echo
 }
+
+# ---
+
+# Utils
 
 function _install_file {
   local -ri sudo="$1"
@@ -126,6 +134,29 @@ function _mkdirp {
    fi
 }
 
+function _check_target_exists {
+  local -r target="$1"
+
+  if [[ ! -e $target ]]; then
+    echo "Target does not exist: $target"
+    return 10
+  fi
+}
+
+function _is_broken_link {
+  local -r file="$1"
+
+  if [[ ! -e "$file" ]] && [[ -L "$file" ]]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+# ---
+
+# Actions
+
 function _lim_install_link_broken_link {
   local -r  target="$1"
   local -r  link="$2"
@@ -181,15 +212,6 @@ function _lim_install_no_dir {
   esac
 }
 
-function _lim_install_doesnt_exist {
-  local -r  action="$1"
-  local -r  target="$2"
-  local -r  link_or_copypath="$3"
-  local -ri sudo="$4"
-
-  return $?
-}
-
 function _lim_install_exists {
   local -r  action="$1"
   local -r  target="$2"
@@ -199,7 +221,7 @@ function _lim_install_exists {
   echo "File exists: $link_or_copypath"
   if [[ -L "$link_or_copypath" ]]; then
     local -r existing_link_target=$(readlink "$link_or_copypath")
-    echo "File is a link to $existing_link_target"
+    echo "Is a link to $existing_link_target"
 
     if [[ $action != 'copy' ]] && [[ "$existing_link_target" = "$target" ]]; then
       echo No need to create a link, alredy points to target
@@ -209,7 +231,7 @@ function _lim_install_exists {
       return 10
     fi
   elif [[ -f "$link_or_copypath" ]]; then
-    echo File is a regular file
+    echo Is a regular file
     if diff "$link_or_copypath" "$target"; then
       echo_f 2 "But there is no diff!"
 
@@ -224,7 +246,7 @@ function _lim_install_exists {
         Y|y)
           echo_f 2 "Replacing it with a link!"
           _rm_file "$sudo" "$link_or_copypath" &&
-            _install_file "$sudo" link "$target" "$link_or_copypath" 
+            _install_file "$sudo" link "$target" "$link_or_copypath"
           ;;
         *)
           echo_f 3 "Do nothing"
@@ -243,25 +265,7 @@ function _lim_install_exists {
   fi
 }
 
-function _check_target_exists {
-  local -r target="$1"
-
-  if [[ ! -e $target ]]; then
-    echo "Target does not exist: $target"
-    return 10
-  fi
-}
-
-function _is_broken_link {
-  local -r file="$1"
-
-  if [[ ! -e "$file" ]] && [[ -L "$file" ]]; then
-    return 0
-  else
-    return 1
-  fi
-}
-
+# copy and link actions
 function _lim_install {
   local -ri sudo="$1"
   local -r  action="$2"
@@ -274,7 +278,7 @@ function _lim_install {
   else
     echo_nfb 0 249 'C>'
     echo -n ' '
-  fi 
+  fi
   echo_nb 4 "$link_or_copypath"
   echo -n ' -> '
   echo_fb 0 12 "$target"
@@ -341,13 +345,49 @@ function _lim_skip {
   return 0
 }
 
-# to pass things around when executing entry
+# To pass things around when executing entry.
+# These are set by the parser.
 declare    __LIM_ENTRY_TARGET
 declare    __LIM_ENTRY_LINK_OR_COPYPATH
 declare    __LIM_ENTRY_ACTION
 declare -i __LIM_ENTRY_SUDO
 
-function _lim_parse_input {
+function _lim_perform_action {
+  local -r action=$__LIM_ENTRY_ACTION
+  local -r target=$__LIM_ENTRY_TARGET
+  local -r link_or_copypath=$__LIM_ENTRY_LINK_OR_COPYPATH
+  local -r sudo=$__LIM_ENTRY_SUDO
+
+  case $action in
+    link)
+      _lim_install "$sudo" link "$target" "$link_or_copypath"
+      return $?
+      ;;
+    copy)
+      _lim_install "$sudo" copy "$target" "$link_or_copypath"
+      return $?
+      ;;
+    remove)
+      _lim_remove "$sudo" "$target" "$link_or_copypath"
+      return $?
+      ;;
+    skip)
+      _lim_skip "$target" "$link_or_copypath"
+      return $?
+      ;;
+    *)
+      echo_f 1 "?> target=$target link=$link action=$action sudo=$sudo"
+      echo_f 1 "Unknown action: $action"
+      return 5
+      ;;
+  esac
+}
+
+# ---
+
+# Entry parser
+
+function _lim_parse_entry_input {
   local name target link_or_copypath action sudo
 
   sudo=0
@@ -402,36 +442,9 @@ function _lim_parse_input {
   __LIM_ENTRY_SUDO=$sudo
 }
 
-function _lim_perform_action {
-  local -r action=$__LIM_ENTRY_ACTION
-  local -r target=$__LIM_ENTRY_TARGET
-  local -r link_or_copypath=$__LIM_ENTRY_LINK_OR_COPYPATH
-  local -r sudo=$__LIM_ENTRY_SUDO
+# ---
 
-  case $action in
-    link)
-      _lim_install "$sudo" link "$target" "$link_or_copypath"
-      return $?
-      ;;
-    copy)
-      _lim_install "$sudo" copy "$target" "$link_or_copypath"
-      return $?
-      ;;
-    remove)
-      _lim_remove "$sudo" "$target" "$link_or_copypath" 
-      return $?
-      ;;
-    skip)
-      _lim_skip "$target" "$link_or_copypath"
-      return $?
-      ;;
-    *)
-      echo_f 1 "?> target=$target link=$link action=$action sudo=$sudo"
-      echo_f 1 "Unknown action: $action"
-      return 5
-      ;;
-  esac
-}
+# Report action
 
 declare -i COUNT=0
 
@@ -546,8 +559,12 @@ function _lim_report_action {
   ERRORS+=1
 }
 
+# ---
+
+# API
+
 function lim {
-  _lim_parse_input "$@"
+  _lim_parse_entry_input "$@"
   _lim_perform_action "$@"
   _lim_report_action $?
 }
@@ -573,10 +590,9 @@ function lim_summary {
       report 'Not linked' 3 $NOT_LINKED
     fi
     if [[ $LINKS_EXISTING -gt 0 ]]; then
-      report 'Links existing' 2 $LINKS_EXISTING
+      report 'Existing links' 2 $LINKS_EXISTING
     fi
   fi
-
 
   if [[ $COPIED -gt 0 ]] || [[ $NOT_COPIED -gt 0 ]] || [[ $COPIES_EXISTING -gt 0 ]]; then
     echo_fb 0 249 'C>'
@@ -587,7 +603,7 @@ function lim_summary {
       report 'Not copied' 3 $NOT_COPIED
     fi
     if [[ $COPIES_EXISTING -gt 0 ]]; then
-      report 'Copies existig' 2 $COPIES_EXISTING
+      report 'Existing copies' 2 $COPIES_EXISTING
     fi
   fi
 
@@ -618,3 +634,4 @@ function lim_summary {
     echo_b 1 "Examine errors in the log!"
   fi
 }
+
