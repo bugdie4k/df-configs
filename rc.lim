@@ -22,15 +22,25 @@ LIM_ACTION=${1:-link}
 # I only have config for home
 case $DF_THIS_MACHINE in
   work)
+    echo 'work is DEPRECATED'
+    exit 11
     X_ACTION=link
     X_ACTION_REVERSE=remove
     HTOP_ACTION=skip
+    X_ORG_ACTION=remove
+    ;;
+  work2)
+    X_ACTION=remove
+    X_ACTION_REVERSE=remove
+    HTOP_ACTION=skip
+    GIT_CONFIG_ACTION=copy
     X_ORG_ACTION=remove
     ;;
   home)
     X_ACTION=remove
     X_ACTION_REVERSE=link
     HTOP_ACTION=copy
+    GIT_CONFIG_ACTION=link
     if command -v prime-select; then
       case $(prime-select query) in
         intel)
@@ -94,7 +104,7 @@ lim -NAME init.el                -LINK ~/.emacs.d/
 # git
 LIM_TARGP=$TARGETS/git/
 LIM_LINKP=~/
-lim -NAME .gitconfig
+lim -NAME .gitconfig -ACTION $GIT_CONFIG_ACTION
 LIM_TARGP=$TARGETS/git/git-scripts
 LIM_LINKP=~/bin
 lim -NAME git-dh
