@@ -21,6 +21,10 @@ elif [ "$(whoami)" = 'dfedorov' ]; then
   DF_THIS_MACHINE=work
   DF_CONFIGS=~/df-configs
   DF_LOCAL_CONFIGS=~/sensitive-configs
+elif [ "$(whoami)" = 'n555' ]; then
+  DF_THIS_MACHINE=work2
+  DF_CONFIGS=~/df-configs
+  DF_LOCAL_CONFIGS=~/sensitive-configs
 fi
 readonly DF_CONFIGS
 readonly DF_LOCAL_CONFIGS
