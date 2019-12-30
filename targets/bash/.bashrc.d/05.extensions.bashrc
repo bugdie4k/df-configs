@@ -18,3 +18,7 @@ __git_complete g __git_main
 # npm
 # https://docs.npmjs.com/cli/completion.html
 . ~/npm-completion.bash
+
+if [ $(command -v rbenv) ]; then
+  eval "$(rbenv init -)"
+fi
