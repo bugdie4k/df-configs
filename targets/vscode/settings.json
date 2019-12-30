@@ -18,9 +18,11 @@
   "workbench.statusBar.visible": true,
   // "trailing-spaces.trimOnSave": true,
   "editor.acceptSuggestionOnCommitCharacter": false,
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "trailing-spaces.highlightCurrentLine": false,
-  "trailing-spaces.syntaxIgnore": ["markdown"],
+  "trailing-spaces.syntaxIgnore": [
+    "markdown"
+  ],
   "editor.parameterHints.cycle": true,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -45,7 +47,10 @@
   },
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": ["<leader>", "%"],
+      "before": [
+        "<leader>",
+        "%"
+      ],
       "commands": [
         {
           "command": "editor.emmet.action.matchTag"
