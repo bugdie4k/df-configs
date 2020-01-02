@@ -86,3 +86,8 @@ function j {
   fi
   cd "$(autojump -s | sed '/_____/Q; s/^[0-9,.:]*\s*//' |  fzf --height 40% --reverse --inline-info)" || return 1
 }
+
+# set the terminal window name
+function setname {
+  echo -ne "\033]0;$1\007"
+}

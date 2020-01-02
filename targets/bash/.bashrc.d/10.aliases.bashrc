@@ -80,4 +80,3 @@ alias less='less --RAW-CONTROL-CHARS'
 
 # show all man pages
 alias man='man -a'
-
