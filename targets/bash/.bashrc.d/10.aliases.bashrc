@@ -80,3 +80,10 @@ alias less='less --RAW-CONTROL-CHARS'
 
 # show all man pages
 alias man='man -a'
+
+# ignore node_modules
+alias agj='ag --ignore node_modules'
+
+alias gl='git l'
+# do not start the ghostscript things with gs
+alias gs='git s'

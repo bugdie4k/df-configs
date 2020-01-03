@@ -18,13 +18,13 @@ if [ "$(whoami)" = 'df' ]; then
   DF_CONFIGS=~/df-configs
   # DF_LOCAL_CONFIGS=$DF_CONFIGS/local
 elif [ "$(whoami)" = 'dfedorov' ]; then
-  DF_THIS_MACHINE=work
-  DF_CONFIGS=~/df-configs
-  DF_LOCAL_CONFIGS=~/sensitive-configs
-elif [ "$(whoami)" = 'n555' ]; then
   DF_THIS_MACHINE=work2
   DF_CONFIGS=~/df-configs
   DF_LOCAL_CONFIGS=~/sensitive-configs
+# elif [ "$(whoami)" = 'ubuntu' ]; then
+#   DF_THIS_MACHINE=work2
+#   DF_CONFIGS=~/df-configs
+#   DF_LOCAL_CONFIGS=~/sensitive-configs
 fi
 readonly DF_CONFIGS
 readonly DF_LOCAL_CONFIGS
