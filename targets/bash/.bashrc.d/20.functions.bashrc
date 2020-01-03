@@ -88,6 +88,6 @@ function j {
 }
 
 # set the terminal window name
-function setname {
+function twn {
   echo -ne "\033]0;$1\007"
 }
