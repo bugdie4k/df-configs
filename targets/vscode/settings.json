@@ -65,10 +65,12 @@
   ],
   "sassFormat.indent": 2,
   "prettier.semi": false,
+  "prettier.arrowParens": "always",
   "files.autoSave": "afterDelay",
   // "editor.codeActionsOnSave": {
   //   // "source.fixAll.eslint": true
   //   "source.fixAll.prettier" 
   // },
   "aws.profile": "mftl",
+  "html.mirrorCursorOnMatchingTag": false,
 }
