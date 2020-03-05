@@ -25,6 +25,14 @@
   sh  = stash
   st  = status
 
+  # submodules
+
+  sdiff=!"git diff && git submodule foreach 'git diff'"
+  spush='push --recurse-submodules=on-demand'
+  spull='submodule update --remote --merge'
+
+  # diff to HEAD~n
+
   dh0 = dh 0
   dh1 = dh 1
 

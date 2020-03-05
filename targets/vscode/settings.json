@@ -66,10 +66,11 @@
   "sassFormat.indent": 2,
   "prettier.semi": false,
   "html.mirrorCursorOnMatchingTag": false,
-  "files.autoSave": "afterDelay",
+  "files.autoSave": "off",
   // "editor.codeActionsOnSave": {
   //   // "source.fixAll.eslint": true
-  //   "source.fixAll.prettier" 
+  //   "source.fixAll.prettier"
   // },
   "aws.profile": "mftl",
+  "eslint.format.enable": true,
 }
