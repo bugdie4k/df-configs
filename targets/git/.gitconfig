@@ -28,8 +28,8 @@
   # submodules
 
   sdiff=!"git diff && git submodule foreach 'git diff'"
-  spush='push --recurse-submodules=on-demand'
-  spull='submodule update --remote --merge'
+  spush=push --recurse-submodules=on-demand
+  spull=submodule update --remote --merge
 
   # diff to HEAD~n
 
