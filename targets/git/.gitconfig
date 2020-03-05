@@ -9,7 +9,7 @@
   au  = add -uv
   br  = branch
   c   = commit
-  co  = checkout
+  co  = checkout --recurse-submodules # https://git-scm.com/book/en/v2/Git-Tools-Submodules
   co0 = checkout HEAD --
   d   = diff
   ds  = diff --stat
