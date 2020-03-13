@@ -40,3 +40,7 @@ export SHELL
 # if [ $DF_THIS_MACHINE = 'work' ]; then
 #   xrandr --output HDMI1 --auto --output VGA1 --auto --left-of HDMI1
 # fi
+
+if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+fi

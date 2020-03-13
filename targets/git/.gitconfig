@@ -9,7 +9,7 @@
   au  = add -uv
   br  = branch
   c   = commit
-  co  = checkout
+  co  = checkout --recurse-submodules # https://git-scm.com/book/en/v2/Git-Tools-Submodules
   co0 = checkout HEAD --
   d   = diff
   ds  = diff --stat
@@ -24,6 +24,14 @@
   rv  = revert
   sh  = stash
   st  = status
+
+  # submodules
+
+  sdiff=!"git diff && git submodule foreach 'git diff'"
+  spush=push --recurse-submodules=on-demand
+  spull=submodule update --remote --merge
+
+  # diff to HEAD~n
 
   dh0 = dh 0
   dh1 = dh 1
