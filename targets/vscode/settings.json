@@ -74,7 +74,7 @@
   //   // "source.fixAll.eslint": true
   //   "source.fixAll.prettier"
   // },
-  "aws.profile": "mftl",
+  "aws.profile": "profile:mftl",
   "html.mirrorCursorOnMatchingTag": false,
   "editor.semanticHighlighting.enabled": false,
   "shellformat.flag": "-ci"
