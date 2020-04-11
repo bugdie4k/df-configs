@@ -23,7 +23,9 @@
   "trailing-spaces.syntaxIgnore": [
     "markdown"
   ],
+
   "editor.parameterHints.cycle": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
     // "editor.defaultFormatter": "dbaeumer.vscode-eslint"
@@ -74,4 +76,6 @@
   // },
   "aws.profile": "mftl",
   "html.mirrorCursorOnMatchingTag": false,
+  "editor.semanticHighlighting.enabled": false,
+  "shellformat.flag": "-ci"
 }

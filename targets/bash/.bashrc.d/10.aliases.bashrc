@@ -87,3 +87,7 @@ alias agj='ag --ignore node_modules'
 alias gl='git l'
 # do not start the ghostscript things with gs
 alias gs='git s'
+
+alias sls=serverless
+
+alias datefilename='date +"%F-%T" | tr -d "\n" | tr -c [:alnum:] "-"'
