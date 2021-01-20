@@ -1,4 +1,5 @@
 {
+  "sqltools.highlightQuery": false,
   "editor.tabSize": 2,
   "window.zoomLevel": 1,
   "editor.fontSize": 13,
@@ -7,10 +8,12 @@
   "window.menuBarVisibility": "toggle",
   "vim.useSystemClipboard": true,
   "vim.easymotion": true,
+  // "vim.easymotionDimBackground": false,
+  "vim.easymotionMarkerForegroundColorOneChar": "#ff0000",
+  "vim.easymotionMarkerForegroundColorTwoChar": "#ffb400",
   "vim.camelCaseMotion.enable": true,
   "vim.hlsearch": true,
   "window.titleBarStyle": "native",
-  "editor.renderWhitespace": "none",
   "workbench.editor.showTabs": true,
   "workbench.editor.enablePreview": false,
   "javascript.updateImportsOnFileMove.enabled": "always",
@@ -18,24 +21,28 @@
   "workbench.statusBar.visible": true,
   "trailing-spaces.trimOnSave": true,
   "editor.acceptSuggestionOnCommitCharacter": false,
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
+  // "editor.formatOnSaveMode": "modifications",
+  "editor.renderWhitespace": "trailing",
   "trailing-spaces.highlightCurrentLine": false,
-  "trailing-spaces.syntaxIgnore": [
-    "markdown"
-  ],
+  "trailing-spaces.syntaxIgnore": ["markdown"],
 
   "editor.parameterHints.cycle": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  // "editor.defaultFormatter": "samverschueren.linter-xo",
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
     // "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "[typescript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+    // "editor.defaultFormatter": "vscode.typescript-language-features"
+    // "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
   },
   "[json]": {
-    // "editor.defaultFormatter": "esbenp.prettier-vscode"
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    // "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "[javascriptreact]": {
     // "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -54,10 +61,7 @@
   },
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": [
-        "<leader>",
-        "%"
-      ],
+      "before": ["<leader>", "%"],
       "commands": [
         {
           "command": "editor.emmet.action.matchTag"
@@ -67,7 +71,6 @@
   ],
   "sassFormat.indent": 2,
   "prettier.semi": false,
-  "html.mirrorCursorOnMatchingTag": false,
   "prettier.arrowParens": "always",
   "files.autoSave": "off",
   // "editor.codeActionsOnSave": {
@@ -77,5 +80,26 @@
   "aws.profile": "profile:mftl",
   "html.mirrorCursorOnMatchingTag": false,
   "editor.semanticHighlighting.enabled": false,
-  "shellformat.flag": "-ci"
+  "shellformat.flag": "-ci",
+  "xo.enable": true,
+  "xo.format.enable": true,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "yaml.customTags": [
+    "!Split sequence",
+    "!If sequence",
+    "!And sequence",
+    "!Not sequence",
+    "!Condition scalar",
+    "!Ref scalar",
+    "!GetAtt scalar",
+    "!Sub scalar",
+    "!Sub sequence",
+    "!Equals sequence",
+    "!Not sequence",
+    "!FindInMap sequence",
+    "!Join sequence"
+  ],
+  "turboConsoleLog.logMessagePrefix": "df",
+  "turboConsoleLog.includeFileNameAndLineNum": false,
+  "turboConsoleLog.quote": "'"
 }

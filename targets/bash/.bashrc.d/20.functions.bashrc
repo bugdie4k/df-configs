@@ -26,11 +26,12 @@ function dot2png {
 }
 
 function setvol {
+  local -r sinkname="alsa_output.pci-0000_00_1f.3.analog-stereo"
   case "$1" in
-    mute) pactl -- set-sink-mute 0 1 ;;
-    unmute) pactl -- set-sink-mute 0 0 ;;
-    toggle-mute) pactl -- set-sink-mute 0 toggle ;;
-    *) pactl -- set-sink-volume 0 "$1%" ;;
+    mute) pactl -- set-sink-mute $sinkname 1 ;;
+    unmute) pactl -- set-sink-mute $sinkname 0 ;;
+    toggle-mute) pactl -- set-sink-mute $sinkname toggle ;;
+    *) pactl -- set-sink-volume $sinkname "$1%" ;;
   esac
 }
 
@@ -70,7 +71,8 @@ function sho {
     if [[ -d $arg ]]; then
       /usr/bin/env ls -aFhl --color "$arg"
     else
-      highlight --out-format xterm256 --style "$DF_HIGHLIGHT_STYLE" "$arg" 2>/dev/null || cat "$arg"
+      # highlight --out-format xterm256 --style "$DF_HIGHLIGHT_STYLE" "$arg" 2>/dev/null || cat "$arg"
+      batcat -p "$@"
     fi
     if [[ $# -gt 1 ]]; then
       echo

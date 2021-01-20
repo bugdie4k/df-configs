@@ -38,6 +38,7 @@ end
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_configuration_dir() .. 'themes/df-theme/theme.lua')
 
+
 terminal = 'x-terminal-emulator'
 local browser = 'x-www-browser'
 local screenshot = 'gnome-screenshot -a'
@@ -235,6 +236,11 @@ vicious.register(
 -- Separator
 local sep=wibox.widget.textbox('<tt><span color="'..beautiful.get().bg_focus..'"> | </span></tt>')
 
+-- net
+local net_widgets = require("net_widgets")
+local nettext = wibox.widget.textbox('<tt>NET </tt>')
+local net_wireless = net_widgets.wireless({interface="wlp7s0", popup_position = "bottom_right" })
+
 awful.screen.connect_for_each_screen(
   function(s)
     -- Wallpaper
@@ -298,6 +304,9 @@ awful.screen.connect_for_each_screen(
     }
 
     local infowidgets = { layout = wibox.layout.fixed.horizontal }
+    table.insert(infowidgets, nettext)
+    table.insert(infowidgets, net_wireless)
+    table.insert(infowidgets, sep)
     table.insert(infowidgets, cputext)
     table.insert(infowidgets, cpugraph)
     table.insert(infowidgets, sep)
@@ -351,12 +360,12 @@ globalkeys = gears.table.join(
   -- Volume
   awful.key({}, 'XF86AudioRaiseVolume',
     function ()
-      awful.spawn('pactl -- set-sink-volume 0 +5%')
+      awful.spawn('pactl -- set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5%')
       vicious.force({ volumetext })
     end),
   awful.key({}, 'XF86AudioLowerVolume',
     function ()
-      awful.spawn('pactl -- set-sink-volume 0 -5%')
+      awful.spawn('pactl -- set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5%')
       vicious.force({ volumetext })
     end),
 

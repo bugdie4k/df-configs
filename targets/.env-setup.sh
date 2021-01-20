@@ -5,6 +5,7 @@
 # dir with custom scripts
 mkdir -p "$HOME/bin"
 PATH="$PATH:$HOME/bin"
+PATH="$PATH:$HOME/.local/bin"
 
 # style for highlight command
 export DF_HIGHLIGHT_STYLE=denim

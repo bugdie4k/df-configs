@@ -21,3 +21,5 @@ fi
 
 # Added by serverless binary installer
 export PATH="$HOME/.serverless/bin:$PATH"
+
+complete -C '/usr/local/bin/aws_completer' aws

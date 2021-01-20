@@ -96,7 +96,7 @@ function _df_prompt_set_ps1 {
   local -r path="$(tput setaf $_DF_PROMPT_COLOR_PATH)\\w$(tput sgr0)"
   local -r shlvl="$(tput setaf $_DF_PROMPT_COLOR_SHLVL)$(_df_prompt_shlvl)$(tput sgr0)"
   # local -r dollar="$(tput setaf $_DF_PROMPT_COLOR_DOLLAR)\$$(tput sgr0)"
-  PS1="$retcode $user $git$path $shlvl $(tput setaf $_DF_PROMPT_COLOR_DOLLAR)
+  PS1="$retcode $user $git$path $(tput setaf 241)\t $shlvl $(tput setaf $_DF_PROMPT_COLOR_DOLLAR)
 \$$_DF_PROMPT_COLOR_RESET "
   # tput on the second line messes up prompt
 }

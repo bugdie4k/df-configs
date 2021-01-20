@@ -91,3 +91,11 @@ alias gs='git s'
 alias sls=serverless
 
 alias datefilename='date +"%F-%T" | tr -d "\n" | tr -c [:alnum:] "-"'
+
+alias shrug-emoji-echo='echo  ¯\\_\(ツ\)_/¯'
+alias shrug-emoji-copy='echo -n  ¯\\_\(ツ\)_/¯ | xclip -selection clipboard'
+
+alias fd='fdfind'
+alias bat='batcat'
+
+alias rg='rg -i'
