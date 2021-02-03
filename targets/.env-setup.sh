@@ -15,7 +15,7 @@ export DF_THIS_MACHINE
 export DF_CONFIGS
 export DF_LOCAL_CONFIGS
 if [ "$(whoami)" = 'df' ]; then
-  DF_THIS_MACHINE=home
+  DF_THIS_MACHINE=home2
   DF_CONFIGS=~/df-configs
   # DF_LOCAL_CONFIGS=$DF_CONFIGS/local
 elif [ "$(whoami)" = 'dfedorov' ]; then

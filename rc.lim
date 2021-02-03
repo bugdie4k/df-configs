@@ -55,6 +55,13 @@ case $DF_THIS_MACHINE in
       exit 1
     fi
     ;;
+  home2)
+    X_ACTION=remove
+    X_ACTION_REVERSE=link
+    HTOP_ACTION=copy
+    GIT_CONFIG_ACTION=link
+    X_ORG_ACTION=link
+    ;;
   *)
     echo DF_THIS_MACHINE has unexpected value or is unset! Take a look:
     echo DF_THIS_MACHINE=$DF_THIS_MACHINE
