@@ -59,6 +59,8 @@ alias e=emacs-client-or-daemon
 # visual studio code
 alias vc=code
 
+alias ws=webstorm
+
 # ranger
 alias ra='. ranger'
 
