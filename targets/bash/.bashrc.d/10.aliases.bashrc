@@ -98,4 +98,4 @@ alias shrug-emoji-copy='echo -n  ¯\\_\(ツ\)_/¯ | xclip -selection clipboard'
 alias fd='fdfind'
 alias bat='batcat'
 
-alias rg='rg -i'
+alias rg='rg -i --hidden'

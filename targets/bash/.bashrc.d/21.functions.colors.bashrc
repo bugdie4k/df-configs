@@ -4,14 +4,14 @@
 
 function colors {
   for ((i=0; i<16; i++)); do
-    printf "$(tput setaf $i)%3d $(tput setab $i)   $(tput sgr0)" $i
+    printf "$(df__ini_tput setaf $i)%3d $(df__ini_tput setab $i)   $(df__ini_tput sgr0)" $i
     [[ ! $(((i + 1) % 8)) -eq 0 ]] && echo -n '  ' || echo
   done
 }
 
 function colorsgray {
   for ((i=232; i<256; i++)); do
-    printf "$(tput setaf $i)%3d $(tput setab $i)   $(tput sgr0)" $i
+    printf "$(df__ini_tput setaf $i)%3d $(df__ini_tput setab $i)   $(df__ini_tput sgr0)" $i
     [[ ! $(((i - 15) % 6)) -eq 0 ]] && printf '  ' || printf '\n'
   done
 }
@@ -27,11 +27,11 @@ function colorsall {
     for ((j=0; j<6; j++)); do
       for ((k=0; k<6; k++)); do
         num=$((16 + (i * 72) + (j * 6) + k))
-        printf "$(tput setaf $num)%3d $(tput setab $num)   $(tput sgr0)  " $num
+        printf "$(df__ini_tput setaf $num)%3d $(df__ini_tput setab $num)   $(df__ini_tput sgr0)  " $num
       done
       for ((k=0; k<6; k++)); do
         num=$((16 + (i * 72) + (j * 6) + k + 36))
-        printf "$(tput setaf $num)%3d $(tput setab $num)   $(tput sgr0)  " $num
+        printf "$(df__ini_tput setaf $num)%3d $(df__ini_tput setab $num)   $(df__ini_tput sgr0)  " $num
       done
       echo
     done

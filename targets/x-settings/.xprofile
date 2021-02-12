@@ -2,4 +2,6 @@
 
 # Used by Gnome Display Manager
 
+# exec /usr/bin/awesome >> ~/.cache/awesome/stdout 2>> ~/.cache/awesome/stderr
+
 . ~/.env-setup.sh

@@ -31,4 +31,5 @@ setxkbmap -layout 'us,ua'
 setxkbmap -option 'grp:win_space_toggle'
 
 # autostart a terminal
-x-terminal-emulator &
+ x-terminal-emulator &
+# st &

@@ -26,7 +26,7 @@ function dot2png {
 }
 
 function setvol {
-  local -r sinkname="alsa_output.pci-0000_00_1f.3.analog-stereo"
+  local -r sinkname="alsa_oudf__ini_tput.pci-0000_00_1f.3.analog-stereo"
   case "$1" in
     mute) pactl -- set-sink-mute $sinkname 1 ;;
     unmute) pactl -- set-sink-mute $sinkname 0 ;;
@@ -55,18 +55,18 @@ function cpwd {
 
 function sho {
   if [[ $# -eq 0 ]]; then
-    echo "$(tput setaf 1)sho: $(tput bold)No arguments$(tput sgr0)"
+    echo "$(df__ini_tput setaf 1)sho: $(df__ini_tput bold)No arguments$(df__ini_tput sgr0)"
     return 1
   fi
   local retcode=0
   for arg in "$@"; do
     if [[ ! -e $arg ]]; then
-      echo "$(tput setaf 1)sho: $(tput bold)There is no $arg$(tput sgr0)"
+      echo "$(df__ini_tput setaf 1)sho: $(df__ini_tput bold)There is no $arg$(df__ini_tput sgr0)"
       retcode=1
       continue
     fi
     if [[ $# -gt 1 ]]; then
-      echo "$(tput setaf 5)sho: $(tput bold)$arg$(tput sgr0)"
+      echo "$(df__ini_tput setaf 5)sho: $(df__ini_tput bold)$arg$(df__ini_tput sgr0)"
     fi
     if [[ -d $arg ]]; then
       /usr/bin/env ls -aFhl --color "$arg"

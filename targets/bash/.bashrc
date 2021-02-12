@@ -2,8 +2,17 @@
 
 # This file is to be sourced
 
-# Disable ^S and ^Q
-stty -ixon
+if [[ "$TERM" != "" ]]; then
+  # Disable ^S and ^Q
+  stty -ixon
+fi
+
+df__ini_tput() {
+  if [[ "$TERM" != "" ]]; then
+    tput "$@"
+  fi
+}
+export -f df__ini_tput
 
 # source chunks
 for bashrc_chunk  in $(/bin/ls -A ~/.bashrc.d/*.*.bashrc); do
@@ -27,3 +36,4 @@ complete -C '/usr/local/bin/aws_completer' aws
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+source "$HOME/.cargo/env"
