@@ -39,6 +39,8 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'wolfgangmehner/lua-support'
 " Vim motions on speed!
 Plugin 'easymotion/vim-easymotion'
+" An ack.vim alternative mimics Ctrl-Shift-F on Sublime Text 2
+Plugin 'dyng/ctrlsf.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -86,3 +88,5 @@ let g:ctrlp_show_hidden=1
 let g:ctrlp_cmd = 'CtrlPMRU'
 " Automatically remove trailing whitespace on save
 autocmd BufWritePost * FixWhitespace
+" 
+nmap <C-F> <Plug>CtrlSFPrompt
