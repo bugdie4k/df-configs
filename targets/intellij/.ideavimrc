@@ -3,5 +3,6 @@ set clipboard+=unnamed
 let mapleader="\"
 set easymotion
 set ideajoin
+set commentary
 
 
