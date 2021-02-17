@@ -93,3 +93,7 @@ function j {
 function twn {
   echo -ne "\033]0;$1\007"
 }
+
+function wsp {
+  webstorm "$1" &> /dev/null &
+}

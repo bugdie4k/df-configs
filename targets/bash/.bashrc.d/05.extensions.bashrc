@@ -9,7 +9,11 @@
 __git_complete g __git_main
 
 # fzf
-. /usr/share/autojump/autojump.bash
+# if [[ "$DF_THIS_MATHINE" = 'home2' ]]; then
+  [[ -s /home/df/.autojump/etc/profile.d/autojump.sh ]] && source /home/df/.autojump/etc/profile.d/autojump.sh
+# else
+  # . /usr/share/autojump/autojump.bash
+# fi
 # curl https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.bash > ~/fzf-completion.bash
 . ~/fzf-completion.bash
 # curl https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.bash > ~/fzf-keybindings.bash

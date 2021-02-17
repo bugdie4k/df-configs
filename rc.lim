@@ -161,4 +161,9 @@ LIM_TARGP=$TARGETS/htop/
 LIM_LINKP=~/.config/htop/
 lim -NAME htoprc -ACTION $HTOP_ACTION
 
+# intellij
+LIM_TARGP=$TARGETS/intellij/
+LIM_LINKP=~/
+lim -NAME .ideavimrc
+
 lim_summary
