@@ -14,10 +14,14 @@ export DF_HIGHLIGHT_STYLE=denim
 export DF_THIS_MACHINE
 export DF_CONFIGS
 export DF_LOCAL_CONFIGS
-if [ "$(whoami)" = 'df' ]; then
+if [ "$(whoami)" = 'df' && "$(hostname)" = 'dfpc' ]; then
   DF_THIS_MACHINE=home2
   DF_CONFIGS=~/df-configs
   # DF_LOCAL_CONFIGS=$DF_CONFIGS/local
+
+elif [ "$(whoami)" = 'df' && "$(hostname)" = 'dfpc2' ]; then
+  DF_THIS_MACHINE=home3
+  DF_CONFIGS=~/df-configs
 elif [ "$(whoami)" = 'dfedorov' ]; then
   DF_THIS_MACHINE=work2
   DF_CONFIGS=~/df-configs
