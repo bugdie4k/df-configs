@@ -4,5 +4,6 @@ let mapleader="\"
 set easymotion
 set ideajoin
 set commentary
+set ignorecase
 
 
