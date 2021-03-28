@@ -55,7 +55,7 @@ case $DF_THIS_MACHINE in
       exit 1
     fi
     ;;
-  home2|home3)
+  home2|home3|work4)
     X_ACTION=remove
     X_ACTION_REVERSE=link
     HTOP_ACTION=copy

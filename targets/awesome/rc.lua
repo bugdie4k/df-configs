@@ -124,13 +124,13 @@ vicious.register(kbtext, get_kb_layout, '<tt>KB $1</tt>', 43)
 
 -- Battery
 local battext = wibox.widget.textbox()
-if os.getenv('DF_THIS_MACHINE') == 'home2' then
+if os.getenv('DF_THIS_MACHINE') == 'home2' or os.getenv('DF_THIS_MACHINE') == 'work4' then
   vicious.register(battext, vw.bat, '<tt>BAT $1 $2% ($3)</tt>', 11, 'BAT1')
 end
 
 -- Volume
 local volumetext = wibox.widget.textbox()
-if os.getenv('DF_THIS_MACHINE') == 'home2' then
+if os.getenv('DF_THIS_MACHINE') == 'home2' or os.getenv('DF_THIS_MACHINE') == 'work4' then
   vicious.register(
     volumetext,
     vw.volume,
@@ -154,7 +154,7 @@ function get_brigthness ()
   return { math.floor(brightness_num) }
 end
 local brighttext = wibox.widget.textbox()
-if os.getenv('DF_THIS_MACHINE') == 'home2' then
+if os.getenv('DF_THIS_MACHINE') == 'home2' or os.getenv('DF_THIS_MACHINE') == 'work4' then
   vicious.register(
     brighttext,
     get_brigthness,
@@ -315,7 +315,7 @@ awful.screen.connect_for_each_screen(
     table.insert(infowidgets, sep)
     table.insert(infowidgets, disktext)
     table.insert(infowidgets, sep)
-    if os.getenv('DF_THIS_MACHINE') == 'home2' then
+    if os.getenv('DF_THIS_MACHINE') == 'home2' or os.getenv('DF_THIS_MACHINE') == 'work4' then
       table.insert(infowidgets, brighttext)
       table.insert(infowidgets, sep)
       table.insert(infowidgets, volumetext)
