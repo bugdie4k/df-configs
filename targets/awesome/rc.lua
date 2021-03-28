@@ -124,8 +124,10 @@ vicious.register(kbtext, get_kb_layout, '<tt>KB $1</tt>', 43)
 
 -- Battery
 local battext = wibox.widget.textbox()
-if os.getenv('DF_THIS_MACHINE') == 'home2' or os.getenv('DF_THIS_MACHINE') == 'work4' then
+if os.getenv('DF_THIS_MACHINE') == 'home2' then
   vicious.register(battext, vw.bat, '<tt>BAT $1 $2% ($3)</tt>', 11, 'BAT1')
+elseif os.getenv('DF_THIS_MACHINE') == 'work4' then
+  vicious.register(battext, vw.bat, '<tt>BAT $1 $2% ($3)</tt>', 11, 'BAT0')
 end
 
 -- Volume
